@@ -1,6 +1,8 @@
 package com.hummingbird.propagate.controller;
 
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,19 +42,14 @@ public class UserRecordController extends BaseController  {
 	public void  askByJS(HttpServletRequest request,
 			HttpServletResponse response,AskByJS vo) {
 		try {
-			 ServletContext application=request.getServletContext();   
-			String realpath=application.getRealPath("jquery-1.11.1.js");
-			vo.setPath(realpath);
-			
-			//C:\work\workspace\propagate\src\main\webapp\js
-			
 			String jsContent = userRecordService.askByJS(vo);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
 			response.getWriter().close();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
 		} 
 	}
 	
