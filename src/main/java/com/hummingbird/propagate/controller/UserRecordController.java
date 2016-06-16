@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
-import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
-import com.hummingbird.propagate.entity.Token;
-import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
 /**
@@ -49,7 +46,6 @@ public class UserRecordController extends BaseController  {
 			rm.put("result", result);
 			
 		} catch (Exception e1) {
-			log.error(String.format("%s失败",rm.getBaseMsg()), e1);
 			rm.mergeException(e1);
 		} 
 		return rm;

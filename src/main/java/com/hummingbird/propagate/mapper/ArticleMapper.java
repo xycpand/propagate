@@ -1,8 +1,8 @@
 package com.hummingbird.propagate.mapper;
 
-import com.hummingbird.propagate.entity.UserRecord;
+import com.hummingbird.propagate.entity.Article;
 
-public interface UserRecordMapper {
+public interface ArticleMapper {
     /**
      * 根据主键删除记录
      */
@@ -11,25 +11,30 @@ public interface UserRecordMapper {
     /**
      * 保存记录,不管记录里面的属性是否为空
      */
-    int insert(UserRecord record);
+    int insert(Article record);
 
     /**
      * 保存属性不为空的记录
      */
-    int insertSelective(UserRecord record);
+    int insertSelective(Article record);
 
     /**
      * 根据主键查询记录
      */
-    UserRecord selectByPrimaryKey(Long id);
+    Article selectByPrimaryKey(Long id);
 
     /**
      * 根据主键更新属性不为空的记录
      */
-    int updateByPrimaryKeySelective(UserRecord record);
+    int updateByPrimaryKeySelective(Article record);
 
     /**
      * 根据主键更新记录
      */
-    int updateByPrimaryKey(UserRecord record);
+    int updateByPrimaryKeyWithBLOBs(Article record);
+
+    /**
+     * 根据主键更新记录
+     */
+    int updateByPrimaryKey(Article record);
 }

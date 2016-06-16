@@ -26,7 +26,7 @@ public interface WxUserService {
 	 * @return
 	 * @throws TokenException
 	 */
-	public String getOpenidByUserId(String tokenStr,String appId)throws TokenException;
+	public String getOpenidByUserId(String tokenStr,String appId)throws BusinessException, TokenException;
 	
 
 }

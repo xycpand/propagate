@@ -9,6 +9,7 @@ import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.propagate.entity.Token;
 import com.hummingbird.propagate.entity.UserRecord;
 import com.hummingbird.propagate.mapper.UserRecordMapper;
+import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
@@ -25,6 +26,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 	UserRecordMapper userRecordDao;
 	@Autowired
 	WxUserService wxUserService;
+	@Autowired
+	ArticleService articleService;
+	
+	
 	
 
 	@Override
@@ -33,6 +38,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 			//根据token获取openid
 			String openid = wxUserService.getOpenidByUserId(vo.getToken(), appId);
 			
+			articleService.checkArticleById(vo.getArticleId());
+
 			UserRecord userRecord = new UserRecord();
 			userRecord.setOpenid(openid);
 			userRecord.setArticleId(vo.getArticleId());

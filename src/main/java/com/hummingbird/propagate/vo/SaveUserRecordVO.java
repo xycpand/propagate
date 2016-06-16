@@ -13,7 +13,7 @@ public class SaveUserRecordVO {
     /**
      * 内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
      */
-    private Integer articleId;
+    private Long articleId;
 
     private Date insertTime;
 
@@ -33,11 +33,11 @@ public class SaveUserRecordVO {
 		this.openid = openid;
 	}
 
-	public Integer getArticleId() {
+	public Long getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(Integer articleId) {
+	public void setArticleId(Long articleId) {
 		this.articleId = articleId;
 	}
 

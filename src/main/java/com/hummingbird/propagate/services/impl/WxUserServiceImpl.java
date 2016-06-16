@@ -23,13 +23,14 @@ public class WxUserServiceImpl implements WxUserService{
 	
 	@Override
 	public WxUser selectUserById(Integer userid) throws BusinessException {
+		WxUser user = null;
 		try{
-			wxUserDao.selectByPrimaryKey(userid);
+		     user = wxUserDao.selectByPrimaryKey(userid);
 		}catch(DataAccessException e){
 			e.printStackTrace();
 			throw new BusinessException("通过id查询用户信息失败。");
 		}
-		return null;
+		return user;
 	}
 
 	
@@ -40,7 +41,7 @@ public class WxUserServiceImpl implements WxUserService{
 	 * @return
 	 * @throws TokenException
 	 */
-	public String getOpenidByUserId(String tokenStr,String appId)throws TokenException{
+	public String getOpenidByUserId(String tokenStr,String appId)throws BusinessException,TokenException{
 		Token token = tokenSrv.getToken(tokenStr, appId);
 		if (token == null) {
 			log.error(String.format("token[%s]验证失败,或已过期,请重新登录", tokenStr));
@@ -48,6 +49,10 @@ public class WxUserServiceImpl implements WxUserService{
 		}
 		WxUser user = wxUserDao.selectByPrimaryKey(token.getUserId());
 		tokenSrv.postponeToken(token);
+		if (user == null) {
+			log.error(String.format("用户[%s]或未绑定微信", token.getUserId()));
+			throw new BusinessException("用户不存在或未绑定微信");
+		}
 		return user.getOpenid();
 	}
 

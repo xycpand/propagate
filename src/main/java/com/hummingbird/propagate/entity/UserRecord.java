@@ -6,22 +6,22 @@ import java.util.Date;
  * 用户浏览记录
  */
 public class UserRecord {
-    private Integer id;
+    private Long id;
 
     private String openid;
 
     /**
      * 内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
      */
-    private Integer articleId;
+    private Long articleId;
 
     private Date insertTime;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,7 +36,7 @@ public class UserRecord {
     /**
      * @return 内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
      */
-    public Integer getArticleId() {
+    public Long getArticleId() {
         return articleId;
     }
 
@@ -44,7 +44,7 @@ public class UserRecord {
      * @param articleid 
 	 *            内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
      */
-    public void setArticleId(Integer articleId) {
+    public void setArticleId(Long articleId) {
         this.articleId = articleId;
     }
 
