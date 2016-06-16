@@ -275,7 +275,7 @@ public class JedisPoolUtils {
 		Jedis jpu = JedisPoolUtils.getJedis();	
 //		jpu.flushDB();
 		Token record=new Token();		
-		record.setAppId("paas");		
+		record.setAppId("propagate");		
 		record.setUserId(46);		
 		record.setToken("11111");		
 		record.setInsertTime(new Date());		

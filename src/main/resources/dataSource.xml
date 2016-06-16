@@ -51,7 +51,7 @@
        	<property name="mapperLocations">  
             <list>
             <!-- 表示在com.yeepay.mapper包或以下所有目录中，以.xml结尾所有文件 --> 
-             <value> classpath:com/hummingbird/paas/mapper/*.xml</value > 
+             <value> classpath:com/hummingbird/propagate/mapper/*.xml</value > 
             </list>       
        	</property>
 	</bean>
@@ -62,9 +62,9 @@
 		<constructor-arg index="1" value="BATCH" />			
 	</bean> -->
 	
-	<!-- 自动扫描com.paas.mapper包下的Mapper接口,并实现其功能  -->
+	<!-- 自动扫描com.propagate.mapper包下的Mapper接口,并实现其功能  -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.hummingbird.paas.mapper" />
+		<property name="basePackage" value="com.hummingbird.propagate.mapper" />
 		<!-- <property name="sessioinFactory" ref="sqlSessionFactory"></property> -->
 	</bean>
 	

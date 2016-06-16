@@ -44,8 +44,9 @@ public class UserRecordController extends BaseController  {
 		try {
 			userRecordService.saveUserRecord(transorder.getApp().getAppId(),transorder.getBody());
 
-			 //rm.put("productList", productList);
-			//rm.put("areaList", areaList);
+			//返回对应的 js的内容
+			String result = "";
+			rm.put("result", result);
 			
 		} catch (Exception e1) {
 			log.error(String.format("%s失败",rm.getBaseMsg()), e1);

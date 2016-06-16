@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hummingbird.paas.mapper.UserTokenMapper" >
-  <resultMap id="BaseResultMap" type="com.hummingbird.paas.entity.Token" >
+<mapper namespace="com.hummingbird.propagate.mapper.UserTokenMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.Token" >
     <id column="token" property="token" jdbcType="VARCHAR" />
     <result column="userId" property="userId" jdbcType="INTEGER" />
     <result column="expireIn" property="expireIn" jdbcType="INTEGER" />
@@ -22,7 +22,7 @@
     delete from t_user_token
     where token = #{token,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.paas.entity.Token" >
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.Token" >
     insert into t_user_token (token, userId, expireIn, 
       appId, insertTime, updateTime
       )
@@ -30,7 +30,7 @@
       #{appId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hummingbird.paas.entity.Token" >
+  <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.Token" >
     insert into t_user_token
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="token != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.paas.entity.Token" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.Token" >
     update t_user_token
     <set >
       <if test="userId != null" >
@@ -94,7 +94,7 @@
     </set>
     where token = #{token,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hummingbird.paas.entity.Token" >
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.Token" >
     update t_user_token
     set userId = #{userId,jdbcType=BIGINT},
       expireIn = #{expireIn,jdbcType=INTEGER},

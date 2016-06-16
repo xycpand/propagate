@@ -32,7 +32,7 @@
 		</property>
 	</bean>
 	
-	<bean id="mail" class="com.hummingbird.paas.util.MailUtil" init-method="init">
+	<bean id="mail" class="com.hummingbird.propagate.util.MailUtil" init-method="init">
 		<property name="mailSender" ref="mailSender"/>
 	</bean>
 </beans>

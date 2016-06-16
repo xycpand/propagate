@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table>
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
-	   <td><input type="button"  value="保存用户浏览记录"  onclick='setbinding("/userRecord/saveUserRecord","{\"app\":{\"appId\":\"paas\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"e11eba87d5e1fc3e74ebd242ee67b94f\",\"articleId\":1}}}}")'></td>
+	   <td><input type="button"  value="保存用户浏览记录"  onclick='setbinding("/userRecord/saveUserRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"e11eba87d5e1fc3e74ebd242ee67b94f\",\"articleId\":1}}}}")'></td>
 	</tr>
 </table>
   </body>
