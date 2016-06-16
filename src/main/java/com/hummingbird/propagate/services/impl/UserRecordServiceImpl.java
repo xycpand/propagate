@@ -1,8 +1,12 @@
 package com.hummingbird.propagate.services.impl;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,8 +18,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.common.exception.DataInvalidException;
-import com.hummingbird.common.util.JsonUtil;
 import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.entity.Token;
@@ -26,8 +28,6 @@ import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
-
-import net.sf.json.JSONObject;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -49,16 +49,16 @@ public class UserRecordServiceImpl implements UserRecordService{
 	public String askByJS(AskByJS vo) throws BusinessException {
 		String jsScript = "";
 		try{
-			Long contentId = vo.getContentId();
-			
 			//要获取的js脚本
-			 jsScript = "<script language='javascript'>";
+			/* jsScript = "<script language='javascript'>";
 				   jsScript+= "alert('这是请求的内容。');";
-			       jsScript+= "</script>";
+			       jsScript+= "</script>";*/
 			       
-			 //转为json字符串
-			  //jsScript = JsonUtil.convert2Json(jsScript);	
-			 
+			//转为json字符串
+			//jsScript = JsonUtil.convert2Json(jsScript);	
+			jsScript =  readTxtFile("C:\\js\\jquery-1.11.1.js");
+			
+			Long contentId = vo.getContentId();
 			UserRecord userRecord = new UserRecord();
 			userRecord.setOpenId(vo.getOpenId());
 			userRecord.setContentId(contentId);
@@ -75,7 +75,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 * 测试Jsoup
 	 * @param args
 	 */
-	 public  static void main(String[] args){
+	/* public  static void main(String[] args){
 			Document doc = null;
 			 try {
 				 //从一个URL加载一个Document
@@ -83,9 +83,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 				//System.out.println(doc.toString());
 				 
 				// String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip=" + IP);
-				 String str = getJsonContent("http://baidu.com");
-				 System.out.println(str);
+				 //String str = getJsonContent("http://baidu.com");
+				 //System.out.println(str);
+				 readTxtFile("C:\\js\\jquery-1.11.1.js");
 				
+				 
+				 // System.out.println(doc.toString());
+				  
+				 
 				 //JSONObject obj = JSONObject.fromObject(str);
 				
 				//Connection 接口还提供一个方法链来解决特殊请求
@@ -100,8 +105,54 @@ public class UserRecordServiceImpl implements UserRecordService{
 				e.printStackTrace();
 			}	
 			 
+	  }*/
+	
+	 public  static void main(String[] args){
+		 String target =  readTxtFile("C:\\js\\jquery-1.11.1.js");
+			  System.out.println(target);
 	  }
 
+	  public static String readTxtFile(String filePath){
+		  String target = "";
+	        try {
+	                String encoding="GBK";
+
+	                File file=new File(filePath);
+
+	                if(file.isFile() && file.exists()){ //判断文件是否存在
+
+	                    InputStreamReader read = new InputStreamReader(
+
+	                    new FileInputStream(file),encoding);//考虑到编码格式
+
+	                    BufferedReader bufferedReader = new BufferedReader(read);
+                        StringBuilder text = new StringBuilder();
+	                    String lineTxt = null;
+
+	                    while((lineTxt = bufferedReader.readLine()) != null){
+	                    	text.append(lineTxt);
+	                        //System.out.println(lineTxt);
+	                    }
+	                    read.close();
+	                    target =  text.toString();
+
+	        }else{
+
+	            System.out.println("找不到指定的文件");
+
+	        }
+
+	        } catch (Exception e) {
+
+	            System.out.println("读取文件内容出错");
+
+	            e.printStackTrace();
+
+	        }
+	        return target;
+	    }
+	 
+	 
 	  public static String getJsonContent(String urlStr)
 	  {
 	    try
