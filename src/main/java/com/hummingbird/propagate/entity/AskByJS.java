@@ -7,8 +7,16 @@ public class AskByJS {
      * js方式请求的内容id
      */
     private Long contentId;
-	
     
+    private String path;
+    
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public String getOpenId() {
 		return openId;
 	}

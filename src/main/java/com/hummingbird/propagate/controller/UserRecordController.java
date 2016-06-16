@@ -1,6 +1,7 @@
 package com.hummingbird.propagate.controller;
 
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,9 +40,13 @@ public class UserRecordController extends BaseController  {
 	public void  askByJS(HttpServletRequest request,
 			HttpServletResponse response,AskByJS vo) {
 		try {
+			 ServletContext application=request.getServletContext();   
+			String realpath=application.getRealPath("jquery-1.11.1.js");
+			vo.setPath(realpath);
+			
+			//C:\work\workspace\propagate\src\main\webapp\js
+			
 			String jsContent = userRecordService.askByJS(vo);
-			//jsContent = "{\"success\":true,\"msg\":\"fetch data success。\"}";//测试数据
-			//jsContent  = "<script language=javascript>alert('test');</script>";//测试数据
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
@@ -54,7 +59,7 @@ public class UserRecordController extends BaseController  {
 	@RequestMapping(value = "test.html")
 	public ModelAndView register(ModelAndView mav, HttpServletRequest request,
 			HttpServletResponse response) {	
-		mav.setViewName("test");
+		mav.setViewName("index1");
 		return mav;
 	}
 	

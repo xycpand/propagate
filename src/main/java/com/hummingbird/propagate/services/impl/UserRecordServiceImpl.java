@@ -57,6 +57,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			//转为json字符串
 			//jsScript = JsonUtil.convert2Json(jsScript);	
 			jsScript =  readTxtFile("C:\\js\\jquery-1.11.1.js");
+			//jsScript =  readTxtFile(vo.getPath()+"/js/jquery-1.11.1.js");
 			
 			Long contentId = vo.getContentId();
 			UserRecord userRecord = new UserRecord();
