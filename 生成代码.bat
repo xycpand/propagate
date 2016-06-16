@@ -1,0 +1,2 @@
+mvn com.hummingbird:serviceGenerator:0.0.2-SNAPSHOT:gen -DoutJsonStr="e:\\outjson.txt" -DoutJsonParamStr="e:\\outparam.txt" -DjsonStr="e:\\json.txt" -DjsonParamStr="e:\\param.txt" -Durl="/order/payNotify"  -DtransOrderClassName="com.hummingbird.commonbiz.vo.BaseTransVO" -DmethodBaseCode="290100" -DmethodNameCN="支付宝网关支付通知" -DbeanNameCN="订单" -DclassBasePath="com.hummingbird" -DtransOrderBodyClassName="PayNotifyBodyVO" -DuserName="john" -DoutputDirectory="e:/" -DprojectName="paas" -DbeanName="Order" -DhadReturn="false"
+

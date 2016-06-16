@@ -1,0 +1,4 @@
+﻿realName|是|真实姓名(需要DES CBC模式加密)
+cardID|是|身份证(需要DES CBC模式加密)
+mobileNum|是|手机号(需要DES CBC模式加密)
+operator|是|操作员id

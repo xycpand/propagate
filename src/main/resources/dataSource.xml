@@ -1,0 +1,76 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+    xsi:schemaLocation="   
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd    
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!--  pool  -->
+		<property name="initialSize" value="${jdbc.prototypeCount}" />
+		<property name="maxActive" value="${jdbc.maximumConnectionCount}" />
+		<property name="maxIdle" value="${jdbc.minimumConnectionCount}" />
+		<property name="maxWait" value="${pool.maxWait}" />
+		<property name="defaultAutoCommit" value="${pool.defaultAutoCommit}" />
+		<property name="removeAbandoned"><value>true</value></property>
+		<!--
+                  超时时间(以秒数为单位)设置超时时间有一个要注意的地方，
+                  超时时间=现在的时间-程序中创建Connection的时间，如果
+                  maxActive比较大，比如超过100，那么removeAbandonedTimeout
+                  可以设置长一点比如180， 也就是三分钟无响应的连接进行回收，
+                  当然应用的不同设置长度也不同。
+       -->
+       <property name="removeAbandonedTimeout" value="${pool.removeAbandonedTimeout}"></property>
+       <!-- 在自动回收超时连接的时候打印连接的超时错误 -->
+       <property name="logAbandoned"><value>true</value></property>
+       <property name="testWhileIdle" value="${pool.testWhileIdle}" />
+       <property name="validationQuery" value="${pool.validationQuery}" />
+       <property name="timeBetweenEvictionRunsMillis" value="${pool.timeBetweenEvictionRunsMillis}" />
+       <property name="numTestsPerEvictionRun" value="${pool.numTestsPerEvictionRun}" />
+	</bean>
+
+	<!-- 引入支持jdbc的事务管理器 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 注解事务 -->
+	<tx:annotation-driven />
+	
+	<!-- 配置SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- mapper和resultmap配置路径 -->   
+       	<property name="mapperLocations">  
+            <list>
+            <!-- 表示在com.yeepay.mapper包或以下所有目录中，以.xml结尾所有文件 --> 
+             <value> classpath:com/hummingbird/paas/mapper/*.xml</value > 
+            </list>       
+       	</property>
+	</bean>
+	
+	<!--构造sqlSessionTemplate(支持批量) -->
+	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />	
+		<constructor-arg index="1" value="BATCH" />			
+	</bean> -->
+	
+	<!-- 自动扫描com.paas.mapper包下的Mapper接口,并实现其功能  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hummingbird.paas.mapper" />
+		<!-- <property name="sessioinFactory" ref="sqlSessionFactory"></property> -->
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>	
+	
+
+</beans>

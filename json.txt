@@ -1,0 +1,14 @@
+ {
+        "app":{
+            "appId":"zjhtwallet",
+            "timeStamp":"TIMESTAMP", 
+            "nonce":"NONCE",
+            "signature":"SIGNATURE"
+        },
+        "body":{
+           "realName":"уехЩ",
+           "cardID":"660100198108131211",
+           "mobileNum":"13657256722",
+	       "operator":34
+        }
+}
