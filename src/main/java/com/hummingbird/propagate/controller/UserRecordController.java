@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.common.ext.AccessRequered;
@@ -50,6 +51,12 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
+	@RequestMapping(value = "test.html")
+	public ModelAndView register(ModelAndView mav, HttpServletRequest request,
+			HttpServletResponse response) {	
+		mav.setViewName("test");
+		return mav;
+	}
 	
 	
 	/**
