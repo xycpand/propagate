@@ -1,6 +1,7 @@
 package com.hummingbird.propagate.services;
 
 import com.hummingbird.common.exception.BusinessException;
+import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
 
 /**
@@ -10,6 +11,16 @@ import com.hummingbird.propagate.vo.SaveUserRecordVO;
  */
 public interface UserRecordService {
 
+	
+	/**
+	 * js方式请求数据
+	 * @param vo
+	 * @return
+	 * @throws BusinessException
+	 */
+	public String askByJS(AskByJS vo) throws BusinessException;
+	
+	
 	/**
 	 * 保存用户浏览记录
 	 * @param appId

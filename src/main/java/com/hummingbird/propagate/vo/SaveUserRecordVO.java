@@ -14,7 +14,11 @@ public class SaveUserRecordVO {
      * 内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
      */
     private Long articleId;
-
+    /**
+     * js方式请求的内容id
+     */
+    private Long contentId;
+    
     private Date insertTime;
 
 	public String getToken() {
@@ -39,6 +43,14 @@ public class SaveUserRecordVO {
 
 	public void setArticleId(Long articleId) {
 		this.articleId = articleId;
+	}
+
+	public Long getContentId() {
+		return contentId;
+	}
+
+	public void setContentId(Long contentId) {
+		this.contentId = contentId;
 	}
 
 	public Date getInsertTime() {
