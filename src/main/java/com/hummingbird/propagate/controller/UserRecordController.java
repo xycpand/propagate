@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,17 +38,18 @@ public class UserRecordController extends BaseController  {
 	public void  askByJS(HttpServletRequest request,
 			HttpServletResponse response,AskByJS vo) {
 		try {
-			String jsonContent = userRecordService.askByJS(vo);
-			//jsonContent = "{\"success\":true,\"msg\":\"fetch data success。\"}";//测试数据
-			//jsonContent  = "<script language=javascript>alert('test');</script>";
+			String jsContent = userRecordService.askByJS(vo);
+			//jsContent = "{\"success\":true,\"msg\":\"fetch data success。\"}";//测试数据
+			//jsContent  = "<script language=javascript>alert('test');</script>";//测试数据
             response.setContentType("text/html;charset=UTF-8"); 
-			response.getWriter().write(jsonContent);
+			response.getWriter().write(jsContent);
 			response.getWriter().flush();
 			response.getWriter().close();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} 
 	}
+	
 	
 	
 	/**
@@ -64,12 +64,9 @@ public class UserRecordController extends BaseController  {
 		ResultModel rm = super.getResultModel();
 		BaseTransVO<SaveUserRecordVO> transorder = (BaseTransVO<SaveUserRecordVO>) super.getParameterObject();
 		try {
+			
 			userRecordService.saveUserRecord(transorder.getApp().getAppId(),transorder.getBody());
 
-			//返回对应的 js的内容
-			String result = "";
-			rm.put("result", result);
-			
 		} catch (Exception e1) {
 			rm.mergeException(e1);
 		} 
