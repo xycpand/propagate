@@ -1,7 +1,5 @@
 package com.hummingbird.propagate.vo;
 
-import java.util.Date;
-
 public class SaveUserRecordVO {
 	/**
 	* 用户令牌
@@ -19,8 +17,6 @@ public class SaveUserRecordVO {
      */
     private Long contentId;
     
-    private Date insertTime;
-
 	public String getToken() {
 		return token;
 	}
@@ -53,11 +49,4 @@ public class SaveUserRecordVO {
 		this.contentId = contentId;
 	}
 
-	public Date getInsertTime() {
-		return insertTime;
-	}
-
-	public void setInsertTime(Date insertTime) {
-		this.insertTime = insertTime;
-	}
 }

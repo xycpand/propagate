@@ -1,13 +1,10 @@
 package com.hummingbird.propagate.services.impl;
 
-import org.apache.log4j.chainsaw.Main;
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.common.util.JsonUtil;
 import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.entity.Token;
@@ -52,8 +49,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 //Jsoup
 			 
 			UserRecord userRecord = new UserRecord();
-			userRecord.setOpenid(vo.getOpenId());
-			userRecord.setArticleId(contentId);
+			userRecord.setOpenId(vo.getOpenId());
+			userRecord.setContentId(contentId);
 			//保存用户浏览记录
 			userRecordDao.insert(userRecord);
 		}catch(DataAccessException e){
@@ -77,8 +74,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 			articleService.checkArticleById(vo.getArticleId());
 
 			UserRecord userRecord = new UserRecord();
-			userRecord.setOpenid(openid);
-			userRecord.setArticleId(vo.getArticleId());
+			userRecord.setOpenId(openid);
+			userRecord.setContentId(vo.getArticleId());
 			//保存用户浏览记录
 			userRecordDao.insert(userRecord);
 			
