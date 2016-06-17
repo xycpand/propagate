@@ -53,7 +53,16 @@ public class UserRecordServiceImpl implements UserRecordService{
 
 	@Override
 	public String askByJS(AskByJS vo) throws BusinessException {
-		String jsScript = "";
+		
+		String jsScript = loadJS();  
+         
+         //保存用户浏览记录失败
+         saveUserRecord(vo);
+         
+		return jsScript;
+	}
+
+	private String loadJS() throws BusinessException {
 		List<String> lines = null;
 		String filePath = "C:\\js\\userrecord.js";
 		try {
@@ -72,12 +81,7 @@ public class UserRecordServiceImpl implements UserRecordService{
         for(String line : lines){  
            sb.append(line);  
          }  
-         jsScript = sb.toString();  
-         
-         //保存用户浏览记录失败
-         saveUserRecord(vo);
-         
-		return jsScript;
+		return sb.toString();
 	}
 
 	@Override
@@ -85,7 +89,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 		String jsScript = "";
 		try{
 			//加载js内容
-			
+			 jsScript = loadJS();  
 			
 	        //保存微信用户信息
 			

@@ -66,10 +66,22 @@ version="2.5">
     <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  
+   <servlet-mapping>
     <servlet-name>spring</servlet-name>
     <url-pattern>/userRecord/userrecord.js</url-pattern>
   </servlet-mapping> 
+  
+    <servlet-mapping>
+    <servlet-name>spring</servlet-name>
+    <url-pattern>/userRecord/userappend.js</url-pattern>
+  </servlet-mapping> 
+  
+    <servlet-mapping>
+     <servlet-name>spring</servlet-name>
+    <url-pattern>/userRecord/userinfo.js</url-pattern>
+  </servlet-mapping>  
+  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.js</url-pattern>

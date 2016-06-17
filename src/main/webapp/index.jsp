@@ -47,7 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
 	    <td>
-	       <a href="<%=basePath%>userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">js方式请求数据</a>
+	       <a href="<%=basePath%>userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">请求userrecord.js内容</a>
+	       <a href="<%=basePath%>userRecord/userappend.js?x_reader=op3Eiwm0MUHS3BfHiip58JF5lb-&x_sharer=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=abc">请求userappend.js内容</a>
+	       <a href="<%=basePath%>userRecord/userinfo.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">请求userinfo.js内容</a>
 	    </td>
 	</tr>
 </table>

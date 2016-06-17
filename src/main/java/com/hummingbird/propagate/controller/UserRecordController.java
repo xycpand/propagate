@@ -54,6 +54,7 @@ public class UserRecordController extends BaseController  {
 	/**
 	 * 前端js判断url中是否有x_sharer参数，如果存在则需要通过该方法加载另一段
 	 * http://ip:port/propagate/userappend.js?x_reader=xxxxxxx&x_sharer=xxxxxxx&x_content=xxxxxxx
+	 * http://localhost:6060/propagate/userRecord/userappend.js?x_reader=op3Eiwm0MUHS3BfHiip58JF5lb-&x_sharer=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=abc
 	 * @return
 	 */
 	@RequestMapping(value = "/userappend.js")
