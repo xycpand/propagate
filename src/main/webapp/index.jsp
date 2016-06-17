@@ -17,13 +17,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=basePath%>/js/jquery-1.11.1.js"></script>
 	 <!--     通过代码加载js内容 -->
-	   <script src='<%=basePath%>/userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1' ></script>
+	   <script type="text/javascript" src='<%=basePath%>/userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
      <!--     直接通过路径访问js内容-->	
-     <!-- 
-        <script src="<%=path%>/js/jquery-1.11.1.js" type="text/javascript"></script>		
-	 -->
-	<!--  引入数说js -->
-	  <script src="<%=path%>/js/datastory.js" type="text/javascript"></script>		
+     <!--<script src="<%=path%>/js/jquery-1.11.1.js" type="text/javascript"></script>-->
+	  <script src="<%=path%>/js/jquery.cookie.js" type="text/javascript"></script>
+	 <!--  引入数说js -->
+	  <script src="<%=path%>/js/datastory.js" type="text/javascript"></script>	
+	  <script src="<%=path%>/js/userrecord.js" type="text/javascript"></script>		
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -51,155 +51,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
 	    <td>
-	       <a href="<%=basePath%>/userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1">js方式请求数据</a>
+	       <a href="<%=basePath%>/userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">js方式请求数据</a>
 	    </td>
-	   <td><input type="button"  value="保存用户浏览记录"  onclick='setbinding("/userRecord/saveUserRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"5c6b3e6e3d14da92ffeef049f553109b\",\"x_sharer\":\"WmyWvP1776y6DBW5bc\",\"x_content\":\"1\"}}}}")'></td>
 	</tr>
 </table>
   </body>
   
     <script>
-    /*************MY TEST*********************/
+    
     $(document).ready(function(){
-    	 // alert(t('openId'));
+    	console.log("window.location.href:"+ window.location.href); 
+        console.log("window.location.search:"+ window.location.search); 
+  	  var originalUrl = window.location.href;
+  	  var x_reader = getUrlParam('x_reader');
+  	  //x_sharer为cookie中的x_reader 
+  	  var x_sharer = $.cookie("x_reader");
+  	  var x_content = getUrlParam('x_content');
+   	  //把链接url,内容id,阅读者openid保存到cookie中
+   	  $.cookie('url', originalUrl); 
+   	  $.cookie('x_reader',x_reader ); 
+   	  $.cookie('x_content', x_content); 
+   	  //可以设置失效时间expires
+   	 //$.cookie("x_content",x_content,{expires:365});
+   	  console.log("url:"+ $.cookie('url')); 
+   	  console.log("x_reader:"+x_reader);
+   	  console.log("x_sharer:"+x_sharer);
+  	  console.log("x_content:"+x_content);
+  	 
+   	  //从url中提取x_sharer参数，如果存在则建立连接，加载另一段js
+      //var isExistX_sharer =  getUrlParam("x_sharer",originalUrl);
+      //console.log("isExistX_sharer:"+isExistX_sharer);
+  	  if(originalUrl.indexOf("x_sharer") > -1){
+  		 var userappendJSUrl = getRootPath()+"/userappend.js?x_reader="+x_reader+"&x_sharer="+x_sharer+"&x_content="+x_content;
+  		 console.log("动态加载userappend.js:"+userappendJSUrl);
+  		 loadJS("userappend",userappendJSUrl);
+  	  }
+  	     
+    	  add4share("https://www.baidu.com/");
+    	  
+    	  add4share("http://www.baidu.com/s?ie=utf-8");
+    	  
+    	  console.log("项目根目录："+getRootPath());
+    	  
+    	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
+    	  var sendUserInfo =  function(userinfo){
+    		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
+    			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
+    			 + "&unionid=xxxx&x_content=xxxx";
+ 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+ 			 loadJS("userappend",userinfoJsUrl);
+    	  }
+    	 
    });
     
     
-    /**********************************/
-    var type='payload'
-    
-		$("#bt").click(function (){
-			$("#resp").html("");
-			var hostval = $("#realhost").val()
-			if(hostval==''){
-				hostval=$("#host").val()
-			}
-			var url =hostval+$("#api").val();
-			var data = $("#param").val();
-			if(type=='payload')
-			{
-				var vcookie = $('#cookie').val();
-				if(vcookie!=''){
-					try{
-						vcookie = eval('('+vcookie+')');
-						for(item in vcookie){
-							$.cookie(item, vcookie[item]);
-						}
-					}
-					catch(e){console.print(e)}
-					
-				}
-				
-				$.ajax({type:'POST',contentType:'application/json',url:url,data:data,
-				success:function(resp){ $("#resp").text(resp);},dataType:"html"}
-				);
-			}
-			else if(type=='cookie'){
-				data = eval('('+data+')');
-				for(item in data){
-					$.cookie(item, data[item]);
-				}
-				$.ajax({type:'POST',contentType:'application/json',url:url,
-					success:function(resp){ $("#resp").text(resp);},dataType:"html"}
-					);
-			}
-			else if(type=='formdata'){
-				data = eval('('+data+')');
-				$.ajax({type:'POST',url:url,data:data,
-					success:function(resp){ $("#resp").text(resp);},dataType:"html"}
-				);
-			}
-			else if(type=='string'){
-				//以string 的形式提交，参数名为param
-				$.ajax({type:'POST',url:url,data:{param:data},
-					success:function(resp){ $("#resp").text(resp);},dataType:"html"}
-					);
-			}
-			else if(type=='xml'){
-				$.ajax({type:'POST',contentType:'application/xml',url:url,data:data,
-					success:function(resp){ 
-						var str = serializeXml(resp)
-						$("#resp").text(str);
-					},dataType:"xml"});
-			}
-			
-		});
-		
-    function setbinding4string(api,json){
-    	setbinding(api,json,null,'string');
-    }
-    
-		function setbinding(api,json,cookiejson,submittype){
-			$("#api").val(api)
-			$("#param").val(json.replace("\$\{systime\}",new Date().getTime()))
-			$("#cookie").val(cookiejson)
-			if(!submittype){
-				submittype= 'payload';
-			}
-			type=submittype;
-		}
-		
-		function setbindingAndShowTips(api,json,cookiejson,submittype){
-			$("#api").val(api)
-			$("#param").val(json.replace("\$\{systime\}",new Date().getTime()))
-			$("#cookie").val(cookiejson)
-			if(!submittype){
-				submittype= 'payload';
-			}
-			type=submittype;
-			$("#resp").html("点击“提交”进行导入，如果导入的内容较多则可能需要花费几分钟。");
-		}
-		
-		jQuery.cookie = function(name, value, options) {
-			if (typeof value != 'undefined') {
-			   options = options || {};
-			   if (value === null) {
-			    value = '';
-			    options = $.extend({}, options);
-			    options.expires = -1;
-			   }
-			   var expires = '';
-			   if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
-			    var date;
-			    if (typeof options.expires == 'number') {
-			     date = new Date();
-			     date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
-			    } else {
-			     date = options.expires;
-			    }
-			    expires = '; expires=' + date.toUTCString();
-			   }
-			   var path = options.path ? '; path=' + (options.path) : '';
-			   var domain = options.domain ? '; domain=' + (options.domain) : '';
-			   var secure = options.secure ? '; secure' : '';
-			   document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
-			} else {
-			   var cookieValue = null;
-			   if (document.cookie && document.cookie != '') {
-			    var cookies = document.cookie.split(';');
-			    for (var i = 0; i < cookies.length; i++) {
-			     var cookie = jQuery.trim(cookies[i]);
-			     if (cookie.substring(0, name.length + 1) == (name + '=')) {
-			      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-			      break;
-			     }
-			    }
-			   }
-			   return cookieValue;
-			}
-			};
-			
-			function setbinding_cookie(api,json){
-				$("#api").val(api)
-				$("#param").val(json)
-				type = 'cookie';
-				
-			}
-			
-		    function setbinding4xml(api,json){
-		    	setbinding(api,json,null,'xml');
-		    }
-		
 	</script>
   
 </html>

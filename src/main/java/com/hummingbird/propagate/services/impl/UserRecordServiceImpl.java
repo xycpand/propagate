@@ -34,6 +34,7 @@ import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
+import com.hummingbird.propagate.vo.SaveUserInfoVO;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
 
 @Service
@@ -72,20 +73,49 @@ public class UserRecordServiceImpl implements UserRecordService{
            sb.append(line);  
          }  
          jsScript = sb.toString();  
-	    try{      
-	       //保存用户浏览记录
+         
+         //保存用户浏览记录失败
+         saveUserRecord(vo);
+         
+		return jsScript;
+	}
+
+	@Override
+	public String saveUserInfo(SaveUserInfoVO vo){
+		String jsScript = "";
+		try{
+			//加载js内容
+			
+			
+	        //保存用户浏览记录
+			UserRecord userRecord = new UserRecord();
+			userRecord.setContentId(vo.getX_content());
+			userRecord.setInsertTime(new Date());
+			userRecord.setUpdateTime(new Date());
+			userRecordDao.insert(userRecord);
+		}catch(Exception e){
+			e.printStackTrace();
+			log.debug("保存用户浏览记录失败。");
+		}
+		return jsScript;
+	}
+
+	@Override
+	public void saveUserRecord(AskByJS vo){
+		try{
+	        //保存用户浏览记录
 			UserRecord userRecord = new UserRecord();
 			userRecord.setReaderId(vo.getX_reader());
+			//这里的 x_reader和  x_sharer 就建立了传播关系
 			userRecord.setSharerId(vo.getX_sharer());
 			userRecord.setContentId(vo.getX_content());
 			userRecord.setInsertTime(new Date());
 			userRecord.setUpdateTime(new Date());
 			userRecordDao.insert(userRecord);
-		}catch(DataAccessException e){
+		}catch(Exception e){
 			e.printStackTrace();
 			log.debug("保存用户浏览记录失败。");
 		}
-		return jsScript;
 	}
 	
 

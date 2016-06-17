@@ -2,26 +2,18 @@
 		var e = 60 * 30;
 		//获取指定的参数的值
 		var t = function(e) {
-			console.log(e);
 			var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
-			console.log(t);
-			console.log(window.location);
 			var n = window.location.search.substr(1).match(t);
-			console.log(n);
 			if (n != null) return unescape(n[2]);
 			return null
 		};
-
-		console.log(t('openId'));
-		console.log('href:'+t('href'));
-
+		
 		//获取http协议中的url
 		var n = function(e) {
 			var t = /http:\/\/([^\/]+)\//i;
 			var n = e.match(t);
 			return n[1]
 		};
-		console.log(n('http://localhost:6060/propagate/index.jsp'));
 
 		var r = function(e) {
 			if (!e) return "";

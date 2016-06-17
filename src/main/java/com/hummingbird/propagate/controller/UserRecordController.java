@@ -20,6 +20,7 @@ import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
 import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.services.UserRecordService;
+import com.hummingbird.propagate.vo.SaveUserInfoVO;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
 /**
  * @author panda
@@ -35,7 +36,7 @@ public class UserRecordController extends BaseController  {
 
 	/**
 	 *js方式请求数据
-	 * http://ip:port/propagate/userrecord.js?openId=xxxxxxx&contentId=xxxxxxx
+	 * http://ip:port/propagate/userrecord.js?x_reader=xxxxxxx&x_content=xxxxxxx
 	 * @return
 	 */
 	@RequestMapping(value = "/userrecord.js")
@@ -53,6 +54,49 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
+
+	/**
+	 * 前端js判断url中是否有x_sharer参数，如果存在则需要通过该方法加载另一段
+	 * http://ip:port/propagate/userappend.js?x_reader=xxxxxxx&x_sharer=xxxxxxx&x_content=xxxxxxx
+	 * @return
+	 */
+	@RequestMapping(value = "/userappend.js")
+	public void  userappend(HttpServletRequest request,
+			HttpServletResponse response,AskByJS vo) {
+		try {
+			String jsContent = userRecordService.askByJS(vo);
+            response.setContentType("text/html;charset=UTF-8"); 
+			response.getWriter().write(jsContent);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		} 
+	}
+	
+
+	/**  
+	 * 上报微信消息
+	 * http://ip:port/propagate/userinfo.js?openid=xxxx&nickname=xxxx
+	 * &sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx
+	 * &unionid=xxxx&x_content=xxxx
+	 * @return
+	 */
+	@RequestMapping(value = "/userinfo.js")
+	public void  saveUserInfo(HttpServletRequest request,
+			HttpServletResponse response,SaveUserInfoVO vo) {
+		try {
+			String jsContent = userRecordService.saveUserInfo(vo);
+            response.setContentType("text/html;charset=UTF-8"); 
+			response.getWriter().write(jsContent);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		} 
+	}
 	
 	/**
 	 *保存用户浏览记录
