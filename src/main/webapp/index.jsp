@@ -57,17 +57,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
   </body>
   
-    <script>
-    
+  <script>
     $(document).ready(function(){
-    	console.log("window.location.href:"+ window.location.href); 
-        console.log("window.location.search:"+ window.location.search); 
   	  var originalUrl = window.location.href;
   	  var x_reader = getUrlParam('x_reader');
   	  //x_sharer为cookie中的x_reader 
   	  var x_sharer = $.cookie("x_reader");
   	  var x_content = getUrlParam('x_content');
-   	  //把链接url,内容id,阅读者openid保存到cookie中
+   	  //缓存参数：把链接url,内容id,阅读者openid保存到cookie中
    	  $.cookie('url', originalUrl); 
    	  $.cookie('x_reader',x_reader ); 
    	  $.cookie('x_content', x_content); 
@@ -79,28 +76,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  console.log("x_content:"+x_content);
   	 
    	  //从url中提取x_sharer参数，如果存在则建立连接，加载另一段js
-      //var isExistX_sharer =  getUrlParam("x_sharer",originalUrl);
-      //console.log("isExistX_sharer:"+isExistX_sharer);
   	  if(originalUrl.indexOf("x_sharer") > -1){
   		 var userappendJSUrl = getRootPath()+"/userappend.js?x_reader="+x_reader+"&x_sharer="+x_sharer+"&x_content="+x_content;
   		 console.log("动态加载userappend.js:"+userappendJSUrl);
   		 loadJS("userappend",userappendJSUrl);
   	  }
-  	     
-    	  add4share("https://www.baidu.com/");
+   	  
+   	  //add4share建立传播关系：x_sharer 传播给 x_reader
+   	  
+ 	  //测试add4share
+   	  add4share("https://www.baidu.com/");
+   	  //测试add4share
+   	  add4share("http://www.baidu.com/s?ie=utf-8");
     	  
-    	  add4share("http://www.baidu.com/s?ie=utf-8");
-    	  
-    	  console.log("项目根目录："+getRootPath());
-    	  
-    	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
-    	  var sendUserInfo =  function(userinfo){
-    		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
-    			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
-    			 + "&unionid=xxxx&x_content=xxxx";
- 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
- 			 loadJS("userappend",userinfoJsUrl);
-    	  }
+   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
+   	  var sendUserInfo =  function(userinfo){
+   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
+   			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
+   			 + "&unionid=xxxx&x_content=xxxx";
+			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+			 loadJS("userappend",userinfoJsUrl);
+   	  }
     	 
    });
     

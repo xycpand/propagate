@@ -87,12 +87,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 			//加载js内容
 			
 			
-	        //保存用户浏览记录
-			UserRecord userRecord = new UserRecord();
-			userRecord.setContentId(vo.getX_content());
-			userRecord.setInsertTime(new Date());
-			userRecord.setUpdateTime(new Date());
-			userRecordDao.insert(userRecord);
+	        //保存微信用户信息
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			log.debug("保存用户浏览记录失败。");
