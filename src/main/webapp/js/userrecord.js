@@ -1,5 +1,4 @@
- //;$(function(){
-	/**
+    /**
 	 * 动态加载js
 	 */
 	var loadJS = function( id, fileUrl ) 
@@ -23,34 +22,18 @@
 	} 
 	
 	
-	/**
-	 * 获取当前URL参数值
-	 */
-	var getUrlParam =  function(name,url) {
-		   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
-		   var r =  window.location.search.substr(1).match(reg);
-		   if (r!=null) 
-			   return unescape(r[2]); 
-		   return null;
-	}
 	
 	/**
 	 * 获取项目根路径
 	 */
 	var getRootPath =  function(){
-   	    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
    	    var curWwwPath=window.document.location.href;
-   	    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
    	    var pathName=window.document.location.pathname;
    	    var pos=curWwwPath.indexOf(pathName);
-   	    //获取主机地址，如： http://localhost:8083
    	    var localhostPaht=curWwwPath.substring(0,pos);
-   	    //获取带"/"的项目名，如：/uimcardprj
    	    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
    	    return(localhostPaht+projectName);
    	}
-   
-    
     
    	
     /**
@@ -58,9 +41,9 @@
 	 * 其中x_sharer为cookie中的x_reader 
 	 */
 	  var add4share = function(shareUrl){
-		  var x_content = $.cookie("x_content");
+		  var x_content = o.getItem("x_content");
 		  //x_sharer为cookie中的x_reader 
-		  var x_sharer = $.cookie("x_reader");
+		  var x_sharer = o.getItem("x_reader");
 		  var param = "x_content="+x_content+"&x_sharer="+x_sharer;
 		  if(shareUrl.indexOf("?") > -1){
 			  shareUrl += "&" + param;
@@ -69,13 +52,50 @@
 		  }
 		  console.log(shareUrl);
 	  }; 
+	  
 	 
-		//获取http协议中的url
-		var getUrlFromHttp = function(e) {
-			var t = /http:\/\/([^\/]+)\//i;
-			var n = e.match(t);
-			return n[1]
-		};
-		  console.log("url from http: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
-    // });
+		
+		 
+		  var originalUrl = window.location.href;
+	  	  var x_reader = getUrlParam('x_reader');
+	  	  
+	  	  //缓存参数：把链接url,内容id,阅读者openid保存到cookie中
+		   o.setItem('url', originalUrl); 
+		   o.setItem('x_reader',x_reader ); 
+		   o.setItem('x_content', x_content); 
+	  	  
+	  	  
+	  	  //x_sharer为cookie中的x_reader 
+	      var x_sharer = o.getItem("x_reader");
+	      var x_content = o.getItem("x_content");
+	      var url = o.getItem("url");
+	   	
+	   	  console.log("url:"+url); 
+	   	  console.log("x_reader:"+x_reader);
+	   	  console.log("x_sharer:"+x_sharer);
+	  	  console.log("x_content:"+x_content);
+	  	 
+	   	  //从url中提取x_sharer参数，如果存在则建立连接，加载另一段js
+	  	  if(originalUrl.indexOf("x_sharer") > -1){
+	  		 var userappendJSUrl = getRootPath()+"/userappend.js?x_reader="+x_reader+"&x_sharer="+x_sharer+"&x_content="+x_content;
+	  		 console.log("动态加载userappend.js:"+userappendJSUrl);
+	  		 loadJS("userappend",userappendJSUrl);
+	  	  }
+	   	  
+	   	  //add4share建立传播关系：x_sharer 传播给 x_reader
+	   	  
+	 	  //测试add4share
+	   	  add4share("https://www.baidu.com/");
+	   	  //测试add4share
+	   	  add4share("http://www.baidu.com/s?ie=utf-8");
+	    	  
+	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
+	   	  var sendUserInfo =  function(userinfo){
+	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
+	   			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
+	   			 + "&unionid=xxxx&x_content=xxxx";
+				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+				 loadJS("userappend",userinfoJsUrl);
+	   	  }
+	    	 
   

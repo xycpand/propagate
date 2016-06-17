@@ -1,7 +1,9 @@
-(function() {
+//(function() {
 		var e = 60 * 30;
-		//获取指定的参数的值
-		var t = function(e) {
+		/**
+		 * 获取当前URL参数值
+		 */
+		var getUrlParam = function(e) {
 			var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
 			var n = window.location.search.substr(1).match(t);
 			if (n != null) return unescape(n[2]);
@@ -9,11 +11,14 @@
 		};
 		
 		//获取http协议中的url
-		var n = function(e) {
+		var getUrlFromHttp = function(e) {
 			var t = /http:\/\/([^\/]+)\//i;
 			var n = e.match(t);
 			return n[1]
 		};
+	 console.log("url from http: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
+		
+		
 
 		var r = function(e) {
 			if (!e) return "";
@@ -38,7 +43,7 @@
 		};
 
 		//cookie 内容管理
-		var i = {
+		var cookieManager = {
 			get: function(e) {
 				var t = document.cookie.match(new RegExp("(^| )" + e + "=([^;] * )(; | $)"));
 				if (t != null) return unescape(t[2]);
@@ -63,21 +68,18 @@
 
 
 
-				var o = function() {
-
+				var o = function(){
 					var t = {
 						setItem: function(t, n) {
-							i.add(t, n, e)
+							cookieManager.add(t, n, e)
 						},
 						getItem: function(e) {
-							return i.get(e)
+							return cookieManager.get(e)
 						},
 						removeItem: function(e) {
-							i.add(e, "", -1)
+							cookieManager.add(e, "", -1)
 						}
 					};
-
-
 					if (sessionStorage) {
 						try {
 							var o = ["REFER_DSCKID", "REFER_DSTIMESTAMP", "DS_FROM_TYPE"];
@@ -179,4 +181,4 @@
 					} catch (e) {}
 				};
 				initer()
-			})();
+//	})();

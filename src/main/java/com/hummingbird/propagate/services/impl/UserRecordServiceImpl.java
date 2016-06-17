@@ -55,7 +55,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	public String askByJS(AskByJS vo) throws BusinessException {
 		String jsScript = "";
 		List<String> lines = null;
-		String filePath = "C:\\js\\jquery-1.11.1.js";
+		String filePath = "C:\\js\\userrecord.js";
 		try {
 		    File file=new File(filePath);
 		    //判断文件是否存在
@@ -140,7 +140,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 		  String fromFile = "";
 		  // Java7 : Files.readAllBytes默认以UTF-8编码读入文件，故文件的编码如果不是UTF-8，那么中文内容会出现乱字符  
 		  try {
-			fromFile = new String(Files.readAllBytes(Paths.get("C:\\js\\jquery-1.11.1.js")));
+			fromFile = new String(Files.readAllBytes(Paths.get("C:\\js\\userrecord.js")));
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new Exception("java7读取文件失败。");
@@ -151,7 +151,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	      // Java8用流的方式读文件，更加高效
 	      List<String> lines = null;
 		try {
-			lines = Files.readAllLines(Paths.get("C:\\js\\jquery-1.11.1.js"), StandardCharsets.UTF_8);
+			lines = Files.readAllLines(Paths.get("C:\\js\\userrecord.js"), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new Exception("java8读取文件失败。");
