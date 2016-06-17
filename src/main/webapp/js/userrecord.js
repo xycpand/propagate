@@ -70,5 +70,12 @@
 		  console.log(shareUrl);
 	  }; 
 	 
+		//获取http协议中的url
+		var getUrlFromHttp = function(e) {
+			var t = /http:\/\/([^\/]+)\//i;
+			var n = e.match(t);
+			return n[1]
+		};
+		  console.log("url from http: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
     // });
   
