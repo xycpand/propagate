@@ -17,9 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	  <script src="<%=path%>/js/helper.js" type="text/javascript"></script>	
 	 <!--     通过代码加载js内容 -->
-	  <%--  <script type="text/javascript" src='<%=basePath%>userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
-     --%>
-     <!--     直接通过路径访问js内容-->	
+	 <%--  <script type="text/javascript" src='<%=basePath%>userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
+      --%><!--     直接通过路径访问js内容-->	
 	  <script src="<%=path%>/js/userrecord.js" type="text/javascript"></script>		
 	<style type="text/css">
 	.menu li{
@@ -55,9 +54,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   
   <script>
+  
+     userRecord();
     
-    
-	</script>
+  </script>
   
 </html>
 

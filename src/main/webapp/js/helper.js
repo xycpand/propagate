@@ -1,5 +1,43 @@
 //(function() {
-		var e = 60 * 30;
+		var expire = 60 * 30;
+		
+
+	    /**
+		 * 动态加载js
+		 */
+		var loadJS = function( id, fileUrl ) 
+		{ 
+			console.log("fileUrl:"+fileUrl);
+	    	var scriptTag = document.getElementById( id ); 
+	    	var oHead = document.getElementsByTagName('head').item(0); 
+	    	var oScript= document.createElement("script"); 
+	    	if (scriptTag) oHead.removeChild(scriptTag); 
+	    	oScript.id = id; 
+	    	oScript.type = "text/javascript";
+	    	oScript.onload = oScript.onreadystatechange = function() { 
+	    		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
+	    		    // Handle memory leak in IE 
+	    		    oScript.onload = oScript.onreadystatechange = null; 
+	    		} 
+			}; 
+	    	oScript.src=fileUrl ; 
+	    	oHead.appendChild(oScript); 
+		} 
+		
+		
+		/**
+		 * 获取项目根路径
+		 */
+		var getRootPath =  function(){
+	   	    var curWwwPath=window.document.location.href;
+	   	    var pathName=window.document.location.pathname;
+	   	    var pos=curWwwPath.indexOf(pathName);
+	   	    var localhostPaht=curWwwPath.substring(0,pos);
+	   	    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+	   	    return(localhostPaht+projectName);
+	   	}
+	    
+		
 		/**
 		 * 获取当前URL参数值
 		 */
@@ -16,11 +54,11 @@
 			var n = e.match(t);
 			return n[1]
 		};
-	 console.log("url from http: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
-		
-		
 
-		var r = function(e) {
+	 console.log("处理前：http://localhost:6060/propagate/index.jsp");
+	 console.log("getUrlFromHttp处理后: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
+		
+		var getDomain = function(e) {
 			if (!e) return "";
 			if (e.indexOf("://") != -1) e = e.substr(e.indexOf("://") + 3);
 			var t = ["com", "net", "org", "gov", "edu", "mil", "biz", "name", "info", "mobi", "pro", "travel", "museum", "int", "areo", "post", "rec", "im", "cn", "me"];
@@ -52,12 +90,12 @@
 			add: function(e, t, n) {
 				var i = e + "=" + t;
 				if (n != 0) {
-					var o = new Date;
+					var date = new Date;
 					var a = n * 1e3;
-					o.setTime(o.getTime() + a);
-					i +=  ";expires = "+o.toGMTString()
+					date.setTime(date.getTime() + a);
+					i +=  ";expires = "+date.toGMTString()
 				}
-				var s=r(location.hostname);
+				var s = getDomain(location.hostname);
 					if (s != "") {
 						i += ";domain = "+s
 					}
@@ -71,13 +109,13 @@
 				var o = function(){
 					var t = {
 						setItem: function(t, n) {
-							cookieManager.add(t, n, e)
+							cookieManager.add(t, n, expire)
 						},
-						getItem: function(e) {
-							return cookieManager.get(e)
+						getItem: function(t) {
+							return cookieManager.get(t)
 						},
-						removeItem: function(e) {
-							cookieManager.add(e, "", -1)
+						removeItem: function(t) {
+							cookieManager.add(t, "", -1)
 						}
 					};
 					if (sessionStorage) {
@@ -85,8 +123,8 @@
 							var o = ["REFER_DSCKID", "REFER_DSTIMESTAMP", "DS_FROM_TYPE"];
 							var a = function() {
 								if (document.referrer != "") {
-									var e = r(n(document.referrer));
-									var t = r(location.hostname);
+									var e = getDomain(n(document.referrer));
+									var t = getDomain(location.hostname);
 									return e == t
 								} else {
 									return false
@@ -121,64 +159,3 @@
 						}
 					}
 				}();
-
-				//从地址中获取必要的参数,并保存起来
-				var a = function() {
-					var e = location.href;
-					if (e.indexOf("DSCKID") != -1) {
-						var n = t("DSCKID");
-						var r = t("DSTIMESTAMP");
-						o.setItem("REFER_DSCKID", n);
-						o.setItem("REFER_DSTIMESTAMP", r)
-					}
-					if (e.indexOf("from") != -1) {
-						var i = t("from");
-						var a = {
-							singlemessage: 1,
-							groupmessage: 2,
-							timeline: 3
-						};
-						if (a[i] == undefined) {
-							o.setItem("DS_FROM_TYPE", 0)
-						} else {
-							o.setItem("DS_FROM_TYPE", a[i])
-						}
-					}
-					var s = document.referrer; //上一页的地址
-					if (s.indexOf("mp.weixin.qq.com") != -1 || s.indexOf("mp.weixinbridge.com") != -1) {
-						o.setItem("DS_FROM_TYPE", 4)
-					}
-				};
-				var s = function() {
-					var e = "";
-					try {
-						e = document.getElementById("DS_PRE_JS").src.split("?")[1].split("=")[1]
-					} catch (t) {
-						console.log("please read DataStory api doc")
-					}
-					var n = document.createElement("script");
-					n.src = document.location.protocol + "//tongji.datastory.com.cn/ds.js?dsTid=" + e;
-					var r = document.getElementsByTagName("script")[0];
-					r.parentNode.insertBefore(n, r)
-				};
-				var initer = function() {
-					try {
-						if (window.DS == undefined) window.DS = {};
-						DS.ready = function(customerInit) {
-							var t = function() {
-								if (DS.linkChange == undefined || DS.sendRepost == undefined) {
-									setTimeout(t, 500)
-								} else {
-									try {
-										customerInit()
-									} catch (n) {}
-								}
-							};
-							t()
-						};
-						a();
-						s()
-					} catch (e) {}
-				};
-				initer()
-//	})();
