@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=basePath%>/js/jquery-1.11.1.js"></script>
 	 <!--     通过代码加载js内容 -->
-	   <script type="text/javascript" src='<%=basePath%>/userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
+	   <script type="text/javascript" src='<%=basePath%>userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
      <!--     直接通过路径访问js内容-->	
      <!--<script src="<%=path%>/js/jquery-1.11.1.js" type="text/javascript"></script>-->
 	  <script src="<%=path%>/js/jquery.cookie.js" type="text/javascript"></script>
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
 	    <td>
-	       <a href="<%=basePath%>/userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">js方式请求数据</a>
+	       <a href="<%=basePath%>userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">js方式请求数据</a>
 	    </td>
 	</tr>
 </table>
