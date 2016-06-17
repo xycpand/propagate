@@ -13,6 +13,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -73,10 +74,12 @@ public class UserRecordServiceImpl implements UserRecordService{
          jsScript = sb.toString();  
 	    try{      
 	       //保存用户浏览记录
-			Long contentId = vo.getContentId();
 			UserRecord userRecord = new UserRecord();
-			userRecord.setOpenId(vo.getOpenId());
-			userRecord.setContentId(contentId);
+			userRecord.setReaderId(vo.getX_reader());
+			userRecord.setSharerId(vo.getX_sharer());
+			userRecord.setContentId(vo.getX_content());
+			userRecord.setInsertTime(new Date());
+			userRecord.setUpdateTime(new Date());
 			userRecordDao.insert(userRecord);
 		}catch(DataAccessException e){
 			e.printStackTrace();
@@ -92,11 +95,12 @@ public class UserRecordServiceImpl implements UserRecordService{
 			//根据token获取openid
 			String openid = wxUserService.getOpenidByUserId(vo.getToken(), appId);
 			
-			articleService.checkArticleById(vo.getArticleId());
-
 			UserRecord userRecord = new UserRecord();
-			userRecord.setOpenId(openid);
-			userRecord.setContentId(vo.getArticleId());
+			userRecord.setReaderId(openid);
+			userRecord.setSharerId(vo.getX_sharer());
+			userRecord.setContentId(vo.getX_content());
+			userRecord.setInsertTime(new Date());
+			userRecord.setUpdateTime(new Date());
 			//保存用户浏览记录
 			userRecordDao.insert(userRecord);
 			

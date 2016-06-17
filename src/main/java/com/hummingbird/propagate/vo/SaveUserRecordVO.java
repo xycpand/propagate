@@ -6,47 +6,46 @@ public class SaveUserRecordVO {
 	*/
     private String token;
 	  
-	private String openid;
+	  
+	private String x_reader;
+	
+	private String x_sharer;
+	
+    /**
+    * 内容id
+    */
+    private String x_content;
 
-    /**
-     * 内容id,为每个页面的唯一标识,在x传播里面必须唯一,可以由x传播生成,或由使用方给出
-     */
-    private Long articleId;
-    /**
-     * js方式请求的内容id
-     */
-    private Long contentId;
-    
 	public String getToken() {
 		return token;
 	}
-
+	
 	public void setToken(String token) {
 		this.token = token;
 	}
-
-	public String getOpenid() {
-		return openid;
+	
+	public String getX_reader() {
+		return x_reader;
 	}
-
-	public void setOpenid(String openid) {
-		this.openid = openid;
+	
+	public void setX_reader(String x_reader) {
+		this.x_reader = x_reader;
 	}
-
-	public Long getArticleId() {
-		return articleId;
+	
+	public String getX_sharer() {
+		return x_sharer;
 	}
-
-	public void setArticleId(Long articleId) {
-		this.articleId = articleId;
+	
+	public void setX_sharer(String x_sharer) {
+		this.x_sharer = x_sharer;
 	}
-
-	public Long getContentId() {
-		return contentId;
+	
+	public String getX_content() {
+		return x_content;
 	}
-
-	public void setContentId(Long contentId) {
-		this.contentId = contentId;
+	
+	public void setX_content(String x_content) {
+		this.x_content = x_content;
 	}
-
+    
 }

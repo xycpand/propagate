@@ -53,13 +53,6 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
-	@RequestMapping(value = "test.html")
-	public ModelAndView register(ModelAndView mav, HttpServletRequest request,
-			HttpServletResponse response) {	
-		mav.setViewName("index1");
-		return mav;
-	}
-	
 	
 	/**
 	 *保存用户浏览记录

@@ -3,12 +3,15 @@
 <mapper namespace="com.hummingbird.propagate.mapper.UserRecordMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.UserRecord" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="openId" property="openId" jdbcType="CHAR" />
-    <result column="contentId" property="contentId" jdbcType="BIGINT" />
+    <result column="readerId" property="readerId" jdbcType="CHAR" />
+    <result column="sharerId" property="sharerId" jdbcType="CHAR" />
+    <result column="contentId" property="contentId" jdbcType="CHAR" />
     <result column="insertTime" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, openId, contentId, insertTime
+    id, readerId, sharerId, contentId, insertTime, updateTime, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -21,10 +24,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.hummingbird.propagate.entity.UserRecord" >
-    insert into t_user_record (id, openId, contentId, 
-      insertTime)
-    values (#{id,jdbcType=BIGINT}, #{openId,jdbcType=CHAR}, #{contentId,jdbcType=BIGINT}, 
-      #{insertTime,jdbcType=TIMESTAMP})
+    insert into t_user_record (id, readerId, sharerId, 
+      contentId, insertTime, updateTime, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{readerId,jdbcType=CHAR}, #{sharerId,jdbcType=CHAR}, 
+      #{contentId,jdbcType=CHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.UserRecord" >
     insert into t_user_record
@@ -32,8 +37,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="openId != null" >
-        openId,
+      <if test="readerId != null" >
+        readerId,
+      </if>
+      <if test="sharerId != null" >
+        sharerId,
       </if>
       <if test="contentId != null" >
         contentId,
@@ -41,42 +49,69 @@
       <if test="insertTime != null" >
         insertTime,
       </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="openId != null" >
-        #{openId,jdbcType=CHAR},
+      <if test="readerId != null" >
+        #{readerId,jdbcType=CHAR},
+      </if>
+      <if test="sharerId != null" >
+        #{sharerId,jdbcType=CHAR},
       </if>
       <if test="contentId != null" >
-        #{contentId,jdbcType=BIGINT},
+        #{contentId,jdbcType=CHAR},
       </if>
       <if test="insertTime != null" >
         #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.UserRecord" >
     update t_user_record
     <set >
-      <if test="openId != null" >
-        openId = #{openId,jdbcType=CHAR},
+      <if test="readerId != null" >
+        readerId = #{readerId,jdbcType=CHAR},
+      </if>
+      <if test="sharerId != null" >
+        sharerId = #{sharerId,jdbcType=CHAR},
       </if>
       <if test="contentId != null" >
-        contentId = #{contentId,jdbcType=BIGINT},
+        contentId = #{contentId,jdbcType=CHAR},
       </if>
       <if test="insertTime != null" >
         insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.UserRecord" >
     update t_user_record
-    set openId = #{openId,jdbcType=CHAR},
-      contentId = #{contentId,jdbcType=BIGINT},
-      insertTime = #{insertTime,jdbcType=TIMESTAMP}
+    set readerId = #{readerId,jdbcType=CHAR},
+      sharerId = #{sharerId,jdbcType=CHAR},
+      contentId = #{contentId,jdbcType=CHAR},
+      insertTime = #{insertTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

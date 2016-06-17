@@ -22,6 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <!-- 
         <script src="<%=path%>/js/jquery-1.11.1.js" type="text/javascript"></script>		
 	 -->
+	<!--  引入数说js -->
+	  <script src="<%=path%>/js/datastory.js" type="text/javascript"></script>		
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -51,11 +53,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <td>
 	       <a href="<%=basePath%>/userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1">js方式请求数据</a>
 	    </td>
-	   <td><input type="button"  value="保存用户浏览记录"  onclick='setbinding("/userRecord/saveUserRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"e11eba87d5e1fc3e74ebd242ee67b94f\",\"articleId\":1}}}}")'></td>
+	   <td><input type="button"  value="保存用户浏览记录"  onclick='setbinding("/userRecord/saveUserRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"5c6b3e6e3d14da92ffeef049f553109b\",\"x_sharer\":\"WmyWvP1776y6DBW5bc\",\"x_content\":\"1\"}}}}")'></td>
 	</tr>
 </table>
   </body>
+  
     <script>
+    /*************MY TEST*********************/
+    $(document).ready(function(){
+    	 // alert(t('openId'));
+   });
+    
+    
+    /**********************************/
     var type='payload'
     
 		$("#bt").click(function (){

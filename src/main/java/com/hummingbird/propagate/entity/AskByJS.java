@@ -2,31 +2,37 @@ package com.hummingbird.propagate.entity;
 
 public class AskByJS {
 	  
-	private String openId;
-    /**
-     * js方式请求的内容id
-     */
-    private Long contentId;
-    
-    private String path;
-    
+	private String x_reader;
 	
-	public String getPath() {
-		return path;
+	private String x_sharer;
+	
+    /**
+     * 内容id
+     */
+    private String x_content;
+
+	public String getX_reader() {
+		return x_reader;
 	}
-	public void setPath(String path) {
-		this.path = path;
+
+	public void setX_reader(String x_reader) {
+		this.x_reader = x_reader;
 	}
-	public String getOpenId() {
-		return openId;
+
+	public String getX_sharer() {
+		return x_sharer;
 	}
-	public void setOpenId(String openId) {
-		this.openId = openId;
+
+	public void setX_sharer(String x_sharer) {
+		this.x_sharer = x_sharer;
 	}
-	public Long getContentId() {
-		return contentId;
+
+	public String getX_content() {
+		return x_content;
 	}
-	public void setContentId(Long contentId) {
-		this.contentId = contentId;
+
+	public void setX_content(String x_content) {
+		this.x_content = x_content;
 	}
+
 }
