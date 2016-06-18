@@ -19,6 +19,8 @@ public interface WxUserService {
 	 */
 	public WxUser selectUserById(Integer userid) throws BusinessException;
 
+	public void addWxUserInfo(WxUser wxUser);
+	
 	/**
 	 * 根据token获取openid
 	 * @param tokenStr

@@ -1,5 +1,7 @@
 package com.hummingbird.propagate.services.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,18 @@ public class WxUserServiceImpl implements WxUserService{
 			throw new BusinessException("通过id查询用户信息失败。");
 		}
 		return user;
+	}
+	
+	@Override
+	public void addWxUserInfo(WxUser wxUser){
+		try{
+			wxUser.setInsertTime(new Date());
+			wxUser.setUpdateTime(new Date());
+		    wxUserDao.insert(wxUser);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			log.error("保存微信用户信息失败。");
+		}
 	}
 
 	

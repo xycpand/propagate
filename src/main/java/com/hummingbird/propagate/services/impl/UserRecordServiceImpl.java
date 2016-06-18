@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
+import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.services.ArticleService;
@@ -99,14 +100,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 	}
 
 	@Override
-	public String saveUserInfo(SaveUserInfoVO vo){
+	public String saveUserInfo(WxUser wxUser){
 		String jsScript = "";
 		try{
 			//加载js内容
 			 jsScript = loadJS();  
 			
 	        //保存微信用户信息
-			
+			 wxUserService.addWxUserInfo(wxUser);
 		}catch(Exception e){
 			e.printStackTrace();
 			log.debug("保存用户浏览记录失败。");

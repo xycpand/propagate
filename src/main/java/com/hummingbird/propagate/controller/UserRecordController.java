@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
+import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 /**
@@ -76,10 +77,10 @@ public class UserRecordController extends BaseController  {
 	 * @return
 	 */
 	@RequestMapping(value = "/userinfo.js")
-	public void  saveUserInfo(HttpServletRequest request,
-			HttpServletResponse response,SaveUserInfoVO vo) {
+	public void saveUserInfo(HttpServletRequest request,
+			HttpServletResponse response,WxUser wxUser) {
 		try {
-			String jsContent = userRecordService.saveUserInfo(vo);
+			String jsContent = userRecordService.saveUserInfo(wxUser);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
@@ -89,5 +90,7 @@ public class UserRecordController extends BaseController  {
 			log.error(e.getMessage());
 		} 
 	}
+	
+
 	
 }

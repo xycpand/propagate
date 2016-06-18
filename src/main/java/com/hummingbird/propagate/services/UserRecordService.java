@@ -3,6 +3,7 @@ package com.hummingbird.propagate.services;
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
+import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 
 /**
@@ -36,7 +37,7 @@ public interface UserRecordService {
 	 * @return
 	 * @throws BusinessException
 	 */
-	public String saveUserInfo(SaveUserInfoVO vo) throws BusinessException;
+	public String saveUserInfo(WxUser wxUser) throws BusinessException;
 	
 	
 

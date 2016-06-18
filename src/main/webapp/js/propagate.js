@@ -24,11 +24,32 @@
 	   	  
 	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
 	   	  var sendUserInfo =  function(userinfo){
-	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
-	   			 + "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
-	   			 + "&unionid=xxxx&articleId=xxxx";
-				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
-				 loadJS("userappend",userinfoJsUrl);
+	   		  var sex = "M";
+	   		  var subscribe;
+	   		  var subscribeTime;
+	   		  var groupid;
+	   		  var qrExpireSeconds;
+	   		  var qrCreateTime;
+	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=1&nickname=小明" +
+	   		  	  "&language=中文&unionid=1&remark=备注&sex=M&province=广东省&city=深圳市" +
+	   		  	   "&country=南山区&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
+	   		  if(subscribe){
+	   			  userinfoJsUrl+="&subscribe="+subscribe;
+		  	  }  
+	   		  if(subscribeTime){
+	   			  userinfoJsUrl+="&subscribeTime="+subscribeTime;
+		  	  }  
+	   		  if(groupid){
+	   			userinfoJsUrl+="&groupid="+groupid;
+		  	  } 
+	   		  if(qrExpireSeconds){
+	   			userinfoJsUrl+="&qrExpireSeconds="+qrExpireSeconds;
+		  	  }
+	   		  if(qrCreateTime){
+	   			userinfoJsUrl+="&qrCreateTime="+qrCreateTime;
+		  	  }
+			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+			 loadJS("userinfo",userinfoJsUrl);
 	   	  }
 	   	  
 	   	  
@@ -82,11 +103,16 @@
 		  		 loadJS("userappend",userappendJSUrl);
 		  	  }
 		  }//end of initUserInfo
-		  
-	   	
+		 
 	   	  
 	   	  //初始化用户信息
-	     initUserInfo();
+	      initUserInfo(); 
+	      
+		   //测试
+		   sendUserInfo("");
+	     
+	     
+	     
 	     
 	    	 
   
