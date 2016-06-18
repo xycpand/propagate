@@ -57,12 +57,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</tr>
 </table>
   </body>
-  
-  <script>
-  
-     userRecord();
-    
-  </script>
-  
 </html>
 

@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class ShareArticle {
     private Integer id;
-
     /**
      * 分享内容表id
      */
@@ -56,22 +55,15 @@ public class ShareArticle {
         this.id = id;
     }
 
-    /**
-     * @return 分享内容表id
-     */
-    public Integer getArticleId() {
-        return articleId;
-    }
+	public Integer getArticleId() {
+		return articleId;
+	}
 
-    /**
-     * @param articleId 
-	 *            分享内容表id
-     */
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
-    }
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
+	}
 
-    /**
+	/**
      * @return 微信用户id
      */
     public String getUserid() {

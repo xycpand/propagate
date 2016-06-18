@@ -1,6 +1,5 @@
 //(function() {
-		var expire = 60 * 30;
-		
+		var expire = 60 * 60;
 
 	    /**
 		 * 动态加载js
@@ -9,9 +8,9 @@
 		{ 
 			console.log("fileUrl:"+fileUrl);
 	    	var scriptTag = document.getElementById( id ); 
+	    	if (scriptTag) oHead.removeChild(scriptTag); 
 	    	var oHead = document.getElementsByTagName('head').item(0); 
 	    	var oScript= document.createElement("script"); 
-	    	if (scriptTag) oHead.removeChild(scriptTag); 
 	    	oScript.id = id; 
 	    	oScript.type = "text/javascript";
 	    	oScript.onload = oScript.onreadystatechange = function() { 
@@ -22,6 +21,7 @@
 			}; 
 	    	oScript.src=fileUrl ; 
 	    	oHead.appendChild(oScript); 
+	    	console.log(oScript);
 		} 
 		
 		

@@ -1,5 +1,5 @@
-        /**
-		 * shareUrl后面添加x_content,x_sharer参数
+         /**
+		 * shareUrl后面添加articleId,originalUserid参数
 		 * 其中originalUserid为cookie中的userid 
 		 */
 		  var add4share = function(shareUrl){
@@ -12,7 +12,6 @@
 			  }else{
 				  shareUrl += "?" + param;
 			  }
-			  console.log(shareUrl);
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
@@ -22,15 +21,15 @@
 	   	  add4share("http://www.baidu.com/s?ie=utf-8");
 	   	  
 	   	  
-		  var userRecord = function(){
-			  //阅读时的链接
+		  var initUserInfo = function(){
+			   //阅读时的链接
 		        var originalUrl = window.location.href;
 		        //阅读者id
-		        var userid = 1; //之后要换成真正的阅读用户id getUrlParam('userid');
+		        var userid = getUrlParam('userid');
 		        //分享者用户id
-		        var originalUserid = 2;  //之后要换成真正的分享用户id getUrlParam('originalUserid');
+		        var originalUserid =  getUrlParam('originalUserid');
 		        //分享内容表id
-		        var articleId = 3; //getUrlParam('articleId');
+		        var articleId = getUrlParam('articleId');
 		        // 分享类型
 		        var shareType ; 
 		        // 分享目标
@@ -40,25 +39,32 @@
 			   o.setItem('articleId', articleId); 
 			   o.setItem('userid',userid); 
 		  	  
-		  	  //originalUserid为cookie中的userid 
-		      var originalUserid = o.getItem("userid");
-		      var articleId = o.getItem("articleId");
-		      var originalUrl = o.getItem("originalUrl");
-
-		   	  console.log("originalUrl:"+originalUrl); 
-		   	  console.log("userid:"+userid);
-		   	  console.log("originalUserid:"+originalUserid);
-		  	  console.log("articleId:"+articleId);
+		   	  console.log("originalUrl:"+o.getItem("userid")); 
+		   	  console.log("userid:"+o.getItem("userid"));
+		   	  //originalUserid为cookie中的userid 
+		   	  console.log("originalUserid:"+o.getItem("userid"));
+		  	  console.log("articleId:"+o.getItem("userid"));
 		  	 
 		   	  /**
 		   	   * 从url中提取originalUserid参数，如果存在则建立连接，加载另一段js
 		   	   *
 		   	   */
-		  	  if(originalUrl.indexOf("originalUserid") > -1){
-		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid="+userid+"&originalUserid="+originalUserid+"&articleId="+articleId;
+		  	  if(originalUserid){
+		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid="+userid
+		  		+"&originalUrl="+originalUrl+"&originalUserid="+originalUserid;
+		  		 if(articleId){
+		  			userappendJSUrl+="&articleId="+articleId;
+		  		 }
 		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 		  		 loadJS("userappend",userappendJSUrl);
 		  	  }
+		  	 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid=1"
+		  		+"&originalUrl=2&originalUserid=3";
+		  		 if(articleId){
+		  			userappendJSUrl+="&articleId="+articleId;
+		  		 }
+		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
+		  		 loadJS("userappend",userappendJSUrl);
 		  }
 		  
 		  
@@ -67,10 +73,14 @@
 	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
 	   	  var sendUserInfo =  function(userinfo){
 	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
-	   			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
+	   			 + "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
 	   			 + "&unionid=xxxx&articleId=xxxx";
 				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 				 loadJS("userappend",userinfoJsUrl);
 	   	  }
+	   	  
+	   	  //初始化用户信息
+	     initUserInfo();
+	     
 	    	 
   
