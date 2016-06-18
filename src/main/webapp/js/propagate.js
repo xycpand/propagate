@@ -6,7 +6,10 @@
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
 			  var originalUserid = o.getItem("userid");
-			  var param = "articleId="+articleId+"&originalUserid="+originalUserid;
+			  var param = "originalUserid="+originalUserid;
+			  if(articleId){
+				  param+="&articleId="+articleId;
+		  	  }
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl += "&" + param;
 			  }else{
@@ -20,7 +23,19 @@
 	   	  add4share("https://www.baidu.com/");
 	   	  add4share("http://www.baidu.com/s?ie=utf-8");
 	   	  
+	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
+	   	  var sendUserInfo =  function(userinfo){
+	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
+	   			 + "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
+	   			 + "&unionid=xxxx&articleId=xxxx";
+				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+				 loadJS("userappend",userinfoJsUrl);
+	   	  }
 	   	  
+	   	  
+	        /**
+			 * 初始化信息
+			 */
 		  var initUserInfo = function(){
 			   //阅读时的链接
 		        var originalUrl = window.location.href;
@@ -45,9 +60,18 @@
 		   	  console.log("originalUserid:"+o.getItem("userid"));
 		  	  console.log("articleId:"+o.getItem("userid"));
 		  	 
+		  	  //加载userrecord.js
+		  	 var jsUrl = getRootPath()+"/userRecord/userrecord.js?userid="+userid
+		  		 +"&originalUrl="+originalUrl+"&originalUserid="+originalUserid;
+		  		 if(articleId){
+		  			jsUrl+="&articleId="+articleId;
+		  		 }
+		  		 console.log("userrecord.js:"+jsUrl);
+		  		 loadJS("userrecord",jsUrl);
+		  	  
+		  	  
 		   	  /**
 		   	   * 从url中提取originalUserid参数，如果存在则建立连接，加载另一段js
-		   	   *
 		   	   */
 		  	  if(originalUserid){
 		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid="+userid
@@ -58,26 +82,9 @@
 		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 		  		 loadJS("userappend",userappendJSUrl);
 		  	  }
-		  	 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid=1"
-		  		+"&originalUrl=2&originalUserid=3";
-		  		 if(articleId){
-		  			userappendJSUrl+="&articleId="+articleId;
-		  		 }
-		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
-		  		 loadJS("userappend",userappendJSUrl);
-		  }
+		  }//end of initUserInfo
 		  
-		  
-		  
-	    	  
-	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
-	   	  var sendUserInfo =  function(userinfo){
-	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
-	   			 + "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
-	   			 + "&unionid=xxxx&articleId=xxxx";
-				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
-				 loadJS("userappend",userinfoJsUrl);
-	   	  }
+	   	
 	   	  
 	   	  //初始化用户信息
 	     initUserInfo();
