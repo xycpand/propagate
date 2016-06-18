@@ -9,7 +9,7 @@ public class WxUser {
 
     private String nickname;
 
-    private String sex;
+    private Integer sex;
 
     private String language;
 
@@ -67,12 +67,11 @@ public class WxUser {
         this.nickname = nickname == null ? null : nickname.trim();
     }
 
-
-    public String getSex() {
+	public Integer getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 
