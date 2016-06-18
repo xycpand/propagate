@@ -1,11 +1,9 @@
 package com.hummingbird.propagate.services;
 
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
-import com.hummingbird.propagate.vo.SaveUserRecordVO;
 
 /**
  * @author panda
@@ -40,20 +38,6 @@ public interface UserRecordService {
 	 */
 	public String saveUserInfo(SaveUserInfoVO vo) throws BusinessException;
 	
-	/**
-	 * 保存用户浏览记录
-	 * @param vo
-	 * @throws BusinessException
-	 */
-	public void saveUserRecord(AskByJS vo) throws BusinessException;
-	
-	/**
-	 * 保存用户浏览记录
-	 * @param appId
-	 * @param vo
-	 * @throws BusinessException
-	 */
-	public void saveUserRecord(String appId,SaveUserRecordVO vo) throws BusinessException;
 	
 
 }

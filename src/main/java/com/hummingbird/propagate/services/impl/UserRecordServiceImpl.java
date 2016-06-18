@@ -12,26 +12,20 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Strings;
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
-import com.hummingbird.propagate.entity.UserRecord;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
-import com.hummingbird.propagate.mapper.UserRecordMapper;
 import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
-import com.hummingbird.propagate.vo.SaveUserRecordVO;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -40,8 +34,6 @@ public class UserRecordServiceImpl implements UserRecordService{
 
 	@Autowired
 	TokenService tokenSrv;
-	@Autowired
-	UserRecordMapper userRecordDao;
 	@Autowired
 	WxUserService wxUserService;
 	@Autowired
@@ -120,46 +112,6 @@ public class UserRecordServiceImpl implements UserRecordService{
 			log.debug("保存用户浏览记录失败。");
 		}
 		return jsScript;
-	}
-
-	@Override
-	public void saveUserRecord(AskByJS vo){
-		try{
-	        //保存用户浏览记录
-			UserRecord userRecord = new UserRecord();
-			userRecord.setReaderId(vo.getX_reader());
-			//这里的 x_reader和  x_sharer 就建立了传播关系
-			userRecord.setSharerId(vo.getX_sharer());
-			userRecord.setContentId(vo.getX_content());
-			userRecord.setInsertTime(new Date());
-			userRecord.setUpdateTime(new Date());
-			userRecordDao.insert(userRecord);
-		}catch(Exception e){
-			e.printStackTrace();
-			log.debug("保存用户浏览记录失败。");
-		}
-	}
-	
-
-	@Override
-	public void saveUserRecord(String appId, SaveUserRecordVO vo) throws BusinessException {
-		try{
-			//根据token获取openid
-			String openid = wxUserService.getOpenidByUserId(vo.getToken(), appId);
-			
-			UserRecord userRecord = new UserRecord();
-			userRecord.setReaderId(openid);
-			userRecord.setSharerId(vo.getX_sharer());
-			userRecord.setContentId(vo.getX_content());
-			userRecord.setInsertTime(new Date());
-			userRecord.setUpdateTime(new Date());
-			//保存用户浏览记录
-			userRecordDao.insert(userRecord);
-			
-		}catch(DataAccessException e){
-			e.printStackTrace();
-			throw new BusinessException("保存用户浏览记录失败。");
-		}
 	}
 
 	  public static void main(String[] args)throws Exception{  

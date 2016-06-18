@@ -37,6 +37,16 @@
 	   	    return(localhostPaht+projectName);
 	   	}
 	    
+		/**
+		 * 获取上下文路径
+		 */
+		function getContextPath() {
+		    var pathName = document.location.pathname;
+		    var index = pathName.substr(1).indexOf("/");
+		    var result = pathName.substr(0,index+1);
+		    return result;
+		}
+
 		
 		/**
 		 * 获取当前URL参数值

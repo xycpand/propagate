@@ -1,8 +1,8 @@
-         /**
+      /**
 		 * shareUrl后面添加articleId,originalUserid参数
 		 * 其中originalUserid为cookie中的userid 
 		 */
-		  var add4share = function(shareUrl){
+		var add4share = function(shareUrl){
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
 			  var originalUserid = o.getItem("userid");
@@ -15,13 +15,12 @@
 			  }else{
 				  shareUrl += "?" + param;
 			  }
+			  console.log(shareUrl);
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
 		  //测试add4share
-	   	  add4share(getRootPath(window.location.href)+"/userRecord/userappend.js");
-	   	  add4share("https://www.baidu.com/");
-	   	  add4share("http://www.baidu.com/s?ie=utf-8");
+	   	  add4share(getRootPath()+"/userRecord/userappend.js");
 	   	  
 	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
 	   	  var sendUserInfo =  function(userinfo){
