@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <!--     通过代码加载js内容 -->
 	 <%--  <script type="text/javascript" src='<%=basePath%>userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
       --%><!--     直接通过路径访问js内容-->	
-	  <script src="<%=path%>/js/userrecord.js" type="text/javascript"></script>		
+	  <script src="<%=path%>/js/propagate.js" type="text/javascript"></script>		
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -47,9 +47,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
 	    <td>
-	       <a href="<%=basePath%>userRecord/userrecord.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">请求userrecord.js内容</a>
-	       <a href="<%=basePath%>userRecord/userappend.js?x_reader=op3Eiwm0MUHS3BfHiip58JF5lb-&x_sharer=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=abc">请求userappend.js内容</a>
-	       <a href="<%=basePath%>userRecord/userinfo.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">请求userinfo.js内容</a>
+	      <!--测试 保存用户阅读记录 -->
+	       <a href="<%=basePath%>userRecord/userrecord.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userrecord.js内容</a>
+	      <!--测试 保存用户分享记录 -->
+	       <a href="<%=basePath%>userRecord/userappend.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userappend.js内容</a>
+	      <!--测试 上报微信用户信息  -->
+	       <a href="<%=basePath%>userRecord/userinfo.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">测试请求userinfo.js内容</a>
 	    </td>
 	</tr>
 </table>

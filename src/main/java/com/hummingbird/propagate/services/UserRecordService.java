@@ -2,6 +2,8 @@ package com.hummingbird.propagate.services;
 
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.AskByJS;
+import com.hummingbird.propagate.entity.ReadArticle;
+import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
 
@@ -14,12 +16,21 @@ public interface UserRecordService {
 
 	
 	/**
-	 * js方式请求数据
+	 * 保存文章阅读记录
 	 * @param vo
 	 * @return
 	 * @throws BusinessException
 	 */
-	public String askByJS(AskByJS vo) throws BusinessException;
+	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException;
+	
+	/**
+	 * 保存文章分享记录
+	 * @param vo
+	 * @return
+	 * @throws BusinessException
+	 */
+	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException;
+	
 	
 	/**
 	 * 上报微信消息

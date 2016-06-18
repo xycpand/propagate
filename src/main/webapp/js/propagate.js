@@ -1,5 +1,17 @@
-   	
-	    /**
+         //阅读时的链接
+        var originalUrl = window.location.href;
+        //阅读者id
+        var userid;
+        //分享者用户id
+        var originalUserid ;  
+        //分享内容表id
+        var articleId ;
+        // 分享类型
+        var shareType ; 
+        // 分享目标
+        var shareTarget ;          
+        
+        /**
 		 * shareUrl后面添加x_content,x_sharer参数
 		 * 其中x_sharer为cookie中的x_reader 
 		 */
@@ -26,7 +38,6 @@
 	   	  
 	   	  
 		  var userRecord = function(){
-			  var originalUrl = window.location.href;
 		  	  var x_reader = getUrlParam('x_reader');
 		  	  
 		  	  //缓存参数：把链接url,内容id,阅读者openid保存到cookie中

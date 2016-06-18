@@ -15,6 +15,8 @@ import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
 import com.hummingbird.propagate.entity.AskByJS;
+import com.hummingbird.propagate.entity.ReadArticle;
+import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 import com.hummingbird.propagate.vo.SaveUserRecordVO;
@@ -36,10 +38,10 @@ public class UserRecordController extends BaseController  {
 	 * @return
 	 */
 	@RequestMapping(value = "/userrecord.js")
-	public void  askByJS(HttpServletRequest request,
-			HttpServletResponse response,AskByJS vo) {
+	public void  saveReadArticleRecord(HttpServletRequest request,
+			HttpServletResponse response,ReadArticle vo) {
 		try {
-			String jsContent = userRecordService.askByJS(vo);
+			String jsContent = userRecordService.saveReadArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
@@ -59,9 +61,9 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userappend.js")
 	public void  userappend(HttpServletRequest request,
-			HttpServletResponse response,AskByJS vo) {
+			HttpServletResponse response,ShareArticle vo) {
 		try {
-			String jsContent = userRecordService.askByJS(vo);
+			String jsContent = userRecordService.saveShareArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();

@@ -1,34 +1,27 @@
 package com.hummingbird.propagate.services.impl;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.nio.file.Files.readAllBytes;  
-import static java.nio.file.Paths.get;  
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.propagate.entity.AskByJS;
-import com.hummingbird.propagate.entity.Token;
+import com.hummingbird.propagate.entity.ReadArticle;
+import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.UserRecord;
+import com.hummingbird.propagate.mapper.ReadArticleMapper;
+import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.mapper.UserRecordMapper;
 import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
@@ -50,18 +43,38 @@ public class UserRecordServiceImpl implements UserRecordService{
 	WxUserService wxUserService;
 	@Autowired
 	ArticleService articleService;
-
+	@Autowired
+	ReadArticleMapper readArticleDao;
+	@Autowired
+	ShareArticleMapper shareArticleDao;
+	
 	@Override
-	public String askByJS(AskByJS vo) throws BusinessException {
-		
+	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
 		String jsScript = loadJS();  
-         
-         //保存用户浏览记录失败
-         saveUserRecord(vo);
-         
+		try{
+			 vo.setInsertTime(new Date());
+			 readArticleDao.insert(vo);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			log.debug("保存文章阅读记录失败。");
+		}
 		return jsScript;
 	}
 
+	@Override
+	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException {
+		String jsScript = loadJS();  
+		try{
+			vo.setInsertTime(new Date());
+			shareArticleDao.insert(vo);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			log.debug("保存文章分享记录。");
+		}
+		return jsScript;
+	}
+	
+	
 	private String loadJS() throws BusinessException {
 		List<String> lines = null;
 		String filePath = "C:\\js\\userrecord.js";
@@ -194,6 +207,5 @@ public class UserRecordServiceImpl implements UserRecordService{
 	        }
 	        return target;
 	    }
-	 
 
 }
