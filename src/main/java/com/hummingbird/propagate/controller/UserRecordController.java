@@ -34,7 +34,7 @@ public class UserRecordController extends BaseController  {
 
 	/**
 	 *js方式请求数据
-	 * http://ip:port/propagate/userrecord.js?x_reader=xxxxxxx&x_content=xxxxxxx
+	 * http://ip:port/propagate/userRecord/userrecord.js?x_reader=xxxxxxx&x_content=xxxxxxx
 	 * @return
 	 */
 	@RequestMapping(value = "/userrecord.js")
@@ -55,7 +55,7 @@ public class UserRecordController extends BaseController  {
 
 	/**
 	 * 前端js判断url中是否有x_sharer参数，如果存在则需要通过该方法加载另一段
-	 * http://ip:port/propagate/userappend.js?x_reader=xxxxxxx&x_sharer=xxxxxxx&x_content=xxxxxxx
+	 * http://ip:port/propagate/userRecord/userappend.js?x_reader=xxxxxxx&x_sharer=xxxxxxx&x_content=xxxxxxx
 	 * http://localhost:6060/propagate/userRecord/userappend.js?x_reader=op3Eiwm0MUHS3BfHiip58JF5lb-&x_sharer=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=abc
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class UserRecordController extends BaseController  {
 
 	/**  
 	 * 上报微信消息
-	 * http://ip:port/propagate/userinfo.js?openid=xxxx&nickname=xxxx
+	 * http://ip:port/propagate/userRecord/userinfo.js?openid=xxxx&nickname=xxxx
 	 * &sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx
 	 * &unionid=xxxx&x_content=xxxx
 	 * @return

@@ -55,8 +55,6 @@
 			return n[1]
 		};
 
-	 console.log("处理前：http://localhost:6060/propagate/index.jsp");
-	 console.log("getUrlFromHttp处理后: "+getUrlFromHttp("http://localhost:6060/propagate/index.jsp"));
 		
 		var getDomain = function(e) {
 			if (!e) return "";
