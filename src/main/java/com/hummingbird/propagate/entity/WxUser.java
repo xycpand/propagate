@@ -21,7 +21,7 @@ public class WxUser {
 
     private String headimgurl;
 
-    private Integer subscribe_time;
+    private Integer subscribeTime;
 
     private String unionid;
 
@@ -31,17 +31,17 @@ public class WxUser {
 
     private Integer groupid;
 
-    private Date insert_time;
+    private Date insertTime;
 
-    private Date update_time;
+    private Date updateTime;
 
-    private String qr_ticket;
+    private String qrTicket;
 
-    private Integer qr_expire_seconds;
+    private Integer qrExpireSeconds;
 
-    private Integer qr_create_time;
+    private Integer qrCreateTime;
 
-    private String tagid_list;
+    private String tagidList;
 
     public Integer getUserid() {
         return userid;
@@ -115,12 +115,12 @@ public class WxUser {
         this.headimgurl = headimgurl == null ? null : headimgurl.trim();
     }
 
-    public Integer getSubscribe_time() {
-        return subscribe_time;
+    public Integer getSubscribeTime() {
+        return subscribeTime;
     }
 
-    public void setSubscribe_time(Integer subscribe_time) {
-        this.subscribe_time = subscribe_time;
+    public void setSubscribeTime(Integer subscribeTime) {
+        this.subscribeTime = subscribeTime;
     }
 
     public String getUnionid() {
@@ -155,52 +155,52 @@ public class WxUser {
         this.groupid = groupid;
     }
 
-    public Date getInsert_time() {
-        return insert_time;
+    public Date getInsertTime() {
+        return insertTime;
     }
 
-    public void setInsert_time(Date insert_time) {
-        this.insert_time = insert_time;
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getQr_ticket() {
-        return qr_ticket;
+    public String getQrTicket() {
+        return qrTicket;
     }
 
-    public void setQr_ticket(String qr_ticket) {
-        this.qr_ticket = qr_ticket == null ? null : qr_ticket.trim();
+    public void setQrTicket(String qrTicket) {
+        this.qrTicket = qrTicket == null ? null : qrTicket.trim();
     }
 
-    public Integer getQr_expire_seconds() {
-        return qr_expire_seconds;
+    public Integer getQrExpireSeconds() {
+        return qrExpireSeconds;
     }
 
-    public void setQr_expire_seconds(Integer qr_expire_seconds) {
-        this.qr_expire_seconds = qr_expire_seconds;
+    public void setQrExpireSeconds(Integer qrExpireSeconds) {
+        this.qrExpireSeconds = qrExpireSeconds;
     }
 
-    public Integer getQr_create_time() {
-        return qr_create_time;
+    public Integer getQrCreateTime() {
+        return qrCreateTime;
     }
 
-    public void setQr_create_time(Integer qr_create_time) {
-        this.qr_create_time = qr_create_time;
+    public void setQrCreateTime(Integer qrCreateTime) {
+        this.qrCreateTime = qrCreateTime;
     }
 
-    public String getTagid_list() {
-        return tagid_list;
+    public String getTagidList() {
+        return tagidList;
     }
 
-    public void setTagid_list(String tagid_list) {
-        this.tagid_list = tagid_list == null ? null : tagid_list.trim();
+    public void setTagidList(String tagidList) {
+        this.tagidList = tagidList == null ? null : tagidList.trim();
     }
 
     @Override
@@ -224,17 +224,17 @@ public class WxUser {
             && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
             && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()))
             && (this.getHeadimgurl() == null ? other.getHeadimgurl() == null : this.getHeadimgurl().equals(other.getHeadimgurl()))
-            && (this.getSubscribe_time() == null ? other.getSubscribe_time() == null : this.getSubscribe_time().equals(other.getSubscribe_time()))
+            && (this.getSubscribeTime() == null ? other.getSubscribeTime() == null : this.getSubscribeTime().equals(other.getSubscribeTime()))
             && (this.getUnionid() == null ? other.getUnionid() == null : this.getUnionid().equals(other.getUnionid()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getSubscribe() == null ? other.getSubscribe() == null : this.getSubscribe().equals(other.getSubscribe()))
             && (this.getGroupid() == null ? other.getGroupid() == null : this.getGroupid().equals(other.getGroupid()))
-            && (this.getInsert_time() == null ? other.getInsert_time() == null : this.getInsert_time().equals(other.getInsert_time()))
-            && (this.getUpdate_time() == null ? other.getUpdate_time() == null : this.getUpdate_time().equals(other.getUpdate_time()))
-            && (this.getQr_ticket() == null ? other.getQr_ticket() == null : this.getQr_ticket().equals(other.getQr_ticket()))
-            && (this.getQr_expire_seconds() == null ? other.getQr_expire_seconds() == null : this.getQr_expire_seconds().equals(other.getQr_expire_seconds()))
-            && (this.getQr_create_time() == null ? other.getQr_create_time() == null : this.getQr_create_time().equals(other.getQr_create_time()))
-            && (this.getTagid_list() == null ? other.getTagid_list() == null : this.getTagid_list().equals(other.getTagid_list()));
+            && (this.getInsertTime() == null ? other.getInsertTime() == null : this.getInsertTime().equals(other.getInsertTime()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getQrTicket() == null ? other.getQrTicket() == null : this.getQrTicket().equals(other.getQrTicket()))
+            && (this.getQrExpireSeconds() == null ? other.getQrExpireSeconds() == null : this.getQrExpireSeconds().equals(other.getQrExpireSeconds()))
+            && (this.getQrCreateTime() == null ? other.getQrCreateTime() == null : this.getQrCreateTime().equals(other.getQrCreateTime()))
+            && (this.getTagidList() == null ? other.getTagidList() == null : this.getTagidList().equals(other.getTagidList()));
     }
 
     @Override
@@ -250,17 +250,17 @@ public class WxUser {
         result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
         result = prime * result + ((getCountry() == null) ? 0 : getCountry().hashCode());
         result = prime * result + ((getHeadimgurl() == null) ? 0 : getHeadimgurl().hashCode());
-        result = prime * result + ((getSubscribe_time() == null) ? 0 : getSubscribe_time().hashCode());
+        result = prime * result + ((getSubscribeTime() == null) ? 0 : getSubscribeTime().hashCode());
         result = prime * result + ((getUnionid() == null) ? 0 : getUnionid().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getSubscribe() == null) ? 0 : getSubscribe().hashCode());
         result = prime * result + ((getGroupid() == null) ? 0 : getGroupid().hashCode());
-        result = prime * result + ((getInsert_time() == null) ? 0 : getInsert_time().hashCode());
-        result = prime * result + ((getUpdate_time() == null) ? 0 : getUpdate_time().hashCode());
-        result = prime * result + ((getQr_ticket() == null) ? 0 : getQr_ticket().hashCode());
-        result = prime * result + ((getQr_expire_seconds() == null) ? 0 : getQr_expire_seconds().hashCode());
-        result = prime * result + ((getQr_create_time() == null) ? 0 : getQr_create_time().hashCode());
-        result = prime * result + ((getTagid_list() == null) ? 0 : getTagid_list().hashCode());
+        result = prime * result + ((getInsertTime() == null) ? 0 : getInsertTime().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getQrTicket() == null) ? 0 : getQrTicket().hashCode());
+        result = prime * result + ((getQrExpireSeconds() == null) ? 0 : getQrExpireSeconds().hashCode());
+        result = prime * result + ((getQrCreateTime() == null) ? 0 : getQrCreateTime().hashCode());
+        result = prime * result + ((getTagidList() == null) ? 0 : getTagidList().hashCode());
         return result;
     }
 }

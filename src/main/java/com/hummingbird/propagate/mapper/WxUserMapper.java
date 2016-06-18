@@ -1,7 +1,5 @@
 package com.hummingbird.propagate.mapper;
 
-import org.springframework.dao.DataAccessException;
-
 import com.hummingbird.propagate.entity.WxUser;
 
 public interface WxUserMapper {
@@ -23,7 +21,7 @@ public interface WxUserMapper {
     /**
      * 根据主键查询记录
      */
-    WxUser selectByPrimaryKey(Integer userid)throws DataAccessException;
+    WxUser selectByPrimaryKey(Integer userid);
 
     /**
      * 根据主键更新属性不为空的记录

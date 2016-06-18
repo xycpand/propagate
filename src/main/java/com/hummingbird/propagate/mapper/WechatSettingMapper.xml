@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.propagate.mapper.WechatSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.WechatSetting" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="appid" property="appid" jdbcType="CHAR" />
+    <result column="appsecret" property="appsecret" jdbcType="CHAR" />
+    <result column="token" property="token" jdbcType="CHAR" />
+    <result column="encodingaeskey" property="encodingaeskey" jdbcType="VARCHAR" />
+    <result column="debug" property="debug" jdbcType="TINYINT" />
+    <result column="logcallback" property="logcallback" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mer_id" property="merId" jdbcType="VARCHAR" />
+    <result column="mer_key" property="merKey" jdbcType="VARCHAR" />
+    <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+    <result column="expires_in" property="expiresIn" jdbcType="INTEGER" />
+    <result column="token_ctime" property="tokenCtime" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, appid, appsecret, token, encodingaeskey, debug, logcallback, name, mer_id, mer_key, 
+    access_token, expires_in, token_ctime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wechat_setting
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_wechat_setting
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.WechatSetting" >
+    insert into t_wechat_setting (id, appid, appsecret, 
+      token, encodingaeskey, debug, 
+      logcallback, name, mer_id, 
+      mer_key, access_token, expires_in, 
+      token_ctime)
+    values (#{id,jdbcType=INTEGER}, #{appid,jdbcType=CHAR}, #{appsecret,jdbcType=CHAR}, 
+      #{token,jdbcType=CHAR}, #{encodingaeskey,jdbcType=VARCHAR}, #{debug,jdbcType=TINYINT}, 
+      #{logcallback,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{merId,jdbcType=VARCHAR}, 
+      #{merKey,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR}, #{expiresIn,jdbcType=INTEGER}, 
+      #{tokenCtime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.WechatSetting" >
+    insert into t_wechat_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="appsecret != null" >
+        appsecret,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="encodingaeskey != null" >
+        encodingaeskey,
+      </if>
+      <if test="debug != null" >
+        debug,
+      </if>
+      <if test="logcallback != null" >
+        logcallback,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="merId != null" >
+        mer_id,
+      </if>
+      <if test="merKey != null" >
+        mer_key,
+      </if>
+      <if test="accessToken != null" >
+        access_token,
+      </if>
+      <if test="expiresIn != null" >
+        expires_in,
+      </if>
+      <if test="tokenCtime != null" >
+        token_ctime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=CHAR},
+      </if>
+      <if test="appsecret != null" >
+        #{appsecret,jdbcType=CHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=CHAR},
+      </if>
+      <if test="encodingaeskey != null" >
+        #{encodingaeskey,jdbcType=VARCHAR},
+      </if>
+      <if test="debug != null" >
+        #{debug,jdbcType=TINYINT},
+      </if>
+      <if test="logcallback != null" >
+        #{logcallback,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="merId != null" >
+        #{merId,jdbcType=VARCHAR},
+      </if>
+      <if test="merKey != null" >
+        #{merKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="tokenCtime != null" >
+        #{tokenCtime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.WechatSetting" >
+    update t_wechat_setting
+    <set >
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=CHAR},
+      </if>
+      <if test="appsecret != null" >
+        appsecret = #{appsecret,jdbcType=CHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=CHAR},
+      </if>
+      <if test="encodingaeskey != null" >
+        encodingaeskey = #{encodingaeskey,jdbcType=VARCHAR},
+      </if>
+      <if test="debug != null" >
+        debug = #{debug,jdbcType=TINYINT},
+      </if>
+      <if test="logcallback != null" >
+        logcallback = #{logcallback,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="merId != null" >
+        mer_id = #{merId,jdbcType=VARCHAR},
+      </if>
+      <if test="merKey != null" >
+        mer_key = #{merKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        expires_in = #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="tokenCtime != null" >
+        token_ctime = #{tokenCtime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.WechatSetting" >
+    update t_wechat_setting
+    set appid = #{appid,jdbcType=CHAR},
+      appsecret = #{appsecret,jdbcType=CHAR},
+      token = #{token,jdbcType=CHAR},
+      encodingaeskey = #{encodingaeskey,jdbcType=VARCHAR},
+      debug = #{debug,jdbcType=TINYINT},
+      logcallback = #{logcallback,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      mer_id = #{merId,jdbcType=VARCHAR},
+      mer_key = #{merKey,jdbcType=VARCHAR},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      expires_in = #{expiresIn,jdbcType=INTEGER},
+      token_ctime = #{tokenCtime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -26,7 +26,7 @@ public class ArticleServiceImpl implements ArticleService{
 	WxUserMapper wxUserDao;
 	
 	@Override
-	public Article selectArticleById(Long id) throws BusinessException {
+	public Article selectArticleById(String id) throws BusinessException {
 		Article article = null;
 		try{
 			article = articleDao.selectByPrimaryKey(id);
@@ -39,7 +39,7 @@ public class ArticleServiceImpl implements ArticleService{
 	
 
 	@Override
-	public Article checkArticleById(Long id) throws BusinessException {
+	public Article checkArticleById(String id) throws BusinessException {
 		Article article = null;
 		try{
 			article = articleDao.selectByPrimaryKey(id);

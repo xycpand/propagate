@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hummingbird.propagate.mapper.ShareArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ShareArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="CHAR" />
+    <result column="original_url" property="originalUrl" jdbcType="VARCHAR" />
+    <result column="original_userid" property="originalUserid" jdbcType="CHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="share_type" property="shareType" jdbcType="VARCHAR" />
+    <result column="share_time" property="shareTime" jdbcType="TIMESTAMP" />
+    <result column="share_target" property="shareTarget" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_id, userid, original_url, original_userid, insert_time, share_type, share_time, 
+    share_target
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_share_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_share_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.ShareArticle" >
+    insert into t_share_article (id, article_id, userid, 
+      original_url, original_userid, insert_time, 
+      share_type, share_time, share_target
+      )
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{userid,jdbcType=CHAR}, 
+      #{originalUrl,jdbcType=VARCHAR}, #{originalUserid,jdbcType=CHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{shareType,jdbcType=VARCHAR}, #{shareTime,jdbcType=TIMESTAMP}, #{shareTarget,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.ShareArticle" >
+    insert into t_share_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="originalUrl != null" >
+        original_url,
+      </if>
+      <if test="originalUserid != null" >
+        original_userid,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="shareType != null" >
+        share_type,
+      </if>
+      <if test="shareTime != null" >
+        share_time,
+      </if>
+      <if test="shareTarget != null" >
+        share_target,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=CHAR},
+      </if>
+      <if test="originalUrl != null" >
+        #{originalUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="originalUserid != null" >
+        #{originalUserid,jdbcType=CHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null" >
+        #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTime != null" >
+        #{shareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareTarget != null" >
+        #{shareTarget,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.ShareArticle" >
+    update t_share_article
+    <set >
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=CHAR},
+      </if>
+      <if test="originalUrl != null" >
+        original_url = #{originalUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="originalUserid != null" >
+        original_userid = #{originalUserid,jdbcType=CHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareType != null" >
+        share_type = #{shareType,jdbcType=VARCHAR},
+      </if>
+      <if test="shareTime != null" >
+        share_time = #{shareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareTarget != null" >
+        share_target = #{shareTarget,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ShareArticle" >
+    update t_share_article
+    set article_id = #{articleId,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=CHAR},
+      original_url = #{originalUrl,jdbcType=VARCHAR},
+      original_userid = #{originalUserid,jdbcType=CHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      share_type = #{shareType,jdbcType=VARCHAR},
+      share_time = #{shareTime,jdbcType=TIMESTAMP},
+      share_target = #{shareTarget,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

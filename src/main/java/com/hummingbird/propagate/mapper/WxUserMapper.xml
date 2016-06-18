@@ -11,19 +11,19 @@
     <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="country" property="country" jdbcType="VARCHAR" />
     <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
-    <result column="subscribe_time" property="subscribe_time" jdbcType="INTEGER" />
+    <result column="subscribe_time" property="subscribeTime" jdbcType="INTEGER" />
     <result column="unionid" property="unionid" jdbcType="CHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="subscribe" property="subscribe" jdbcType="TINYINT" />
     <result column="groupid" property="groupid" jdbcType="INTEGER" />
-    <result column="insert_time" property="insert_time" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
-    <result column="qr_ticket" property="qr_ticket" jdbcType="VARCHAR" />
-    <result column="qr_expire_seconds" property="qr_expire_seconds" jdbcType="INTEGER" />
-    <result column="qr_create_time" property="qr_create_time" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="qr_ticket" property="qrTicket" jdbcType="VARCHAR" />
+    <result column="qr_expire_seconds" property="qrExpireSeconds" jdbcType="INTEGER" />
+    <result column="qr_create_time" property="qrCreateTime" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.propagate.entity.WxUser" extends="BaseResultMap" >
-    <result column="tagid_list" property="tagid_list" jdbcType="LONGVARCHAR" />
+    <result column="tagid_list" property="tagidList" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     userid, openid, nickname, sex, language, city, province, country, headimgurl, subscribe_time, 
@@ -55,11 +55,11 @@
       tagid_list)
     values (#{userid,jdbcType=INTEGER}, #{openid,jdbcType=CHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{sex,jdbcType=TINYINT}, #{language,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
-      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribe_time,jdbcType=INTEGER}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=INTEGER}, 
       #{unionid,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{subscribe,jdbcType=TINYINT}, 
-      #{groupid,jdbcType=INTEGER}, #{insert_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, 
-      #{qr_ticket,jdbcType=VARCHAR}, #{qr_expire_seconds,jdbcType=INTEGER}, #{qr_create_time,jdbcType=INTEGER}, 
-      #{tagid_list,jdbcType=LONGVARCHAR})
+      #{groupid,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{qrTicket,jdbcType=VARCHAR}, #{qrExpireSeconds,jdbcType=INTEGER}, #{qrCreateTime,jdbcType=INTEGER}, 
+      #{tagidList,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.WxUser" >
     insert into t_wx_user
@@ -91,7 +91,7 @@
       <if test="headimgurl != null" >
         headimgurl,
       </if>
-      <if test="subscribe_time != null" >
+      <if test="subscribeTime != null" >
         subscribe_time,
       </if>
       <if test="unionid != null" >
@@ -106,22 +106,22 @@
       <if test="groupid != null" >
         groupid,
       </if>
-      <if test="insert_time != null" >
+      <if test="insertTime != null" >
         insert_time,
       </if>
-      <if test="update_time != null" >
+      <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="qr_ticket != null" >
+      <if test="qrTicket != null" >
         qr_ticket,
       </if>
-      <if test="qr_expire_seconds != null" >
+      <if test="qrExpireSeconds != null" >
         qr_expire_seconds,
       </if>
-      <if test="qr_create_time != null" >
+      <if test="qrCreateTime != null" >
         qr_create_time,
       </if>
-      <if test="tagid_list != null" >
+      <if test="tagidList != null" >
         tagid_list,
       </if>
     </trim>
@@ -153,8 +153,8 @@
       <if test="headimgurl != null" >
         #{headimgurl,jdbcType=VARCHAR},
       </if>
-      <if test="subscribe_time != null" >
-        #{subscribe_time,jdbcType=INTEGER},
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=INTEGER},
       </if>
       <if test="unionid != null" >
         #{unionid,jdbcType=CHAR},
@@ -168,23 +168,23 @@
       <if test="groupid != null" >
         #{groupid,jdbcType=INTEGER},
       </if>
-      <if test="insert_time != null" >
-        #{insert_time,jdbcType=TIMESTAMP},
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="update_time != null" >
-        #{update_time,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="qr_ticket != null" >
-        #{qr_ticket,jdbcType=VARCHAR},
+      <if test="qrTicket != null" >
+        #{qrTicket,jdbcType=VARCHAR},
       </if>
-      <if test="qr_expire_seconds != null" >
-        #{qr_expire_seconds,jdbcType=INTEGER},
+      <if test="qrExpireSeconds != null" >
+        #{qrExpireSeconds,jdbcType=INTEGER},
       </if>
-      <if test="qr_create_time != null" >
-        #{qr_create_time,jdbcType=INTEGER},
+      <if test="qrCreateTime != null" >
+        #{qrCreateTime,jdbcType=INTEGER},
       </if>
-      <if test="tagid_list != null" >
-        #{tagid_list,jdbcType=LONGVARCHAR},
+      <if test="tagidList != null" >
+        #{tagidList,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -215,8 +215,8 @@
       <if test="headimgurl != null" >
         headimgurl = #{headimgurl,jdbcType=VARCHAR},
       </if>
-      <if test="subscribe_time != null" >
-        subscribe_time = #{subscribe_time,jdbcType=INTEGER},
+      <if test="subscribeTime != null" >
+        subscribe_time = #{subscribeTime,jdbcType=INTEGER},
       </if>
       <if test="unionid != null" >
         unionid = #{unionid,jdbcType=CHAR},
@@ -230,23 +230,23 @@
       <if test="groupid != null" >
         groupid = #{groupid,jdbcType=INTEGER},
       </if>
-      <if test="insert_time != null" >
-        insert_time = #{insert_time,jdbcType=TIMESTAMP},
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="update_time != null" >
-        update_time = #{update_time,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="qr_ticket != null" >
-        qr_ticket = #{qr_ticket,jdbcType=VARCHAR},
+      <if test="qrTicket != null" >
+        qr_ticket = #{qrTicket,jdbcType=VARCHAR},
       </if>
-      <if test="qr_expire_seconds != null" >
-        qr_expire_seconds = #{qr_expire_seconds,jdbcType=INTEGER},
+      <if test="qrExpireSeconds != null" >
+        qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
       </if>
-      <if test="qr_create_time != null" >
-        qr_create_time = #{qr_create_time,jdbcType=INTEGER},
+      <if test="qrCreateTime != null" >
+        qr_create_time = #{qrCreateTime,jdbcType=INTEGER},
       </if>
-      <if test="tagid_list != null" >
-        tagid_list = #{tagid_list,jdbcType=LONGVARCHAR},
+      <if test="tagidList != null" >
+        tagid_list = #{tagidList,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where userid = #{userid,jdbcType=INTEGER}
@@ -261,17 +261,17 @@
       province = #{province,jdbcType=VARCHAR},
       country = #{country,jdbcType=VARCHAR},
       headimgurl = #{headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{subscribe_time,jdbcType=INTEGER},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
       unionid = #{unionid,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},
       subscribe = #{subscribe,jdbcType=TINYINT},
       groupid = #{groupid,jdbcType=INTEGER},
-      insert_time = #{insert_time,jdbcType=TIMESTAMP},
-      update_time = #{update_time,jdbcType=TIMESTAMP},
-      qr_ticket = #{qr_ticket,jdbcType=VARCHAR},
-      qr_expire_seconds = #{qr_expire_seconds,jdbcType=INTEGER},
-      qr_create_time = #{qr_create_time,jdbcType=INTEGER},
-      tagid_list = #{tagid_list,jdbcType=LONGVARCHAR}
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      qr_ticket = #{qrTicket,jdbcType=VARCHAR},
+      qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
+      qr_create_time = #{qrCreateTime,jdbcType=INTEGER},
+      tagid_list = #{tagidList,jdbcType=LONGVARCHAR}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.WxUser" >
@@ -284,16 +284,16 @@
       province = #{province,jdbcType=VARCHAR},
       country = #{country,jdbcType=VARCHAR},
       headimgurl = #{headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{subscribe_time,jdbcType=INTEGER},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
       unionid = #{unionid,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},
       subscribe = #{subscribe,jdbcType=TINYINT},
       groupid = #{groupid,jdbcType=INTEGER},
-      insert_time = #{insert_time,jdbcType=TIMESTAMP},
-      update_time = #{update_time,jdbcType=TIMESTAMP},
-      qr_ticket = #{qr_ticket,jdbcType=VARCHAR},
-      qr_expire_seconds = #{qr_expire_seconds,jdbcType=INTEGER},
-      qr_create_time = #{qr_create_time,jdbcType=INTEGER}
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      qr_ticket = #{qrTicket,jdbcType=VARCHAR},
+      qr_expire_seconds = #{qrExpireSeconds,jdbcType=INTEGER},
+      qr_create_time = #{qrCreateTime,jdbcType=INTEGER}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>
