@@ -1,9 +1,0 @@
-{
-        "objectId":"OBJECT_ID",
-        "objectName":"金域华府2期工程开发",
-        "evaluationAmount":"3000000.00",
-        "companyShortName":"稳健地基",
-        "creditRating":"A##",
-        "objectPredictStartTime":"2015-09-12",
-        "projectExpectPeriod":20
-    }

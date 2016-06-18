@@ -1,7 +1,0 @@
-﻿objectId|是|招标项目内部编号
-objectName|是|标的名称
-evaluationAmount|是|工程标的估计,单位为元
-companyShortName|是|招标人（即公司简称）
-creditRating|是|招标人信用等级
-objectPredictStartTime|是|项目计划开始时间
-projectExpectPeriod|是|工期要求,单位为天

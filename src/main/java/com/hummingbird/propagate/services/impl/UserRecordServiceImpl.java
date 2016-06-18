@@ -26,7 +26,6 @@ import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
-import com.hummingbird.propagate.vo.SaveUserInfoVO;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{

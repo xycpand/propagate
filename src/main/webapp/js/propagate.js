@@ -22,7 +22,6 @@
 		  //测试add4share
 	   	  add4share(getRootPath()+"/userRecord/userappend.js");
 	   	  
-	   	  var user = "微信用户信息";//之后这里要改成 真正的信息参数
 	   	  var sendUserInfo =  function(user){
 	   		  var subscribe;
 	   		  var subscribeTime;
@@ -70,7 +69,6 @@
 		   	  //originalUserid为cookie中的userid 
 		   	  console.log("originalUserid:"+o.getItem("userid"));
 		  	  console.log("articleId:"+o.getItem("userid"));
-		  	 
 		  	  //加载userrecord.js
 		  	 var jsUrl = getRootPath()+"/userRecord/userrecord.js?userid="+userid
 		  		 +"&originalUrl="+originalUrl+"&originalUserid="+originalUserid;
@@ -78,7 +76,7 @@
 		  			jsUrl+="&articleId="+articleId;
 		  		 }
 		  		 console.log("userrecord.js:"+jsUrl);
-		  		// loadJS("userrecord",jsUrl);
+		  		loadJS("userrecord",jsUrl);
 		  	  
 		  	  
 		   	  /**
@@ -95,12 +93,11 @@
 		  	  }
 		  }//end of initUserInfo
 		 
-	   	  
 	   	  //初始化用户信息
 	      initUserInfo(); 
-	      
-		   //测试
-		   sendUserInfo("");
+	      var user = "微信用户信息";//之后这里要改成 真正的信息参数
+		  //测试
+		  sendUserInfo(user);
 	     
 	     
 	     

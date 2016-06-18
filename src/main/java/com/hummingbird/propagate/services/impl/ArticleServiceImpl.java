@@ -5,10 +5,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
-import com.hummingbird.commonbiz.exception.TokenException;
 import com.hummingbird.propagate.entity.Article;
-import com.hummingbird.propagate.entity.Token;
-import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.mapper.ArticleMapper;
 import com.hummingbird.propagate.mapper.WxUserMapper;
 import com.hummingbird.propagate.services.ArticleService;

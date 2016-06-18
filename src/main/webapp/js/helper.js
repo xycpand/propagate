@@ -21,6 +21,7 @@
 			}; 
 	    	oScript.src=fileUrl ; 
 	    	oHead.appendChild(oScript); 
+	    	console.log(id+":");
 	    	console.log(oScript);
 		} 
 		

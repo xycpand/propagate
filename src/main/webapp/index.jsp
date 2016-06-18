@@ -17,8 +17,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	  <script src="<%=path%>/js/helper.js" type="text/javascript"></script>	
 	  <script src="<%=path%>/js/propagate.js" type="text/javascript"></script>
-	  <!--通过代码加载js内容 -->
-	  <script type="text/javascript" src='<%=basePath%>userRecord/userrecord.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&contentId=1'></script>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;

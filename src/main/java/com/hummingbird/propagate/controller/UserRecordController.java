@@ -13,7 +13,6 @@ import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
-import com.hummingbird.propagate.vo.SaveUserInfoVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
