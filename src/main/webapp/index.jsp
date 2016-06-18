@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <!--测试 保存用户分享记录 -->
 	       <a href="<%=basePath%>userRecord/userappend.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userappend.js内容</a>
 	      <!--测试 上报微信用户信息  -->
-	       <a href="<%=basePath%>userRecord/userinfo.js?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_content=1">测试请求userinfo.js内容</a>
+	       <a href="<%=basePath%>userRecord/userinfo.js?openid=1&nickname=小明">测试请求userinfo.js内容</a>
 	    </td>
 	</tr>
 </table>

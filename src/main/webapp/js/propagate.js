@@ -23,15 +23,11 @@
 	   	  add4share(getRootPath()+"/userRecord/userappend.js");
 	   	  
 	   	  var sendUserInfo =  function(user){
-	   		  var subscribe;
-	   		  var subscribeTime;
-	   		  var groupid;
-	   		  var qrExpireSeconds;
-	   		  var qrCreateTime;
 	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=1&nickname=小明" +
-	   		  	  "&language=zh_CN&unionid=1&remark=备注&province=广东省&city=深圳市" +
-	   		  	   "&country=南山区&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
+	   		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
+	   		  	   "&country=中国&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
 	   		  //之后上面写死的参数要改成如下的添加方式
+	   		  if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
 	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
 	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
 	   		  if(user.subscribeTime){  userinfoJsUrl+="&subscribeTime="+user.subscribeTime; }  
@@ -95,6 +91,7 @@
 		 
 	   	  //初始化用户信息
 	      initUserInfo(); 
+	      
 	      var user = "微信用户信息";//之后这里要改成 真正的信息参数
 		  //测试
 		  sendUserInfo(user);
