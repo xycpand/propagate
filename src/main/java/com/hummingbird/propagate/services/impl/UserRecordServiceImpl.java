@@ -11,10 +11,13 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.AskByJS;
 import com.hummingbird.propagate.entity.ReadArticle;
@@ -51,25 +54,31 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
 		String jsScript = loadJS();  
-		try{
-			 vo.setInsertTime(new Date());
-			 readArticleDao.insert(vo);
-		}catch(DataAccessException e){
-			e.printStackTrace();
-			log.debug("保存文章阅读记录失败。");
+		if(StringUtils.isNotEmpty(vo.getUserid())&&vo.getArticleId()!=null){
+			try{
+				 vo.setInsertTime(new Date());
+				 readArticleDao.insert(vo);
+			}catch(DataAccessException e){
+				e.printStackTrace();
+				log.debug("保存文章阅读记录失败。");
+			}
 		}
 		return jsScript;
 	}
-
+	
+	
 	@Override
 	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException {
 		String jsScript = loadJS();  
-		try{
-			vo.setInsertTime(new Date());
-			shareArticleDao.insert(vo);
-		}catch(DataAccessException e){
-			e.printStackTrace();
-			log.debug("保存文章分享记录。");
+		if(StringUtils.isNotEmpty(vo.getUserid())&&vo.getArticleId()!=null
+				&&StringUtils.isNotEmpty(vo.getOriginalUserid())){
+			try{
+				vo.setInsertTime(new Date());
+				shareArticleDao.insert(vo);
+			}catch(DataAccessException e){
+				e.printStackTrace();
+				log.debug("保存文章分享记录。");
+			}
 		}
 		return jsScript;
 	}
