@@ -16,10 +16,10 @@
 		 * 其中x_sharer为cookie中的x_reader 
 		 */
 		  var add4share = function(shareUrl){
-			  var x_content = o.getItem("x_content");
+			  var articleId = o.getItem("articleId");
 			  //x_sharer为cookie中的x_reader 
-			  var x_sharer = o.getItem("x_reader");
-			  var param = "x_content="+x_content+"&x_sharer="+x_sharer;
+			  var originalUserid = o.getItem("userid");
+			  var param = "articleId="+articleId+"&originalUserid="+originalUserid;
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl += "&" + param;
 			  }else{
@@ -28,7 +28,7 @@
 			  console.log(shareUrl);
 		  }; 
 	  
-		  //add4share建立传播关系：x_sharer 传播给 x_reader
+		  //add4share建立传播关系：originalUserid 传播给 userid
 		  
 		  //测试add4share
 	   	  add4share("https://www.baidu.com/");
@@ -38,30 +38,30 @@
 	   	  
 	   	  
 		  var userRecord = function(){
-		  	  var x_reader = getUrlParam('x_reader');
+		  	  var userid = getUrlParam('userid');
 		  	  
 		  	  //缓存参数：把链接url,内容id,阅读者openid保存到cookie中
 			   o.setItem('url', originalUrl); 
-			   o.setItem('x_reader',x_reader); 
-			   o.setItem('x_content', x_content); 
+			   o.setItem('userid',userid); 
+			   o.setItem('articleId', articleId); 
 
 			   o.setItem('test', "test successed"); 
 		  	  
 		  	  
 		  	  //x_sharer为cookie中的x_reader 
-		      var x_sharer = o.getItem("x_reader");
-		      var x_content = o.getItem("x_content");
+		      var originalUserid = o.getItem("userid");
+		      var articleId = o.getItem("articleId");
 		      var url = o.getItem("url");
 
 		   	  console.log("test:"+o.getItem("test")); 
 		   	  console.log("url:"+url); 
-		   	  console.log("x_reader:"+x_reader);
-		   	  console.log("x_sharer:"+x_sharer);
-		  	  console.log("x_content:"+x_content);
+		   	  console.log("userid:"+userid);
+		   	  console.log("originalUserid:"+originalUserid);
+		  	  console.log("articleId:"+articleId);
 		  	 
 		   	  //从url中提取x_sharer参数，如果存在则建立连接，加载另一段js
-		  	  if(originalUrl.indexOf("x_sharer") > -1){
-		  		 var userappendJSUrl = getRootPath()+"/userappend.js?x_reader="+x_reader+"&x_sharer="+x_sharer+"&x_content="+x_content;
+		  	  if(originalUrl.indexOf("originalUserid") > -1){
+		  		 var userappendJSUrl = getRootPath()+"/userappend.js?userid="+userid+"&originalUserid="+originalUserid+"&articleId="+articleId;
 		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 		  		 loadJS("userappend",userappendJSUrl);
 		  	  }
@@ -72,7 +72,7 @@
 	   	  var sendUserInfo =  function(userinfo){
 	   		  var userinfoJsUrl = getRootPath()+ "/userinfo.js?openid=xxxx&nickname=xxxx"
 	   			+ "&sex=xxxx&province=xxxx&city=xxxx&country=xxxx&headimgurl=xxxx&privilege=xxxx"
-	   			 + "&unionid=xxxx&x_content=xxxx";
+	   			 + "&unionid=xxxx&articleId=xxxx";
 				 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 				 loadJS("userappend",userinfoJsUrl);
 	   	  }

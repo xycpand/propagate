@@ -97,6 +97,7 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
+	
 	/**
 	 *保存用户浏览记录
 	 * 
