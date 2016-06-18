@@ -24,7 +24,6 @@
 	   	  
 	   	  var userinfo = "微信用户信息";//之后这里要改成 真正的信息参数
 	   	  var sendUserInfo =  function(userinfo){
-	   		  var sex = "M";
 	   		  var subscribe;
 	   		  var subscribeTime;
 	   		  var groupid;
