@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hummingbird.common.controller.BaseController;
+import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
@@ -31,7 +33,7 @@ public class UserRecordController extends BaseController  {
 	 * http://ip:port/propagate/userRecord/userrecord.js?x_reader=xxxxxxx&x_content=xxxxxxx
 	 * @return
 	 */
-	@RequestMapping(value = "/userrecord.js")
+	@RequestMapping(value = "/userread.js")
 	public void  saveReadArticleRecord(HttpServletRequest request,
 			HttpServletResponse response,ReadArticle vo) {
 		try {
@@ -66,6 +68,28 @@ public class UserRecordController extends BaseController  {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} 
+	}
+	
+	
+	/**
+	 *保存分享记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/saveShareArticleRecord")
+	public @ResponseBody ResultModel queryMyObjectTenderSurvey(HttpServletRequest request,
+			HttpServletResponse response,ShareArticle vo) {
+		ResultModel rm = super.getResultModel();
+		String messagebase = "保存分享记录";
+		try {
+			userRecordService.saveShareArticleRecord(vo);
+			rm.setErrmsg(messagebase+"成功");
+		} catch (Exception e1) {
+			log.error(String.format(messagebase + "失败"), e1);
+			rm.mergeException(e1);
+		} 
+		return rm;
+
 	}
 	
 
@@ -109,4 +133,17 @@ public class UserRecordController extends BaseController  {
 		return mav;
 	}
 	
+	private String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
 }

@@ -7,9 +7,9 @@
 		var loadJS = function( id, fileUrl ) 
 		{ 
 			console.log("fileUrl:"+fileUrl);
+	    	var oHead = document.getElementsByTagName('head').item(0); 
 	    	var scriptTag = document.getElementById( id ); 
 	    	if (scriptTag) oHead.removeChild(scriptTag); 
-	    	var oHead = document.getElementsByTagName('head').item(0); 
 	    	var oScript= document.createElement("script"); 
 	    	oScript.id = id; 
 	    	oScript.type = "text/javascript";

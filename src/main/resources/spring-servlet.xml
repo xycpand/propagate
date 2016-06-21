@@ -85,7 +85,7 @@
                     p:order="0" 
                     p:contentType="text/html;charset=UTF-8"
                     p:prefix="/WEB-INF/views/" 
-                    p:suffix=".html" />
+                    p:suffix=".jsp" />
             </list>
         </property>
     </bean>

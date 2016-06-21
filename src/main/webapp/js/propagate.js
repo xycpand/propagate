@@ -3,6 +3,9 @@
 		 * 其中originalUserid为cookie中的userid 
 		 */
 		var add4share = function(shareUrl){
+			  if(!shareUrl){
+				  shareUrl = o.getItem("originalUrl");
+			  }
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
 			  var originalUserid = o.getItem("userid");
@@ -16,13 +19,15 @@
 				  shareUrl += "?" + param;
 			  }
 			  console.log(shareUrl);
+			  alert("shareUrl:"+shareUrl);
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
 		  //测试add4share
-	   	  add4share(getRootPath()+"/userRecord/userappend.js");
+	   	  // add4share(getRootPath()+"/userRecord/userappend.js");
 	   	  
-	   	  var sendUserInfo =  function(user){
+	   	  var user = [];//保存的微信用户信息
+	   	  var sendUserInfo =  function(){
 	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=1&nickname=小明" +
 	   		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
 	   		  	   "&country=中国&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
@@ -36,6 +41,7 @@
 	   		  if(user.qrCreateTime){ userinfoJsUrl+="&qrCreateTime="+user.qrCreateTime; }
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
+			 alert("保存用户信息成功。")
 	   	  }
 	   	  
 	   	  
@@ -60,7 +66,7 @@
 			   o.setItem('articleId', articleId); 
 			   o.setItem('userid',userid); 
 		  	  
-		   	  console.log("originalUrl:"+o.getItem("userid")); 
+		   	  console.log("originalUrl:"+o.getItem("originalUrl")); 
 		   	  console.log("userid:"+o.getItem("userid"));
 		   	  //originalUserid为cookie中的userid 
 		   	  console.log("originalUserid:"+o.getItem("userid"));
@@ -92,9 +98,6 @@
 	   	  //初始化用户信息
 	      initUserInfo(); 
 	      
-	      var user = "微信用户信息";//之后这里要改成 真正的信息参数
-		  //测试
-		  sendUserInfo(user);
 	     
 	     
 	     
