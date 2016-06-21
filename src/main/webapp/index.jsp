@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr><td colspan="6"><b>用户浏览记录管理</b></td></tr>
 	<tr>
 	    <td>
+	    <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">测试流程</button>
 	      <!--测试 保存用户阅读记录 -->
 	       <a href="<%=basePath%>userRecord/userread.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userrecord.js内容</a>
 	      <!--测试 保存用户分享记录 -->

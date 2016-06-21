@@ -69,7 +69,7 @@ version="2.5">
   
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
-    <url-pattern>/userRecord/userrecord.js</url-pattern>
+    <url-pattern>/userRecord/userread.js</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

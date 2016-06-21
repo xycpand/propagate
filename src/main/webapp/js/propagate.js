@@ -14,10 +14,9 @@
 				  param+="&articleId="+articleId;
 		  	  }
 			  if(shareUrl.indexOf("?") > -1){
-				  shareUrl += "&" + param;
-			  }else{
-				  shareUrl += "?" + param;
+				  shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
 			  }
+				  shareUrl += "?" + param;
 			  console.log(shareUrl);
 			  alert("shareUrl:"+shareUrl);
 		  }; 
@@ -71,14 +70,20 @@
 		   	  //originalUserid为cookie中的userid 
 		   	  console.log("originalUserid:"+o.getItem("userid"));
 		  	  console.log("articleId:"+o.getItem("userid"));
+		  	  console.log("getRootPath:"+getRootPath());
 		  	  //加载userrecord.js
-		  	 var jsUrl = getRootPath()+"/userRecord/userrecord.js?userid="+userid
-		  		 +"&originalUrl="+originalUrl+"&originalUserid="+originalUserid;
+		  	 var jsUrl = getRootPath()+"/userRecord/userread.js?userid="+userid;
+	  		     if(originalUserid){
+		  			jsUrl+="&originalUserid="+originalUserid;
+		  		 }
 		  		 if(articleId){
 		  			jsUrl+="&articleId="+articleId;
 		  		 }
-		  		 console.log("userrecord.js:"+jsUrl);
-		  		loadJS("userrecord",jsUrl);
+		  		 if(originalUrl){
+			  			jsUrl+="&originalUrl="+originalUrl;
+			  	 }
+		  		 console.log("userread.js:"+jsUrl);
+		  		 loadJS("userread",jsUrl);
 		  	  
 		  	  
 		   	  /**
