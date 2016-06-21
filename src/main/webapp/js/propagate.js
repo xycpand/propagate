@@ -6,6 +6,8 @@
 			  if(!shareUrl){
 				  shareUrl = o.getItem("originalUrl");
 			  }
+
+			  alert("替换前的分享链接为:"+shareUrl);
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
 			  var originalUserid = o.getItem("userid");
@@ -16,7 +18,8 @@
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
 			  }
-				  shareUrl += "?" + param;
+			  alert("后后的分享链接为:"+shareUrl);
+			  shareUrl += "?" + param;
 			  console.log(shareUrl);
 			  alert("分享链接为:"+shareUrl);
 		  }; 

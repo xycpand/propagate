@@ -43,7 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table>
 	<tr>
 	     <td>
-	       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">点击该按钮测试流程</button>
+	       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">进入阅读文章页面</button>
+	       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=2&originalUserid=1&articleId=1'">通过分享链接进入阅读文章页面</button>
 	    </td>
 	    <td>
 	      <!--测试 保存用户阅读记录 -->
