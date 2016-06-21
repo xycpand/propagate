@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.propagate.entity.ReadArticle;
@@ -90,6 +91,22 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
-
+	/**
+	 * 跳转到文章内容页
+	 * @param mav
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "article.html")
+	public ModelAndView toArticle(ModelAndView mav,HttpServletRequest request) {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mav.addObject("errorInfo", "系统异常，请稍候再试");
+		}
+		mav.setViewName("article");
+		return mav;
+	}
 	
 }
