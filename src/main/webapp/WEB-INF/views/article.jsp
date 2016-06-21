@@ -14,6 +14,7 @@
 		display: inline-block;
 	}
 	</style>
+	${head!""}
   </head>
   <body>
 		<center>处理逻辑：</center>
@@ -26,9 +27,13 @@
 		  <li><input type="button" onclick='sendUserInfo()'  value="上报微信用户信息" id="sendUserInfo"></li>
 		</ul>
 	</div>
+   ${foot!""}
   </body>
   <script>
-  
+	var errorInfo = '${errorInfo}';
+	if(errorInfo){
+		alert(errorInfo);
+	}
   </script>
 </html>
 

@@ -96,7 +96,7 @@ public class UserRecordController extends BaseController  {
 	 * @return
 	 */
 	@RequestMapping(value = "/userinfo.js")
-	public void saveUserInfo(HttpServletRequest request,
+	public ModelAndView saveUserInfo(ModelAndView mav,HttpServletRequest request,
 			HttpServletResponse response,WxUser wxUser) {
 		try {
 			String jsContent = userRecordService.saveUserInfo(wxUser);
@@ -104,10 +104,12 @@ public class UserRecordController extends BaseController  {
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
 			response.getWriter().close();
+			throw new Exception("测试异常信息。");
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
+			mav.addObject("errorInfo", e.getMessage());
 		} 
+		return mav;
 	}
 	
 	/**

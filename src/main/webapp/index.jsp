@@ -39,5 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</tr>
 </table>
   </body>
+   <script type="text/javascript">
+  		var errorInfo = '${errorInfo}';
+  		if(errorInfo){
+  			alert(errorInfo);
+  		}
+  </script>
 </html>
 
