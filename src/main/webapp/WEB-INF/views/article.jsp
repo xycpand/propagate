@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -8,8 +7,8 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	  <script src="http://localhost:6060/propagate/js/helper.js" type="text/javascript"></script>	
-	  <script src="http://localhost:6060/propagate/js/propagate.js" type="text/javascript"></script>
+	  <script src="${basePath}/js/helper.js" type="text/javascript"></script>	
+	  <script src="${basePath}/js/propagate.js" type="text/javascript"></script>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;

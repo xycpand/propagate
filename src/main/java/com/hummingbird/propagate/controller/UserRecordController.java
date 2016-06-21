@@ -123,12 +123,14 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "article.html")
 	public ModelAndView toArticle(ModelAndView mav,HttpServletRequest request) {
+		String basePath = "";
 		try {
-			
+			 basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 		} catch (Exception e) {
 			e.printStackTrace();
 			mav.addObject("errorInfo", "系统异常，请稍候再试");
 		}
+		mav.addObject("basePath", basePath);
 		mav.setViewName("article");
 		return mav;
 	}
