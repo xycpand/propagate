@@ -15,8 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	  <script src="<%=path%>/js/helper.js" type="text/javascript"></script>	
-	  <script src="<%=path%>/js/propagate.js" type="text/javascript"></script>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -24,22 +22,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   <body>
-  	<div>
-	<ul>
-	<li><label>服务器</label>
-	<select name="host" id="host">
-	<option value="<%=basePath%>" selected>当前服务器地址</option>
-	</select><input type='txt' id='realhost' >
-	<li><label>接口名</label>
-	<textarea id='api' cols="60"></textarea>
-
-	</li>
-	<li><label>参数</label><textarea id="param" cols="100" rows="15"></textarea></li>
-	<li><label>cookie</label><textarea id="cookie" cols="100" rows="2"></textarea></li>
-	<li><input type="button" value="提交" id="bt"></li>
-	<li><label>响应</label><div id="resp"></div></li>
-	</ul>
-	</div>
 	<table>
 	<tr>
 	     <td>

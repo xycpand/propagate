@@ -6,8 +6,6 @@
 			  if(!shareUrl){
 				  shareUrl = o.getItem("originalUrl");
 			  }
-
-			  alert("替换前的分享链接为:"+shareUrl);
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
 			  var originalUserid = o.getItem("userid");
@@ -18,7 +16,6 @@
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
 			  }
-			  alert("后后的分享链接为:"+shareUrl);
 			  shareUrl += "?" + param;
 			  console.log(shareUrl);
 			  alert("分享链接为:"+shareUrl);
@@ -52,7 +49,7 @@
 			 */
 		  var initUserInfo = function(){
 			   //阅读时的链接
-		        var originalUrl = window.location.href;
+		        var originalUrl =encodeURIComponent(window.location.href);
 		        //阅读者id
 		        var userid = getUrlParam('userid');
 		        //分享者用户id
@@ -83,7 +80,7 @@
 		  			jsUrl+="&articleId="+articleId;
 		  		 }
 		  		 if(originalUrl){
-			  			jsUrl+="&originalUrl="+originalUrl;
+			  		jsUrl+="&originalUrl="+originalUrl;
 			  	 }
 		  		 console.log("userread.js:"+jsUrl);
 		  		 loadJS("userread",jsUrl);
@@ -94,9 +91,12 @@
 		   	   */
 		  	  if(originalUserid){
 		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid="+userid
-		  		+"&originalUrl="+originalUrl+"&originalUserid="+originalUserid;
+		  		+"&originalUserid="+originalUserid;
 		  		 if(articleId){
 		  			userappendJSUrl+="&articleId="+articleId;
+		  		 }
+		  		 if(originalUrl){
+		  			userappendJSUrl+="&originalUrl="+originalUrl;
 		  		 }
 		  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 		  		 loadJS("userappend",userappendJSUrl);
