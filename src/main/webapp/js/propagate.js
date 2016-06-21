@@ -4,7 +4,8 @@
 		 */
 		var add4share = function(shareUrl){
 			  if(!shareUrl){
-				  shareUrl = o.getItem("originalUrl");
+				 alert("分享链接不能为空。")
+				 return;
 			  }
 			  var articleId = o.getItem("articleId");
 			  //originalUserid为cookie中的userid 
@@ -13,12 +14,16 @@
 			  if(articleId){
 				  param+="&articleId="+articleId;
 		  	  }
-			  if(shareUrl.indexOf("?") > -1){
+			/*  if(shareUrl.indexOf("?") > -1){
 				  shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
+			  }*/
+			  if(shareUrl.indexOf("?") > -1){
+				  shareUrl += "&" + param;
+			  }else{
+				  shareUrl += "?" + param;
 			  }
-			  shareUrl += "?" + param;
 			  console.log(shareUrl);
-			  alert("分享链接为:"+shareUrl);
+			  alert("分享链接为:"+decodeURIComponent(shareUrl));
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
@@ -71,7 +76,7 @@
 		   	  console.log("originalUserid:"+o.getItem("userid"));
 		  	  console.log("articleId:"+o.getItem("userid"));
 		  	  console.log("getRootPath:"+getRootPath());
-		  	  //加载userrecord.js
+		  	  //加载userread.js
 		  	 var jsUrl = getRootPath()+"/userRecord/userread.js?userid="+userid;
 	  		     if(originalUserid){
 		  			jsUrl+="&originalUserid="+originalUserid;

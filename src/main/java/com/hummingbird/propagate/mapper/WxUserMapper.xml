@@ -41,6 +41,17 @@
     from t_wx_user
     where userid = #{userid,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectUserByUnionid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_wx_user
+    where unionid = #{unionid,jdbcType=CHAR}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_wx_user
     where userid = #{userid,jdbcType=INTEGER}

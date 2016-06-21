@@ -18,6 +18,19 @@ public interface WxUserService {
 	 * @throws BusinessException
 	 */
 	public WxUser selectUserById(Integer userid) throws BusinessException;
+	
+
+	/**
+	 * 根据unionid查询用户信息
+	 * @param unionid
+	 * @return WxUser
+	 * @throws BusinessException
+	 */
+	public WxUser selectUserByUnionid(String unionid) throws BusinessException;
+
+	
+	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException;
+	
 
 	public void addWxUserInfo(WxUser wxUser);
 	

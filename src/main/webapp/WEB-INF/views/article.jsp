@@ -22,8 +22,7 @@
 		<center>3、判断url中是否有originalUserid参数，如果存在则需要通过该方法加载userappend.js</center>
 	<div>
 	    <ul>
-	       <div id="shareUrl"></div>
-		  <li><input type="button"  onclick='add4share()' value="分享" id="add4share"></li>
+		  <li><input type="button"  onclick="add4share('www.baidu.com')" value="分享" id="add4share"></li>
 		  <li><input type="button" onclick='sendUserInfo()'  value="上报微信用户信息" id="sendUserInfo"></li>
 		</ul>
 	</div>

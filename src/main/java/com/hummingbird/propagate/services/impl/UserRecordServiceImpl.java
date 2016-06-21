@@ -45,7 +45,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	@Override
 	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
+		
 		String jsScript = loadJS();  
+		
 		if(StringUtils.isNotEmpty(vo.getUserid())&&vo.getArticleId()!=null){
 			try{
 				 vo.setInsertTime(new Date());
@@ -102,11 +104,24 @@ public class UserRecordServiceImpl implements UserRecordService{
 	public String saveUserInfo(WxUser wxUser){
 		String jsScript = "";
 		try{
-			//加载js内容
+			 //加载js内容
 			 jsScript = loadJS();  
-			
-	        //保存微信用户信息
-			 wxUserService.addWxUserInfo(wxUser);
+			 
+			 WxUser isExistUser = null;
+			 if(StringUtils.isNotBlank(wxUser.getUnionid())){
+				 isExistUser = wxUserService.selectUserByUnionid(wxUser.getUnionid());
+			 }
+			 if(isExistUser == null){
+				 wxUser.setInsertTime(new Date());
+				 wxUser.setUpdateTime(new Date());
+				 //保存微信用户信息
+				 wxUserService.addWxUserInfo(wxUser);
+			 }else{
+				 wxUser.setUserid(isExistUser.getUserid());
+				 wxUser.setUpdateTime(new Date());
+				 //更新微信用户信息
+				 wxUserService.updateByPrimaryKey(wxUser);
+			 }
 		}catch(Exception e){
 			e.printStackTrace();
 			log.debug("保存用户浏览记录失败。");
