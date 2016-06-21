@@ -18,7 +18,7 @@
 			  }
 				  shareUrl += "?" + param;
 			  console.log(shareUrl);
-			  alert("shareUrl:"+shareUrl);
+			  alert("分享链接为:"+shareUrl);
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
