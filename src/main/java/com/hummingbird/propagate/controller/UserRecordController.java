@@ -93,6 +93,25 @@ public class UserRecordController extends BaseController  {
 
 	}
 	
+	/**
+	 *保存文章内容
+	 * @return
+	 */
+	@RequestMapping(value = "/saveArticle")
+	public @ResponseBody ResultModel saveArticle(HttpServletRequest request,
+			HttpServletResponse response,ShareArticle vo) {
+		ResultModel rm = super.getResultModel();
+		String messagebase = "保存分享记录";
+		try {
+			userRecordService.saveShareArticleRecord(vo);
+			rm.setErrmsg(messagebase+"成功");
+		} catch (Exception e1) {
+			log.error(String.format(messagebase + "失败"), e1);
+			rm.mergeException(e1);
+		} 
+		return rm;
+
+	}
 
 	/**  
 	 * 上报微信消息

@@ -17,18 +17,24 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
+import com.hummingbird.common.util.CreateGUID;
+import com.hummingbird.common.util.ValidateUtil;
 import com.hummingbird.propagate.entity.Article;
 import com.hummingbird.propagate.entity.ArticlePropagate;
+import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
+import com.hummingbird.propagate.mapper.ArticleMapper;
 import com.hummingbird.propagate.mapper.ArticlePropagateMapper;
+import com.hummingbird.propagate.mapper.ArticleTagMapper;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.WxUserService;
+import com.hummingbird.propagate.vo.SaveArticleVO;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -47,6 +53,11 @@ public class UserRecordServiceImpl implements UserRecordService{
 	ShareArticleMapper shareArticleDao;
 	@Autowired
 	ArticlePropagateMapper articlePropagateDao;
+	@Autowired
+	ArticleMapper articleDao;
+	@Autowired
+	ArticleTagMapper articleTagDao;
+	
 	
 	@Override
 	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
@@ -58,7 +69,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 		if(userid != null && articleId!=null){
 			try{
 				
-				saveArticlePropagate(userid, articleId,originalUserId);
+				 saveArticlePropagate(userid, articleId,originalUserId);
 				
 				 vo.setInsertTime(new Date());
 				 readArticleDao.insert(vo);
@@ -70,7 +81,53 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 
+	
+	@Override
+	public void saveArticle(SaveArticleVO vo) throws BusinessException {
+		Integer userid = vo.getUserid();
+	    String title = vo.getTitle();
+	    String tagIds = vo.getTagIds();
+		ValidateUtil.assertNullnoappend(userid, "用户id不能为空。");
+		ValidateUtil.assertNullnoappend(title, "标题不能为空。");	
+		Article article = null;
+		try{
+			String articleId = vo.getArticleId();
+			if(StringUtils.isBlank(articleId)){
+				articleId = CreateGUID.createGuId();
+			}else{
+				article = articleDao.selectByPrimaryKey(articleId);
+			}
+			article.setId(articleId);
+			article.setTitle(title);
+            article.setContent(vo.getContent());
+            article.setStatus("OK#");
+            article.setUpdateTime(new Date());
+            if(article == null){
+            	article.setInsertTime(new Date());
+    			articleDao.insert(article);
+            }else{
+            	articleDao.updateByPrimaryKey(article);
+            }
+		
+			if(StringUtils.isNotBlank(tagIds)){
+				/*String[] tags = tagIds.split("&");
+				String[] tagNames = vo.getTagNames().split("&");
+				ArticleTag articleTag = new ArticleTag();
+				articleTag.setArticleId(Integer.parseInt(tagId));
+				for(String tagId : tags){
+					articleTag.set
+					articleTag.set
+					articleTagDao.insert(record)
+				}*/
+			}
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			log.debug("保存文章阅读记录失败。");
+		}
+	}
 
+	
+	
 	private void saveArticlePropagate(Integer userid,
 			String articleId ,  Integer originalUserid) {
 		Article article = null;

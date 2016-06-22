@@ -4,6 +4,7 @@ import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
+import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 
 /**
@@ -30,6 +31,12 @@ public interface UserRecordService {
 	 */
 	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException;
 	
+	/**
+	 * 保存文章信息
+	 * @param vo
+	 * @throws BusinessException
+	 */
+	public void saveArticle(SaveArticleVO vo) throws BusinessException;
 	
 	/**
 	 * 上报微信消息
