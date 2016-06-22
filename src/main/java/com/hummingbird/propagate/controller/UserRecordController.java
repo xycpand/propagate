@@ -7,15 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hummingbird.common.controller.BaseController;
+import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
+import com.hummingbird.commonbiz.vo.BaseTransVO;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
+import com.hummingbird.propagate.vo.SaveUserRecordVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
@@ -145,4 +149,5 @@ public class UserRecordController extends BaseController  {
         }
         return ip;
     }
+	
 }
