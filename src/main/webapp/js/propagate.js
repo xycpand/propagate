@@ -1,4 +1,5 @@
-      /**
+ (function() {  
+	    /**
 		 * shareUrl后面添加articleId,originalUserid参数
 		 * 其中originalUserid为cookie中的userid 
 		 */
@@ -110,8 +111,8 @@
 		 
 	   	  //初始化用户信息
 	      initUserInfo(); 
-	      
-	     
+
+})();	     
 	     
 	     
 	     

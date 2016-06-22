@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		display: inline-block;
 	}
 	</style>
+	<link rel="shortcut icon" href="/favicon.ico">
   </head>
   <body>
 	<table>

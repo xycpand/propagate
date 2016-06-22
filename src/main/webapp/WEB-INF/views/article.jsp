@@ -15,6 +15,7 @@
 	}
 	</style>
 	${head!""}
+	<link rel="shortcut icon" href="/favicon.ico">
   </head>
   <body>
 		<center>处理逻辑：</center>
