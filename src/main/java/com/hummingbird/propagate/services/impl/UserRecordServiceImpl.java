@@ -147,8 +147,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 jsScript = loadJS();  
 			 
 			 WxUser isExistUser = null;
-			 if(StringUtils.isNotBlank(wxUser.getUnionid())){
-				 isExistUser = wxUserService.selectUserByUnionid(wxUser.getUnionid());
+			 if(StringUtils.isNotBlank(wxUser.getOpenid())){
+				 //根据openid查询用户信息
+				 isExistUser = wxUserService.selectUserByOpendId(wxUser.getOpenid());
 			 }
 			 if(isExistUser == null){
 				 wxUser.setInsertTime(new Date());

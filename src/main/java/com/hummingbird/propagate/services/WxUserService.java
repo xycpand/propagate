@@ -27,6 +27,14 @@ public interface WxUserService {
 	 * @throws BusinessException
 	 */
 	public WxUser selectUserByUnionid(String unionid) throws BusinessException;
+	
+	/**
+	 * 根据openid查询用户信息
+	 * @param openid
+	 * @return WxUser
+	 * @throws BusinessException
+	 */
+	public WxUser selectUserByOpendId(String openid) throws BusinessException;
 
 	
 	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException;

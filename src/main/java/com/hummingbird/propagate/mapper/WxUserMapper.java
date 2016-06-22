@@ -25,6 +25,13 @@ public interface WxUserMapper {
     
     
     WxUser selectUserByUnionid(String unionid);
+    
+    /**
+     * 根据openid查询用户信息
+     * @param openid
+     * @return
+     */
+    WxUser selectUserByOpendId(String openid);
 
     /**
      * 根据主键更新属性不为空的记录

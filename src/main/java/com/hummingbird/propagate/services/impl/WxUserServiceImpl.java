@@ -80,6 +80,18 @@ public class WxUserServiceImpl implements WxUserService{
 		}
 		return user;
 	}
+	
+
+	@Override
+	public WxUser  selectUserByOpendId(String openid) throws BusinessException {
+		WxUser user = null;
+		try{
+			user = wxUserDao.selectUserByUnionid(openid);
+		}catch(DataAccessException e){
+			throw new BusinessException("通过unionid查询微信用户信息失败。");
+		}
+		return user;
+	}
 
 	@Override
 	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException {
