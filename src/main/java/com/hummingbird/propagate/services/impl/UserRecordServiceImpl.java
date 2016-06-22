@@ -54,10 +54,11 @@ public class UserRecordServiceImpl implements UserRecordService{
 		String jsScript = loadJS();  
 		Integer userid = vo.getUserid();
 		String articleId = vo.getArticleId();
+		Integer originalUserId = vo.getOriginalUserid();
 		if(userid != null && articleId!=null){
 			try{
 				
-				saveArticlePropagate(userid, articleId,vo.getOriginalUserid());
+				saveArticlePropagate(userid, articleId,originalUserId);
 				
 				 vo.setInsertTime(new Date());
 				 readArticleDao.insert(vo);
@@ -98,9 +99,13 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException {
 		String jsScript = loadJS();  
-		if(vo.getUserid() != null&&vo.getArticleId()!=null
+		Integer userid = vo.getUserid();
+		String articleId = vo.getArticleId();
+		Integer originalUserId = vo.getOriginalUserid();
+		if(userid != null&&vo.getArticleId()!=null
 				&&vo.getOriginalUserid()!=null){
 			try{
+				saveArticlePropagate(userid, articleId,originalUserId);
 				vo.setInsertTime(new Date());
 				shareArticleDao.insert(vo);
 			}catch(DataAccessException e){
