@@ -1,5 +1,7 @@
 package com.hummingbird.propagate.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.propagate.entity.ArticlePropagate;
 
 public interface ArticlePropagateMapper {
@@ -24,7 +26,8 @@ public interface ArticlePropagateMapper {
     ArticlePropagate selectByPrimaryKey(Integer id);
 
     
-    ArticlePropagate  selectByUserIdAndArticleId(Integer userid,String articleId);
+    ArticlePropagate  selectByUserIdAndArticleId(@Param("userid")Integer userid,
+    		@Param("articleId")String articleId);
     
     /**
      * 根据主键更新属性不为空的记录

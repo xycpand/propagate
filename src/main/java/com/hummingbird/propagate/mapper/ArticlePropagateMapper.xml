@@ -31,13 +31,13 @@
   </select>
   
     
-    <select id="selectByUserIdAndArticleId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    <select id="selectByUserIdAndArticleId" resultMap="ResultMapWithBLOBs" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from t_article_propagate
-    where userid = #{userid,jdbcType=INTEGER} and article_id = #{article_id,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER} and article_id = #{articleId,jdbcType=VARCHAR}
   </select>
   
   
