@@ -3,35 +3,41 @@
 <mapper namespace="com.hummingbird.propagate.mapper.ArticleTagMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ArticleTag" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
-    <result column="tag_ids" property="tagIds" jdbcType="VARCHAR" />
+    <result column="article_id" property="article_id" jdbcType="VARCHAR" />
+    <result column="tag_id" property="tag_id" jdbcType="INTEGER" />
+    <result column="tag_name" property="tag_name" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.propagate.entity.ArticleTag" extends="BaseResultMap" >
-    <result column="tag_names" property="tagNames" jdbcType="LONGVARCHAR" />
+  <resultMap id="UserTagResultMap" type="com.hummingbird.propagate.vo.TagVO" >
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, article_id, tag_ids
+    id, article_id, tag_id, tag_name
   </sql>
-  <sql id="Blob_Column_List" >
-    tag_names
+  <sql id="Article_Tag_List" >
+    tag_id,tag_name
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from t_article_tag
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryArticleTag" resultMap="UserTagResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Article_Tag_List" />
+    from t_article_tag
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_article_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
-    insert into t_article_tag (id, article_id, tag_ids, 
-      tag_names)
-    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{tagIds,jdbcType=VARCHAR}, 
-      #{tagNames,jdbcType=LONGVARCHAR})
+    insert into t_article_tag (id, article_id, tag_id, 
+      tag_name)
+    values (#{id,jdbcType=INTEGER}, #{article_id,jdbcType=VARCHAR}, #{tag_id,jdbcType=INTEGER}, 
+      #{tag_name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     insert into t_article_tag
@@ -39,57 +45,51 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="articleId != null" >
+      <if test="article_id != null" >
         article_id,
       </if>
-      <if test="tagIds != null" >
-        tag_ids,
+      <if test="tag_id != null" >
+        tag_id,
       </if>
-      <if test="tagNames != null" >
-        tag_names,
+      <if test="tag_name != null" >
+        tag_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="articleId != null" >
-        #{articleId,jdbcType=VARCHAR},
+      <if test="article_id != null" >
+        #{article_id,jdbcType=VARCHAR},
       </if>
-      <if test="tagIds != null" >
-        #{tagIds,jdbcType=VARCHAR},
+      <if test="tag_id != null" >
+        #{tag_id,jdbcType=INTEGER},
       </if>
-      <if test="tagNames != null" >
-        #{tagNames,jdbcType=LONGVARCHAR},
+      <if test="tag_name != null" >
+        #{tag_name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     update t_article_tag
     <set >
-      <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=VARCHAR},
+      <if test="article_id != null" >
+        article_id = #{article_id,jdbcType=VARCHAR},
       </if>
-      <if test="tagIds != null" >
-        tag_ids = #{tagIds,jdbcType=VARCHAR},
+      <if test="tag_id != null" >
+        tag_id = #{tag_id,jdbcType=INTEGER},
       </if>
-      <if test="tagNames != null" >
-        tag_names = #{tagNames,jdbcType=LONGVARCHAR},
+      <if test="tag_name != null" >
+        tag_name = #{tag_name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
-    update t_article_tag
-    set article_id = #{articleId,jdbcType=VARCHAR},
-      tag_ids = #{tagIds,jdbcType=VARCHAR},
-      tag_names = #{tagNames,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     update t_article_tag
-    set article_id = #{articleId,jdbcType=VARCHAR},
-      tag_ids = #{tagIds,jdbcType=VARCHAR}
+    set article_id = #{article_id,jdbcType=VARCHAR},
+      tag_id = #{tag_id,jdbcType=INTEGER},
+      tag_name = #{tag_name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

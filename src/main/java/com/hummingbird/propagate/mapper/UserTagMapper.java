@@ -1,6 +1,9 @@
 package com.hummingbird.propagate.mapper;
 
+import java.util.List;
+
 import com.hummingbird.propagate.entity.UserTag;
+import com.hummingbird.propagate.vo.TagVO;
 
 public interface UserTagMapper {
     /**
@@ -22,6 +25,8 @@ public interface UserTagMapper {
      * 根据主键查询记录
      */
     UserTag selectByPrimaryKey(Integer id);
+    
+    List<TagVO> queryUserTag(Integer userid);
 
     /**
      * 根据主键更新属性不为空的记录
@@ -32,4 +37,5 @@ public interface UserTagMapper {
      * 根据主键更新记录
      */
     int updateByPrimaryKey(UserTag record);
+    
 }

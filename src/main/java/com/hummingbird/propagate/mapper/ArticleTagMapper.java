@@ -1,6 +1,9 @@
 package com.hummingbird.propagate.mapper;
 
+import java.util.List;
+
 import com.hummingbird.propagate.entity.ArticleTag;
+import com.hummingbird.propagate.vo.TagVO;
 
 public interface ArticleTagMapper {
     /**
@@ -22,16 +25,18 @@ public interface ArticleTagMapper {
      * 根据主键查询记录
      */
     ArticleTag selectByPrimaryKey(Integer id);
+    
+    /**
+     * 查询文章标签
+     * @param articleId
+     * @return
+     */
+    List<TagVO> queryArticleTag(String articleId);
 
     /**
      * 根据主键更新属性不为空的记录
      */
     int updateByPrimaryKeySelective(ArticleTag record);
-
-    /**
-     * 根据主键更新记录
-     */
-    int updateByPrimaryKeyWithBLOBs(ArticleTag record);
 
     /**
      * 根据主键更新记录
