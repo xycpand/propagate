@@ -65,7 +65,7 @@
     delete from t_wx_user
     where userid = #{userid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.propagate.entity.WxUser" >
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.WxUser" useGeneratedKeys="true" keyProperty="id">
     insert into t_wx_user (userid, openid, nickname, 
       sex, language, city, province, 
       country, headimgurl, subscribe_time, 

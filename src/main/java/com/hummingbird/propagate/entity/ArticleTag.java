@@ -9,17 +9,17 @@ public class ArticleTag {
     /**
      * 分享内容表id
      */
-    private String articleId;
+    private String article_id;
 
     /**
-     * 分享内容使用的标签id，以&分隔
+     * 分享内容使用的标签id
      */
-    private String tagIds;
+    private Integer tag_id;
 
     /**
-     * 使用标签名称，以&分隔
+     * 使用标签名称
      */
-    private String tagNames;
+    private String tag_name;
 
     public Integer getId() {
         return id;
@@ -32,74 +32,45 @@ public class ArticleTag {
     /**
      * @return 分享内容表id
      */
-    public String getArticleId() {
-        return articleId;
+    public String getArticle_id() {
+        return article_id;
     }
 
     /**
      * @param articleId 
 	 *            分享内容表id
      */
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticle_id(String article_id) {
+        this.article_id = article_id == null ? null : article_id.trim();
     }
 
     /**
-     * @return 分享内容使用的标签id，以&分隔
+     * @return 分享内容使用的标签id
      */
-    public String getTagIds() {
-        return tagIds;
+    public Integer getTag_id() {
+        return tag_id;
     }
 
     /**
-     * @param tagIds 
-	 *            分享内容使用的标签id，以&分隔
+     * @param tagId 
+	 *            分享内容使用的标签id
      */
-    public void setTagIds(String tagIds) {
-        this.tagIds = tagIds == null ? null : tagIds.trim();
+    public void setTag_id(Integer tag_id) {
+        this.tag_id = tag_id;
     }
 
     /**
-     * @return 使用标签名称，以&分隔
+     * @return 使用标签名称
      */
-    public String getTagNames() {
-        return tagNames;
+    public String getTag_name() {
+        return tag_name;
     }
 
     /**
-     * @param tagNames 
-	 *            使用标签名称，以&分隔
+     * @param tagName 
+	 *            使用标签名称
      */
-    public void setTagNames(String tagNames) {
-        this.tagNames = tagNames == null ? null : tagNames.trim();
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        ArticleTag other = (ArticleTag) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getArticleId() == null ? other.getArticleId() == null : this.getArticleId().equals(other.getArticleId()))
-            && (this.getTagIds() == null ? other.getTagIds() == null : this.getTagIds().equals(other.getTagIds()))
-            && (this.getTagNames() == null ? other.getTagNames() == null : this.getTagNames().equals(other.getTagNames()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getArticleId() == null) ? 0 : getArticleId().hashCode());
-        result = prime * result + ((getTagIds() == null) ? 0 : getTagIds().hashCode());
-        result = prime * result + ((getTagNames() == null) ? 0 : getTagNames().hashCode());
-        return result;
+    public void setTag_name(String tag_name) {
+        this.tag_name = tag_name == null ? null : tag_name.trim();
     }
 }
