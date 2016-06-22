@@ -19,7 +19,7 @@ import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
-import com.hummingbird.propagate.vo.SaveUserRecordVO;
+import com.hummingbird.propagate.vo.SaveArticleVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
@@ -30,7 +30,51 @@ import com.hummingbird.propagate.vo.SaveUserRecordVO;
 public class UserRecordController extends BaseController  {
 	@Autowired
 	UserRecordService userRecordService;
+	
+		/**
+		 *保存文章信息
+		 * @return
+		 */
+		@RequestMapping(value = "/saveArticle", method = RequestMethod.POST)
+		@AccessRequered(methodName = "保存文章信息", isJson = true, codebase = 245900, className = "com.hummingbird.commonbiz.vo.BaseTransVO", genericClassName = "com.hummingbird.propagate.vo.SaveArticleVO", appLog = true)
+		public @ResponseBody ResultModel saveArticle(HttpServletRequest request,
+				HttpServletResponse response) {
+		ResultModel rm = super.getResultModel();
+	    BaseTransVO<SaveArticleVO> transorder = (BaseTransVO<SaveArticleVO>) super.getParameterObject();
+		String messagebase = "保存文章信息";
+		try {
+			userRecordService.saveArticle(transorder.getBody());
+			rm.setErrmsg(messagebase+"成功");
+		} catch (Exception e1) {
+			log.error(String.format(messagebase + "失败"), e1);
+			rm.mergeException(e1);
+		} 
+		return rm;
 
+	}
+	
+	/**
+	 *保存文章分享记录
+	 * @return
+	 */
+	@RequestMapping(value = "/saveShareArticleRecord", method = RequestMethod.POST)
+	@AccessRequered(methodName = "保存文章分享记录", isJson = true, codebase = 245900, className = "com.hummingbird.commonbiz.vo.BaseTransVO", genericClassName = "com.hummingbird.propagate.entity.ShareArticle", appLog = true)
+	public @ResponseBody ResultModel queryMyObjectTenderSurvey(HttpServletRequest request,
+			HttpServletResponse response) {
+		ResultModel rm = super.getResultModel();
+        BaseTransVO<ShareArticle> transorder = (BaseTransVO<ShareArticle>) super.getParameterObject();
+		String messagebase = "保存文章分享记录";
+		try {
+			userRecordService.saveShareArticleRecord(transorder.getBody());
+			rm.setErrmsg(messagebase+"成功");
+		} catch (Exception e1) {
+			log.error(String.format(messagebase + "失败"), e1);
+			rm.mergeException(e1);
+		} 
+		return rm;
+
+	}
+	
 
 	/**
 	 *加载userread.js
@@ -72,47 +116,6 @@ public class UserRecordController extends BaseController  {
 	}
 	
 	
-	/**
-	 *保存分享记录
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/saveShareArticleRecord")
-	public @ResponseBody ResultModel queryMyObjectTenderSurvey(HttpServletRequest request,
-			HttpServletResponse response,ShareArticle vo) {
-		ResultModel rm = super.getResultModel();
-		String messagebase = "保存分享记录";
-		try {
-			userRecordService.saveShareArticleRecord(vo);
-			rm.setErrmsg(messagebase+"成功");
-		} catch (Exception e1) {
-			log.error(String.format(messagebase + "失败"), e1);
-			rm.mergeException(e1);
-		} 
-		return rm;
-
-	}
-	
-	/**
-	 *保存文章内容
-	 * @return
-	 */
-	@RequestMapping(value = "/saveArticle")
-	public @ResponseBody ResultModel saveArticle(HttpServletRequest request,
-			HttpServletResponse response,ShareArticle vo) {
-		ResultModel rm = super.getResultModel();
-		String messagebase = "保存分享记录";
-		try {
-			userRecordService.saveShareArticleRecord(vo);
-			rm.setErrmsg(messagebase+"成功");
-		} catch (Exception e1) {
-			log.error(String.format(messagebase + "失败"), e1);
-			rm.mergeException(e1);
-		} 
-		return rm;
-
-	}
-
 	/**  
 	 * 上报微信消息
 	 * http://ip:port/propagate/userRecord/userinfo.js?openid=xxxx&nickname=xxxx

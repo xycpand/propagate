@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.common.util.CreateGUID;
@@ -68,9 +70,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 		Integer originalUserId = vo.getOriginalUserid();
 		if(userid != null && articleId!=null){
 			try{
-				
+				 //保存传播关系
 				 saveArticlePropagate(userid, articleId,originalUserId);
 				
+				 //保存文章阅读记录
 				 vo.setInsertTime(new Date());
 				 readArticleDao.insert(vo);
 			}catch(DataAccessException e){
@@ -93,32 +96,30 @@ public class UserRecordServiceImpl implements UserRecordService{
 		try{
 			String articleId = vo.getArticleId();
 			if(StringUtils.isBlank(articleId)){
+				//用户没有传文章的id，则生成默认的id
 				articleId = CreateGUID.createGuId();
 			}else{
 				article = articleDao.selectByPrimaryKey(articleId);
 			}
-			article.setId(articleId);
-			article.setTitle(title);
-            article.setContent(vo.getContent());
-            article.setStatus("OK#");
-            article.setUpdateTime(new Date());
             if(article == null){
+            	article =new Article();
+				article.setId(articleId);
+            	article.setTitle(title);
+                article.setContent(vo.getContent());
+                article.setStatus("OK#");
             	article.setInsertTime(new Date());
+                article.setUpdateTime(new Date());
     			articleDao.insert(article);
             }else{
+            	article.setTitle(title);
+                article.setContent(vo.getContent());
+                article.setStatus("OK#");
+                article.setUpdateTime(new Date());
             	articleDao.updateByPrimaryKey(article);
             }
-		
 			if(StringUtils.isNotBlank(tagIds)){
-				/*String[] tags = tagIds.split("&");
-				String[] tagNames = vo.getTagNames().split("&");
-				ArticleTag articleTag = new ArticleTag();
-				articleTag.setArticleId(Integer.parseInt(tagId));
-				for(String tagId : tags){
-					articleTag.set
-					articleTag.set
-					articleTagDao.insert(record)
-				}*/
+				 //保存文章标签信息
+				 saveArticleTags(vo.getTagNames(), tagIds, articleId);
 			}
 		}catch(DataAccessException e){
 			e.printStackTrace();
@@ -126,8 +127,40 @@ public class UserRecordServiceImpl implements UserRecordService{
 		}
 	}
 
-	
-	
+    /**
+     * 保存文章标签信息
+     * @param tagNameStr
+     * @param tagIds
+     * @param articleId
+     */
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
+	private void saveArticleTags(String tagNameStr, String tagIds, String articleId) {
+		String[] tags = tagIds.split("&");
+		String[] tagNames = tagNameStr.split("&");
+		String tagName = null;
+		ArticleTag articleTag = new ArticleTag();
+		articleTag.setArticleId(articleId);
+		int count = tags.length;
+		for(int i = 0;i<count; i++){
+			try{
+				tagName = tagNames[i];
+			}catch(ArrayIndexOutOfBoundsException e){
+				e.printStackTrace();
+				log.debug("保存标签时，用&分隔的标签名称数目比标签id少，导致数组越界。");
+			}
+			articleTag.setTagId(Integer.parseInt(tags[i]));
+			articleTag.setTagName(tagName);
+			articleTagDao.insert(articleTag);
+		}
+	}
+
+	/**
+	 * 保存传播关系
+	 * @param userid
+	 * @param articleId
+	 * @param originalUserid
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	private void saveArticlePropagate(Integer userid,
 			String articleId ,  Integer originalUserid) {
 		Article article = null;
@@ -162,7 +195,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 		if(userid != null&&vo.getArticleId()!=null
 				&&vo.getOriginalUserid()!=null){
 			try{
+				//保存传播关系
 				saveArticlePropagate(userid, articleId,originalUserId);
+				//保存文章分享记录
 				vo.setInsertTime(new Date());
 				shareArticleDao.insert(vo);
 			}catch(DataAccessException e){
@@ -173,7 +208,11 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 	
-	
+	/**
+	 * 加载js内容
+	 * @return
+	 * @throws BusinessException
+	 */
 	private String loadJS() throws BusinessException {
 		List<String> lines = null;
 		String filePath = "C:\\js\\userrecord.js";

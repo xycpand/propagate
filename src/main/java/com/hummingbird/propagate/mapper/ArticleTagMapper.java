@@ -20,18 +20,16 @@ public interface ArticleTagMapper {
      * 保存属性不为空的记录
      */
     int insertSelective(ArticleTag record);
-
-    /**
-     * 根据主键查询记录
-     */
-    ArticleTag selectByPrimaryKey(Integer id);
-    
     /**
      * 查询文章标签
      * @param articleId
      * @return
      */
     List<TagVO> queryArticleTag(String articleId);
+    /**
+     * 根据主键查询记录
+     */
+    ArticleTag selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键更新属性不为空的记录

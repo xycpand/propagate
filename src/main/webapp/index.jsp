@@ -40,20 +40,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</ul>
 	</div>
 	<table>
-	<tr><td colspan="2">测试js和接口</td></tr>
-	<tr>
-	    <td>
-	       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">进入阅读文章页面</button>
-	       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=2&originalUserid=1&articleId=1'">通过分享链接进入阅读文章页面</button>
-	    </td>
-	    <td><input type="button"  value="保存用户分享记录"  onclick='setbinding("/userRecord/saveShareArticleRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"token\":\"e11eba87d5e1fc3e74ebd242ee67b94f\",\"articleId\":1}}}}")'></td>
-	      <!--测试 保存用户阅读记录 -->
+	<tr><td colspan="2"><b>接口测试</b></td></tr>
+	     <tr>
+	         <td><input type="button"  value="保存文章信息"  onclick='setbinding("/userRecord/saveArticle","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"userid\":2,\"articleId\":1,\"title\":\"我就是文章标题\",\"content\":null,\"tagIds\":\"1&2\",\"tagNames\":\"1号标签&2号标签\"}}}}")'></td>
+		    <td><input type="button"  value="保存用户分享记录"  onclick='setbinding("/userRecord/saveShareArticleRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"userid\":2,\"articleId\":1,\"originalUserid\":1,\"originalUrl\":\"baidu.com\"}}}}")'></td>
+	     </tr>
+		<tr><td colspan="2"><b>测试js</b></td></tr>
+		<tr>
+		    <td>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">进入阅读文章页面</button>
+		    </td>
+		     <td>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=2&originalUserid=1&articleId=1'">通过分享链接进入阅读文章页面</button>
+		    </td>
+		   <td> <!--测试 保存用户阅读记录 -->
 	       <a href="<%=basePath%>userRecord/userread.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userrecord.js内容</a>
 	      <!--测试 保存用户分享记录 -->
 	       <a href="<%=basePath%>userRecord/userappend.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userappend.js内容</a>
 	      <!--测试 上报微信用户信息  -->
-	       <a href="<%=basePath%>userRecord/userinfo.js?openid=1&nickname=小明">测试请求userinfo.js内容</a>
-	</tr>
+	       <a href="<%=basePath%>userRecord/userinfo.js?openid=1&nickname=小明">测试请求userinfo.js内容</a></td>
+        </tr>
 </table>
   </body>
     <script>
