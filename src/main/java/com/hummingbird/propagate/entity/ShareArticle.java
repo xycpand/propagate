@@ -7,15 +7,16 @@ import java.util.Date;
  */
 public class ShareArticle {
     private Integer id;
+
     /**
      * 分享内容表id
      */
-    private Integer articleId;
+    private String articleId;
 
     /**
      * 微信用户id
      */
-    private String userid;
+    private Integer userid;
 
     /**
      * 阅读时的链接
@@ -25,7 +26,7 @@ public class ShareArticle {
     /**
      * 分享者用户id
      */
-    private String originalUserid;
+    private Integer originalUserid;
 
     /**
      * 插入时间
@@ -55,18 +56,25 @@ public class ShareArticle {
         this.id = id;
     }
 
-	public Integer getArticleId() {
-		return articleId;
-	}
+    /**
+     * @return 分享内容表id
+     */
+    public String getArticleId() {
+        return articleId;
+    }
 
-	public void setArticleId(Integer articleId) {
-		this.articleId = articleId;
-	}
+    /**
+     * @param articleId 
+	 *            分享内容表id
+     */
+    public void setArticleId(String articleId) {
+        this.articleId = articleId == null ? null : articleId.trim();
+    }
 
-	/**
+    /**
      * @return 微信用户id
      */
-    public String getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
@@ -74,8 +82,8 @@ public class ShareArticle {
      * @param userid 
 	 *            微信用户id
      */
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     /**
@@ -96,7 +104,7 @@ public class ShareArticle {
     /**
      * @return 分享者用户id
      */
-    public String getOriginalUserid() {
+    public Integer getOriginalUserid() {
         return originalUserid;
     }
 
@@ -104,8 +112,8 @@ public class ShareArticle {
      * @param originalUserid 
 	 *            分享者用户id
      */
-    public void setOriginalUserid(String originalUserid) {
-        this.originalUserid = originalUserid == null ? null : originalUserid.trim();
+    public void setOriginalUserid(Integer originalUserid) {
+        this.originalUserid = originalUserid;
     }
 
     /**

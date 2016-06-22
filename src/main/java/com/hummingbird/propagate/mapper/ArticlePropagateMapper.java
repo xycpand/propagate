@@ -23,6 +23,9 @@ public interface ArticlePropagateMapper {
      */
     ArticlePropagate selectByPrimaryKey(Integer id);
 
+    
+    ArticlePropagate  selectByUserIdAndArticleId(Integer userid,String articleId);
+    
     /**
      * 根据主键更新属性不为空的记录
      */

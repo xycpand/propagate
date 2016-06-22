@@ -8,7 +8,7 @@ public class ArticlePropagate {
     /**
      * 分享内容表的id
      */
-    private Integer articleId;
+    private String articleId;
 
     /**
      * 分享内容的名称
@@ -61,7 +61,7 @@ public class ArticlePropagate {
     /**
      * @return 分享内容表的id
      */
-    public Integer getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
@@ -69,8 +69,8 @@ public class ArticlePropagate {
      * @param articleId 
 	 *            分享内容表的id
      */
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId == null ? null : articleId.trim();
     }
 
     /**

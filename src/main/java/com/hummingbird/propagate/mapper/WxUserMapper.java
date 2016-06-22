@@ -22,9 +22,9 @@ public interface WxUserMapper {
      * 根据主键查询记录
      */
     WxUser selectByPrimaryKey(Integer userid);
-
-    WxUser selectUserByUnionid(String unionid);
     
+    
+    WxUser selectUserByUnionid(String unionid);
 
     /**
      * 根据主键更新属性不为空的记录

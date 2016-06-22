@@ -11,7 +11,7 @@ public interface ArticleService {
 
 	/**
 	 * 根据id查询文章信息
-	 * @param String id
+	 * @param Integer id
 	 * @return Article
 	 * @throws BusinessException
 	 */
@@ -20,7 +20,7 @@ public interface ArticleService {
 
 	/**
 	 * 根据id检查文章信息是否存在
-	 * @param String id
+	 * @param Integer id
 	 * @return Article
 	 * @throws BusinessException
 	 */

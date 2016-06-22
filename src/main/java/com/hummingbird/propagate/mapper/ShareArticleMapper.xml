@@ -3,10 +3,10 @@
 <mapper namespace="com.hummingbird.propagate.mapper.ShareArticleMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ShareArticle" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="CHAR" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="original_url" property="originalUrl" jdbcType="VARCHAR" />
-    <result column="original_userid" property="originalUserid" jdbcType="CHAR" />
+    <result column="original_userid" property="originalUserid" jdbcType="INTEGER" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="share_type" property="shareType" jdbcType="VARCHAR" />
     <result column="share_time" property="shareTime" jdbcType="TIMESTAMP" />
@@ -31,8 +31,8 @@
       original_url, original_userid, insert_time, 
       share_type, share_time, share_target
       )
-    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{userid,jdbcType=CHAR}, 
-      #{originalUrl,jdbcType=VARCHAR}, #{originalUserid,jdbcType=CHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{originalUrl,jdbcType=VARCHAR}, #{originalUserid,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}, 
       #{shareType,jdbcType=VARCHAR}, #{shareTime,jdbcType=TIMESTAMP}, #{shareTarget,jdbcType=VARCHAR}
       )
   </insert>
@@ -72,16 +72,16 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="articleId != null" >
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=CHAR},
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="originalUrl != null" >
         #{originalUrl,jdbcType=VARCHAR},
       </if>
       <if test="originalUserid != null" >
-        #{originalUserid,jdbcType=CHAR},
+        #{originalUserid,jdbcType=INTEGER},
       </if>
       <if test="insertTime != null" >
         #{insertTime,jdbcType=TIMESTAMP},
@@ -101,16 +101,16 @@
     update t_share_article
     <set >
       <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=INTEGER},
+        article_id = #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        userid = #{userid,jdbcType=CHAR},
+        userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="originalUrl != null" >
         original_url = #{originalUrl,jdbcType=VARCHAR},
       </if>
       <if test="originalUserid != null" >
-        original_userid = #{originalUserid,jdbcType=CHAR},
+        original_userid = #{originalUserid,jdbcType=INTEGER},
       </if>
       <if test="insertTime != null" >
         insert_time = #{insertTime,jdbcType=TIMESTAMP},
@@ -129,10 +129,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ShareArticle" >
     update t_share_article
-    set article_id = #{articleId,jdbcType=INTEGER},
-      userid = #{userid,jdbcType=CHAR},
+    set article_id = #{articleId,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
       original_url = #{originalUrl,jdbcType=VARCHAR},
-      original_userid = #{originalUserid,jdbcType=CHAR},
+      original_userid = #{originalUserid,jdbcType=INTEGER},
       insert_time = #{insertTime,jdbcType=TIMESTAMP},
       share_type = #{shareType,jdbcType=VARCHAR},
       share_time = #{shareTime,jdbcType=TIMESTAMP},

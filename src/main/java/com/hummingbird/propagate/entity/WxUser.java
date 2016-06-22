@@ -9,7 +9,7 @@ public class WxUser {
 
     private String nickname;
 
-    private Integer sex;
+    private Byte sex;
 
     private String language;
 
@@ -27,7 +27,7 @@ public class WxUser {
 
     private String remark;
 
-    private String subscribe;
+    private Byte subscribe;
 
     private Integer groupid;
 
@@ -67,15 +67,15 @@ public class WxUser {
         this.nickname = nickname == null ? null : nickname.trim();
     }
 
-	public Integer getSex() {
-		return sex;
-	}
+    public Byte getSex() {
+        return sex;
+    }
 
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
+    public void setSex(Byte sex) {
+        this.sex = sex;
+    }
 
-	public String getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
@@ -139,16 +139,15 @@ public class WxUser {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public Byte getSubscribe() {
+        return subscribe;
+    }
 
-    public String getSubscribe() {
-		return subscribe;
-	}
+    public void setSubscribe(Byte subscribe) {
+        this.subscribe = subscribe;
+    }
 
-	public void setSubscribe(String subscribe) {
-		this.subscribe = subscribe;
-	}
-
-	public Integer getGroupid() {
+    public Integer getGroupid() {
         return groupid;
     }
 

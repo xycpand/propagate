@@ -3,7 +3,7 @@
 <mapper namespace="com.hummingbird.propagate.mapper.ArticleTagMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ArticleTag" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
     <result column="tag_ids" property="tagIds" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hummingbird.propagate.entity.ArticleTag" extends="BaseResultMap" >
@@ -30,7 +30,7 @@
   <insert id="insert" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     insert into t_article_tag (id, article_id, tag_ids, 
       tag_names)
-    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{tagIds,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{tagIds,jdbcType=VARCHAR}, 
       #{tagNames,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
@@ -54,7 +54,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="articleId != null" >
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="tagIds != null" >
         #{tagIds,jdbcType=VARCHAR},
@@ -68,7 +68,7 @@
     update t_article_tag
     <set >
       <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=INTEGER},
+        article_id = #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="tagIds != null" >
         tag_ids = #{tagIds,jdbcType=VARCHAR},
@@ -81,14 +81,14 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     update t_article_tag
-    set article_id = #{articleId,jdbcType=INTEGER},
+    set article_id = #{articleId,jdbcType=VARCHAR},
       tag_ids = #{tagIds,jdbcType=VARCHAR},
       tag_names = #{tagNames,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
     update t_article_tag
-    set article_id = #{articleId,jdbcType=INTEGER},
+    set article_id = #{articleId,jdbcType=VARCHAR},
       tag_ids = #{tagIds,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

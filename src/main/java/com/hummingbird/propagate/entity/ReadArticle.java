@@ -11,12 +11,12 @@ public class ReadArticle {
     /**
      * 分享内容表id
      */
-    private Integer articleId;
+    private String articleId;
 
     /**
      * 微信用户表id
      */
-    private String userid;
+    private Integer userid;
 
     /**
      * 阅读时的链接
@@ -26,7 +26,7 @@ public class ReadArticle {
     /**
      * 阅读时原分享者
      */
-    private String originalUserid;
+    private Integer originalUserid;
 
     /**
      * 插入时间
@@ -44,7 +44,7 @@ public class ReadArticle {
     /**
      * @return 分享内容表id
      */
-    public Integer getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
@@ -52,14 +52,14 @@ public class ReadArticle {
      * @param articleId 
 	 *            分享内容表id
      */
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId == null ? null : articleId.trim();
     }
 
     /**
      * @return 微信用户表id
      */
-    public String getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
@@ -67,8 +67,8 @@ public class ReadArticle {
      * @param userid 
 	 *            微信用户表id
      */
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     /**
@@ -89,7 +89,7 @@ public class ReadArticle {
     /**
      * @return 阅读时原分享者
      */
-    public String getOriginalUserid() {
+    public Integer getOriginalUserid() {
         return originalUserid;
     }
 
@@ -97,8 +97,8 @@ public class ReadArticle {
      * @param originalUserid 
 	 *            阅读时原分享者
      */
-    public void setOriginalUserid(String originalUserid) {
-        this.originalUserid = originalUserid == null ? null : originalUserid.trim();
+    public void setOriginalUserid(Integer originalUserid) {
+        this.originalUserid = originalUserid;
     }
 
     /**

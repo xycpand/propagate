@@ -11,7 +11,7 @@ public class UserTag {
     /**
      * 微信用户id
      */
-    private String userid;
+    private Integer userid;
 
     /**
      * 标签id
@@ -54,7 +54,7 @@ public class UserTag {
     /**
      * @return 微信用户id
      */
-    public String getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
@@ -62,8 +62,8 @@ public class UserTag {
      * @param userid 
 	 *            微信用户id
      */
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     /**

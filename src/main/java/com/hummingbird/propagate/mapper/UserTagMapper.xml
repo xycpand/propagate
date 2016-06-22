@@ -3,7 +3,7 @@
 <mapper namespace="com.hummingbird.propagate.mapper.UserTagMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.UserTag" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="CHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
     <result column="share_num" property="shareNum" jdbcType="INTEGER" />
     <result column="read_num" property="readNum" jdbcType="INTEGER" />
@@ -28,7 +28,7 @@
     insert into t_user_tag (id, userid, tag_id, 
       share_num, read_num, creat_num, 
       insert_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=CHAR}, #{tagId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, 
       #{shareNum,jdbcType=INTEGER}, #{readNum,jdbcType=INTEGER}, #{creatNum,jdbcType=INTEGER}, 
       #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -65,7 +65,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=CHAR},
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="tagId != null" >
         #{tagId,jdbcType=INTEGER},
@@ -91,7 +91,7 @@
     update t_user_tag
     <set >
       <if test="userid != null" >
-        userid = #{userid,jdbcType=CHAR},
+        userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="tagId != null" >
         tag_id = #{tagId,jdbcType=INTEGER},
@@ -116,7 +116,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.UserTag" >
     update t_user_tag
-    set userid = #{userid,jdbcType=CHAR},
+    set userid = #{userid,jdbcType=INTEGER},
       tag_id = #{tagId,jdbcType=INTEGER},
       share_num = #{shareNum,jdbcType=INTEGER},
       read_num = #{readNum,jdbcType=INTEGER},

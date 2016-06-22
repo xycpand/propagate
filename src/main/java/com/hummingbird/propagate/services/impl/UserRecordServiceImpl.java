@@ -17,9 +17,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
+import com.hummingbird.propagate.entity.Article;
+import com.hummingbird.propagate.entity.ArticlePropagate;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
+import com.hummingbird.propagate.mapper.ArticlePropagateMapper;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.services.ArticleService;
@@ -42,14 +45,20 @@ public class UserRecordServiceImpl implements UserRecordService{
 	ReadArticleMapper readArticleDao;
 	@Autowired
 	ShareArticleMapper shareArticleDao;
+	@Autowired
+	ArticlePropagateMapper articlePropagateDao;
 	
 	@Override
 	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
 		
 		String jsScript = loadJS();  
-		
-		if(StringUtils.isNotEmpty(vo.getUserid())&&vo.getArticleId()!=null){
+		Integer userid = vo.getUserid();
+		String articleId = vo.getArticleId();
+		if(userid != null && articleId!=null){
 			try{
+				
+				saveArticlePropagate(userid, articleId,vo.getOriginalUserid());
+				
 				 vo.setInsertTime(new Date());
 				 readArticleDao.insert(vo);
 			}catch(DataAccessException e){
@@ -59,13 +68,38 @@ public class UserRecordServiceImpl implements UserRecordService{
 		}
 		return jsScript;
 	}
+
+
+	private void saveArticlePropagate(Integer userid,
+			String articleId ,  Integer originalUserid) {
+		Article article = null;
+		try {
+			article = articleService.selectArticleById(articleId);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		if(article != null){
+			ArticlePropagate pro = articlePropagateDao.selectByUserIdAndArticleId(userid,articleId);
+			if(pro == null){
+				pro = new ArticlePropagate();
+				pro.setUserid(userid);
+				pro.setArticleId(articleId);
+				pro.setStatus("OK#");
+				pro.setArticleName(article.getTitle());
+				pro.setParentId(originalUserid);
+				pro.setInsertTime(new Date());
+				articlePropagateDao.insert(pro);
+			}
+		}
+		
+	}
 	
 	
 	@Override
 	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException {
 		String jsScript = loadJS();  
-		if(StringUtils.isNotEmpty(vo.getUserid())&&vo.getArticleId()!=null
-				&&StringUtils.isNotEmpty(vo.getOriginalUserid())){
+		if(vo.getUserid() != null&&vo.getArticleId()!=null
+				&&vo.getOriginalUserid()!=null){
 			try{
 				vo.setInsertTime(new Date());
 				shareArticleDao.insert(vo);

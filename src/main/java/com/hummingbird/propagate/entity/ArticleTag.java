@@ -9,7 +9,7 @@ public class ArticleTag {
     /**
      * 分享内容表id
      */
-    private Integer articleId;
+    private String articleId;
 
     /**
      * 分享内容使用的标签id，以&分隔
@@ -32,7 +32,7 @@ public class ArticleTag {
     /**
      * @return 分享内容表id
      */
-    public Integer getArticleId() {
+    public String getArticleId() {
         return articleId;
     }
 
@@ -40,8 +40,8 @@ public class ArticleTag {
      * @param articleId 
 	 *            分享内容表id
      */
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId == null ? null : articleId.trim();
     }
 
     /**

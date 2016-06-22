@@ -3,10 +3,10 @@
 <mapper namespace="com.hummingbird.propagate.mapper.ReadArticleMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ReadArticle" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="CHAR" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="original_url" property="originalUrl" jdbcType="VARCHAR" />
-    <result column="original_userid" property="originalUserid" jdbcType="CHAR" />
+    <result column="original_userid" property="originalUserid" jdbcType="INTEGER" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -26,8 +26,8 @@
     insert into t_read_article (id, article_id, userid, 
       original_url, original_userid, insert_time
       )
-    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{userid,jdbcType=CHAR}, 
-      #{originalUrl,jdbcType=VARCHAR}, #{originalUserid,jdbcType=CHAR}, #{insertTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{originalUrl,jdbcType=VARCHAR}, #{originalUserid,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.ReadArticle" >
@@ -57,16 +57,16 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="articleId != null" >
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=CHAR},
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="originalUrl != null" >
         #{originalUrl,jdbcType=VARCHAR},
       </if>
       <if test="originalUserid != null" >
-        #{originalUserid,jdbcType=CHAR},
+        #{originalUserid,jdbcType=INTEGER},
       </if>
       <if test="insertTime != null" >
         #{insertTime,jdbcType=TIMESTAMP},
@@ -77,16 +77,16 @@
     update t_read_article
     <set >
       <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=INTEGER},
+        article_id = #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        userid = #{userid,jdbcType=CHAR},
+        userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="originalUrl != null" >
         original_url = #{originalUrl,jdbcType=VARCHAR},
       </if>
       <if test="originalUserid != null" >
-        original_userid = #{originalUserid,jdbcType=CHAR},
+        original_userid = #{originalUserid,jdbcType=INTEGER},
       </if>
       <if test="insertTime != null" >
         insert_time = #{insertTime,jdbcType=TIMESTAMP},
@@ -96,10 +96,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ReadArticle" >
     update t_read_article
-    set article_id = #{articleId,jdbcType=INTEGER},
-      userid = #{userid,jdbcType=CHAR},
+    set article_id = #{articleId,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
       original_url = #{originalUrl,jdbcType=VARCHAR},
-      original_userid = #{originalUserid,jdbcType=CHAR},
+      original_userid = #{originalUserid,jdbcType=INTEGER},
       insert_time = #{insertTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

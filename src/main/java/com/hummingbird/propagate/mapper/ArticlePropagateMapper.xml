@@ -3,7 +3,7 @@
 <mapper namespace="com.hummingbird.propagate.mapper.ArticlePropagateMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.ArticlePropagate" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
     <result column="article_name" property="articleName" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -29,6 +29,18 @@
     from t_article_propagate
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+    
+    <select id="selectByUserIdAndArticleId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_article_propagate
+    where userid = #{userid,jdbcType=INTEGER} and article_id = #{article_id,jdbcType=VARCHAR}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_article_propagate
     where id = #{id,jdbcType=INTEGER}
@@ -38,7 +50,7 @@
       userid, name, parent_id, 
       insert_time, status, remark, 
       tree_no)
-    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{articleName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{articleName,jdbcType=VARCHAR}, 
       #{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{insertTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{treeNo,jdbcType=LONGVARCHAR})
@@ -82,7 +94,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="articleId != null" >
-        #{articleId,jdbcType=INTEGER},
+        #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="articleName != null" >
         #{articleName,jdbcType=VARCHAR},
@@ -114,7 +126,7 @@
     update t_article_propagate
     <set >
       <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=INTEGER},
+        article_id = #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="articleName != null" >
         article_name = #{articleName,jdbcType=VARCHAR},
@@ -145,7 +157,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hummingbird.propagate.entity.ArticlePropagate" >
     update t_article_propagate
-    set article_id = #{articleId,jdbcType=INTEGER},
+    set article_id = #{articleId,jdbcType=VARCHAR},
       article_name = #{articleName,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -158,7 +170,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.ArticlePropagate" >
     update t_article_propagate
-    set article_id = #{articleId,jdbcType=INTEGER},
+    set article_id = #{articleId,jdbcType=VARCHAR},
       article_name = #{articleName,jdbcType=VARCHAR},
       userid = #{userid,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
