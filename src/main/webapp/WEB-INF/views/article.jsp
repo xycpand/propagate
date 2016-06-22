@@ -31,7 +31,7 @@
    ${foot!""}
   </body>
   <script>
-	var errorInfo = '${errorInfo}';
+	var errorInfo = "${errorInfo!''}";
 	if(errorInfo){
 		alert(errorInfo);
 	}
