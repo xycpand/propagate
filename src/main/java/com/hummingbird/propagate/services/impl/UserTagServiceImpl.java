@@ -88,27 +88,27 @@ public class UserTagServiceImpl implements UserTagService {
 					//存在
 					//更新t_tag热度表，use_num加1
 					tag=tags.get(0);
-					tag.setUse_num(tag.getUse_num()+1);
-					tag.setUpdate_time(new Date());
-					tag.setUpdate_remark("更新热度");
+					tag.setUseNum(tag.getUseNum()+1);
+					tag.setUpdateTime(new Date());
+					tag.setUpdateRemark("更新热度");
 					tagDao.updateByPrimaryKey(tag);
 				}else{
 					//不存在
 					//t_tag添加该标签
-					tag.setTag_name(tagname);
-					tag.setInsert_time(new Date());
+					tag.setTagName(tagname);
+					tag.setInsertTime(new Date());
 					tag.setStatus("OK#");
 					tag.setUserid(wxUser.getUserid());
 					tag.setIsrecommend("NO#");
-					tag.setUpdate_time(new Date());
-					tag.setUpdate_remark("插入标签");
+					tag.setUpdateTime(new Date());
+					tag.setUpdateRemark("插入标签");
 					tagDao.insert(tag);
 				}
 				//为该文章添加该标签
 				ArticleTag articleTag=new ArticleTag();
-				articleTag.setArticle_id(body.getArticleId());
-				articleTag.setTag_id(tag.getId());
-				articleTag.setTag_name(tagname);
+				articleTag.setArticleId(body.getArticleId());
+				articleTag.setTagId(tag.getId());
+				articleTag.setTagName(tagname);
 				articleTagDao.insert(articleTag);
 			}
 		}

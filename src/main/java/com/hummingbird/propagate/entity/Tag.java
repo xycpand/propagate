@@ -11,17 +11,17 @@ public class Tag {
     /**
      * 标签类型表id
      */
-    private Integer type_id;
+    private Integer typeId;
 
     /**
-     * 标签名
+     * 标签名，名称唯一，被使用后不可修改，删除名称
      */
-    private String tag_name;
+    private String tagName;
 
     /**
      * 热度，使用次数
      */
-    private Integer use_num;
+    private Integer useNum;
 
     /**
      * 排序
@@ -31,7 +31,7 @@ public class Tag {
     /**
      * 插入时间
      */
-    private Date insert_time;
+    private Date insertTime;
 
     /**
      * 状态，OK#正常，OFF下线
@@ -46,12 +46,12 @@ public class Tag {
     /**
      * 更新时间
      */
-    private Date update_time;
+    private Date updateTime;
 
     /**
      * 更新备注
      */
-    private String update_remark;
+    private String updateRemark;
 
     /**
      * 是否推荐，是YES，否NO#
@@ -69,46 +69,46 @@ public class Tag {
     /**
      * @return 标签类型表id
      */
-    public Integer getType_id() {
-        return type_id;
+    public Integer getTypeId() {
+        return typeId;
     }
 
     /**
      * @param typeId 
 	 *            标签类型表id
      */
-    public void setType_id(Integer type_id) {
-        this.type_id = type_id;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     /**
-     * @return 标签名
+     * @return 标签名，名称唯一，被使用后不可修改，删除名称
      */
-    public String getTag_name() {
-        return tag_name;
+    public String getTagName() {
+        return tagName;
     }
 
     /**
      * @param tagName 
-	 *            标签名
+	 *            标签名，名称唯一，被使用后不可修改，删除名称
      */
-    public void setTag_name(String tag_name) {
-        this.tag_name = tag_name == null ? null : tag_name.trim();
+    public void setTagName(String tagName) {
+        this.tagName = tagName == null ? null : tagName.trim();
     }
 
     /**
      * @return 热度，使用次数
      */
-    public Integer getUse_num() {
-        return use_num;
+    public Integer getUseNum() {
+        return useNum;
     }
 
     /**
      * @param useNum 
 	 *            热度，使用次数
      */
-    public void setUse_num(Integer use_num) {
-        this.use_num = use_num;
+    public void setUseNum(Integer useNum) {
+        this.useNum = useNum;
     }
 
     /**
@@ -129,16 +129,16 @@ public class Tag {
     /**
      * @return 插入时间
      */
-    public Date getInsert_time() {
-        return insert_time;
+    public Date getInsertTime() {
+        return insertTime;
     }
 
     /**
      * @param insertTime 
 	 *            插入时间
      */
-    public void setInsert_time(Date insert_time) {
-        this.insert_time = insert_time;
+    public void setInsertTime(Date insertTime) {
+        this.insertTime = insertTime;
     }
 
     /**
@@ -174,31 +174,31 @@ public class Tag {
     /**
      * @return 更新时间
      */
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     /**
      * @param updateTime 
 	 *            更新时间
      */
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     /**
      * @return 更新备注
      */
-    public String getUpdate_remark() {
-        return update_remark;
+    public String getUpdateRemark() {
+        return updateRemark;
     }
 
     /**
      * @param updateRemark 
 	 *            更新备注
      */
-    public void setUpdate_remark(String update_remark) {
-        this.update_remark = update_remark == null ? null : update_remark.trim();
+    public void setUpdateRemark(String updateRemark) {
+        this.updateRemark = updateRemark == null ? null : updateRemark.trim();
     }
 
     /**

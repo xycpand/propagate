@@ -3,15 +3,15 @@
 <mapper namespace="com.hummingbird.propagate.mapper.TagMapper" >
   <resultMap id="BaseResultMap" type="com.hummingbird.propagate.entity.Tag" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="type_id" property="type_id" jdbcType="INTEGER" />
-    <result column="tag_name" property="tag_name" jdbcType="VARCHAR" />
-    <result column="use_num" property="use_num" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+    <result column="use_num" property="useNum" jdbcType="INTEGER" />
     <result column="sotno" property="sotno" jdbcType="INTEGER" />
-    <result column="insert_time" property="insert_time" jdbcType="TIMESTAMP" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
-    <result column="update_remark" property="update_remark" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_remark" property="updateRemark" jdbcType="VARCHAR" />
     <result column="isrecommend" property="isrecommend" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="UserTagResultMap" type="com.hummingbird.propagate.vo.TagVO" >
@@ -52,10 +52,10 @@
       use_num, sotno, insert_time, 
       status, userid, update_time, 
       update_remark, isrecommend)
-    values (#{id,jdbcType=INTEGER}, #{type_id,jdbcType=INTEGER}, #{tag_name,jdbcType=VARCHAR}, 
-      #{use_num,jdbcType=INTEGER}, #{sotno,jdbcType=INTEGER}, #{insert_time,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=CHAR}, #{userid,jdbcType=INTEGER}, #{update_time,jdbcType=TIMESTAMP}, 
-      #{update_remark,jdbcType=VARCHAR}, #{isrecommend,jdbcType=VARCHAR})
+    values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{tagName,jdbcType=VARCHAR}, 
+      #{useNum,jdbcType=INTEGER}, #{sotno,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=CHAR}, #{userid,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateRemark,jdbcType=VARCHAR}, #{isrecommend,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.Tag" >
     insert into t_tag
@@ -63,19 +63,19 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="type_id != null" >
+      <if test="typeId != null" >
         type_id,
       </if>
-      <if test="tag_name != null" >
+      <if test="tagName != null" >
         tag_name,
       </if>
-      <if test="use_num != null" >
+      <if test="useNum != null" >
         use_num,
       </if>
       <if test="sotno != null" >
         sotno,
       </if>
-      <if test="insert_time != null" >
+      <if test="insertTime != null" >
         insert_time,
       </if>
       <if test="status != null" >
@@ -84,10 +84,10 @@
       <if test="userid != null" >
         userid,
       </if>
-      <if test="update_time != null" >
+      <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="update_remark != null" >
+      <if test="updateRemark != null" >
         update_remark,
       </if>
       <if test="isrecommend != null" >
@@ -98,20 +98,20 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="type_id != null" >
-        #{type_id,jdbcType=INTEGER},
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="tag_name != null" >
-        #{tag_name,jdbcType=VARCHAR},
+      <if test="tagName != null" >
+        #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="use_num != null" >
-        #{use_num,jdbcType=INTEGER},
+      <if test="useNum != null" >
+        #{useNum,jdbcType=INTEGER},
       </if>
       <if test="sotno != null" >
         #{sotno,jdbcType=INTEGER},
       </if>
-      <if test="insert_time != null" >
-        #{insert_time,jdbcType=TIMESTAMP},
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
         #{status,jdbcType=CHAR},
@@ -119,11 +119,11 @@
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="update_time != null" >
-        #{update_time,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="update_remark != null" >
-        #{update_remark,jdbcType=VARCHAR},
+      <if test="updateRemark != null" >
+        #{updateRemark,jdbcType=VARCHAR},
       </if>
       <if test="isrecommend != null" >
         #{isrecommend,jdbcType=VARCHAR},
@@ -133,20 +133,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.hummingbird.propagate.entity.Tag" >
     update t_tag
     <set >
-      <if test="type_id != null" >
-        type_id = #{type_id,jdbcType=INTEGER},
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="tag_name != null" >
-        tag_name = #{tag_name,jdbcType=VARCHAR},
+      <if test="tagName != null" >
+        tag_name = #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="use_num != null" >
-        use_num = #{use_num,jdbcType=INTEGER},
+      <if test="useNum != null" >
+        use_num = #{useNum,jdbcType=INTEGER},
       </if>
       <if test="sotno != null" >
         sotno = #{sotno,jdbcType=INTEGER},
       </if>
-      <if test="insert_time != null" >
-        insert_time = #{insert_time,jdbcType=TIMESTAMP},
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
@@ -154,11 +154,11 @@
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="update_time != null" >
-        update_time = #{update_time,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="update_remark != null" >
-        update_remark = #{update_remark,jdbcType=VARCHAR},
+      <if test="updateRemark != null" >
+        update_remark = #{updateRemark,jdbcType=VARCHAR},
       </if>
       <if test="isrecommend != null" >
         isrecommend = #{isrecommend,jdbcType=VARCHAR},
@@ -168,15 +168,15 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hummingbird.propagate.entity.Tag" >
     update t_tag
-    set type_id = #{type_id,jdbcType=INTEGER},
-      tag_name = #{tag_name,jdbcType=VARCHAR},
-      use_num = #{use_num,jdbcType=INTEGER},
+    set type_id = #{typeId,jdbcType=INTEGER},
+      tag_name = #{tagName,jdbcType=VARCHAR},
+      use_num = #{useNum,jdbcType=INTEGER},
       sotno = #{sotno,jdbcType=INTEGER},
-      insert_time = #{insert_time,jdbcType=TIMESTAMP},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=CHAR},
       userid = #{userid,jdbcType=INTEGER},
-      update_time = #{update_time,jdbcType=TIMESTAMP},
-      update_remark = #{update_remark,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_remark = #{updateRemark,jdbcType=VARCHAR},
       isrecommend = #{isrecommend,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
