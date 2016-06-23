@@ -1,4 +1,6 @@
- (function() {  
+	 function test(){
+		 alert(567);
+	 }
 	    /**
 		 * shareUrl后面添加articleId,originalUserid参数
 		 * 其中originalUserid为cookie中的userid 
@@ -8,9 +10,9 @@
 				 alert("分享链接不能为空。")
 				 return;
 			  }
-			  var articleId = o.getItem("articleId");
+			  var articleId = o.getItem("x_articleId");
 			  //originalUserid为cookie中的userid 
-			  var originalUserid = o.getItem("userid");
+			  var originalUserid = o.getItem("x_userid");
 			  var param = "originalUserid="+originalUserid;
 			  if(articleId){
 				  param+="&articleId="+articleId;
@@ -67,15 +69,15 @@
 		        // 分享目标
 		        var shareTarget ;      
 		  	  //缓存参数：把链接url,文章id,阅读者id保存到cookie中
-			   o.setItem('originalUrl', originalUrl); 
-			   o.setItem('articleId', articleId); 
-			   o.setItem('userid',userid); 
+			   o.setItem('x_originalUrl', originalUrl); 
+			   o.setItem('x_articleId', articleId); 
+			   o.setItem('x_userid',userid); 
 		  	  
-		   	  console.log("originalUrl:"+o.getItem("originalUrl")); 
-		   	  console.log("userid:"+o.getItem("userid"));
+		   	  console.log("originalUrl:"+o.getItem("x_originalUrl")); 
+		   	  console.log("userid:"+o.getItem("x_userid"));
 		   	  //originalUserid为cookie中的userid 
-		   	  console.log("originalUserid:"+o.getItem("userid"));
-		  	  console.log("articleId:"+o.getItem("userid"));
+		   	  console.log("originalUserid:"+o.getItem("x_userid"));
+		  	  console.log("articleId:"+o.getItem("x_userid"));
 		  	  console.log("getRootPath:"+getRootPath());
 		  	  //加载userread.js
 		  	 var jsUrl = getRootPath()+"/userRecord/userread.js?userid="+userid;
@@ -112,7 +114,6 @@
 	   	  //初始化用户信息
 	      initUserInfo(); 
 
-})();	     
 	     
 	     
 	     
