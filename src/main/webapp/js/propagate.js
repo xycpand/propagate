@@ -168,11 +168,9 @@
 					}
 				}();
 
-
-
          /**
-		 * shareUrl后面添加articleId,originalUserid参数
-		 * 其中originalUserid为cookie中的userid 
+		 * shareUrl后面添加articleId,originalOpenId参数
+		 * 其中originalOpenId为cookie中的x_reader 
 		 */
 		var add4share = function(shareUrl){
 			  if(!shareUrl){
@@ -180,22 +178,17 @@
 				 return;
 			  }
 			  var articleId = o.getItem("x_articleId");
-			  //originalUserid为cookie中的userid 
-			  var originalUserid = o.getItem("x_userid");
-			  var param = "originalUserid="+originalUserid;
-			  if(articleId){
-				  param+="&articleId="+articleId;
-		  	  }
-			/*  if(shareUrl.indexOf("?") > -1){
-				  shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
-			  }*/
+			  //originalOpenId为cookie中的x_reader 
+			  var originalOpenId = o.getItem("x_reader");
+			  var param = "originalOpenId="+originalOpenId+"&articleId="+articleId;
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl += "&" + param;
 			  }else{
 				  shareUrl += "?" + param;
 			  }
 			  console.log(shareUrl);
-			  alert("分享链接为:"+decodeURIComponent(shareUrl));
+			 // alert("分享链接为:"+decodeURIComponent(shareUrl));
+			  return shareUrl;
 		  }; 
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
@@ -217,7 +210,7 @@
 	   		  if(user.qrCreateTime){ userinfoJsUrl+="&qrCreateTime="+user.qrCreateTime; }
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
-			 alert("保存用户信息成功。")
+			 console.log("保存用户信息成功。")
 	   	  }
 	   	  
 	   	  
@@ -278,7 +271,10 @@
 		  		 loadJS("userappend",userappendJSUrl);
 		  	  }
 		  }//end of initUserInfo
-		 
+		  
+		  //保存微信用户信息
+		  sendUserInfo();
+		  
 	   	  //初始化用户信息
 	      initUserInfo(); 
 

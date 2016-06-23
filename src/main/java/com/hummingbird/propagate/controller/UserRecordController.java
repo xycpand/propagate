@@ -15,7 +15,6 @@ import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
-import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
@@ -82,6 +81,26 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userappend.js")
 	public void  userappend(HttpServletRequest request,
+			HttpServletResponse response,SaveShareArticleVO vo) {
+		try {
+			String jsContent = userRecordService.saveShareArticleRecord(vo);
+            response.setContentType("text/html;charset=UTF-8"); 
+			response.getWriter().write(jsContent);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		} 
+	}
+	
+
+	/**
+	 * 分享文章时，保存分享记录
+	 * @return
+	 */
+	@RequestMapping(value = "/share_article.js")
+	public void  shareArticle(HttpServletRequest request,
 			HttpServletResponse response,SaveShareArticleVO vo) {
 		try {
 			String jsContent = userRecordService.saveShareArticleRecord(vo);
