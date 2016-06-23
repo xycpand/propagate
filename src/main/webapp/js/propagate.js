@@ -204,7 +204,7 @@
 	   	  
 	   	  var user = [];//保存的微信用户信息
 	   	  var sendUserInfo =  function(){
-	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=1&nickname=小明" +
+	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=op3EiwqwcqMFpRq04dQL1k1neb5M&nickname=小明" +
 	   		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
 	   		  	   "&country=中国&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
 	   		  //之后上面写死的参数要改成如下的添加方式
@@ -228,11 +228,11 @@
 			   //阅读时的链接
 		        var originalUrl =encodeURIComponent(window.location.href);
 		        //阅读者id
-		        var userid = getUrlParam('userid');
+		        var openId = getUrlParam('x_reader');
 		        //分享者用户id
-		        var originalUserid =  getUrlParam('originalUserid');
+		        var originalOpenId =  getUrlParam('x_sharer');
 		        //分享内容表id
-		        var articleId = getUrlParam('articleId');
+		        var articleId = getUrlParam('x_articleId');
 		        // 分享类型
 		        var shareType ; 
 		        // 分享目标
@@ -240,18 +240,18 @@
 		  	  //缓存参数：把链接url,文章id,阅读者id保存到cookie中
 			   o.setItem('x_originalUrl', originalUrl); 
 			   o.setItem('x_articleId', articleId); 
-			   o.setItem('x_userid',userid); 
+			   o.setItem('x_reader',openId); 
 		  	  
 		   	  console.log("originalUrl:"+o.getItem("x_originalUrl")); 
-		   	  console.log("userid:"+o.getItem("x_userid"));
-		   	  //originalUserid为cookie中的userid 
-		   	  console.log("originalUserid:"+o.getItem("x_userid"));
-		  	  console.log("articleId:"+o.getItem("x_userid"));
+		   	  console.log("userid:"+o.getItem("x_reader"));
+		   	  //originalUserid为cookie中的x_reader 
+		   	  console.log("originalUserid:"+o.getItem("x_reader"));
+		  	  console.log("articleId:"+o.getItem("x_articleId"));
 		  	  console.log("getRootPath:"+getRootPath());
 		  	  //加载userread.js
-		  	 var jsUrl = getRootPath()+"/userRecord/userread.js?userid="+userid;
-	  		     if(originalUserid){
-		  			jsUrl+="&originalUserid="+originalUserid;
+		  	 var jsUrl = getRootPath()+"/userRecord/userread.js?openId="+openId;
+	  		     if(originalOpenId){
+		  			jsUrl+="&originalOpenId="+originalOpenId;
 		  		 }
 		  		 if(articleId){
 		  			jsUrl+="&articleId="+articleId;
@@ -262,13 +262,12 @@
 		  		 console.log("userread.js:"+jsUrl);
 		  		 loadJS("userread",jsUrl);
 		  	  
-		  	  
 		   	  /**
 		   	   * 从url中提取originalUserid参数，如果存在则建立连接，加载另一段js
 		   	   */
-		  	  if(originalUserid){
-		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?userid="+userid
-		  		+"&originalUserid="+originalUserid;
+		  	  if(originalOpenId){
+		  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?openId="+openId
+		  		+"&originalOpenId="+originalOpenId;
 		  		 if(articleId){
 		  			userappendJSUrl+="&articleId="+articleId;
 		  		 }

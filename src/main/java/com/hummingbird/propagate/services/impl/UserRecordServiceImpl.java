@@ -37,9 +37,9 @@ import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.UserTagService;
 import com.hummingbird.propagate.services.WxUserService;
-import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
+import com.hummingbird.propagate.vo.SaveShareArticleVO;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -212,22 +212,41 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	
 	@Override
-	public String saveShareArticleRecord(ShareArticle vo) throws BusinessException {
+	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
+		
 		String jsScript = loadJS();  
-		Integer userid = vo.getUserid();
+		
+		String openId = vo.getOpenId();
 		String articleId = vo.getArticleId();
-		Integer originalUserId = vo.getOriginalUserid();
-		if(userid != null&&vo.getArticleId()!=null
-				&&vo.getOriginalUserid()!=null){
-			try{
-				//保存传播关系
-				saveArticlePropagate(userid, articleId,originalUserId);
-				//保存文章分享记录
-				vo.setInsertTime(new Date());
-				shareArticleDao.insert(vo);
-			}catch(DataAccessException e){
+		String originalOpenId = vo.getOriginalOpenId();
+		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(articleId) 
+				&& StringUtils.isNotBlank(originalOpenId)){
+		   try{
+					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
+					Integer userid = wxUserService.selectUserIdByOpenId(originalOpenId);
+			  if(userid != null && vo.getArticleId()!=null && originalUserId!=null){
+				try{
+					//保存传播关系
+					saveArticlePropagate(userid, articleId,originalUserId);
+					
+					ShareArticle shareArticle = new ShareArticle();
+					//保存文章分享记录
+					shareArticle.setUserid(userid);
+					shareArticle.setOriginalUserid(originalUserId);
+					shareArticle.setArticleId(articleId);
+					shareArticle.setOriginalUrl(vo.getOriginalUrl());
+					shareArticle.setShareTarget(vo.getShareTarget());
+					shareArticle.setShareType(vo.getShareType());
+					shareArticle.setShareTime(new Date());
+					shareArticle.setInsertTime(new Date());
+					shareArticleDao.insert(shareArticle);
+				}catch(DataAccessException e){
+					e.printStackTrace();
+					log.debug("保存文章分享记录。");
+				}
+			  }
+		    }catch(Exception e){
 				e.printStackTrace();
-				log.debug("保存文章分享记录。");
 			}
 		}
 		return jsScript;

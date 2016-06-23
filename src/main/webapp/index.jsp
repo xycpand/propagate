@@ -47,17 +47,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr><td colspan="2"><b>测试js</b></td></tr>
 		<tr>
 		    <td>
-		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=1&articleId=1'">进入阅读文章页面</button>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=op3EiwqwcqMFpRq04dQL1k1neb5M&x_articleId=1'">进入阅读文章页面</button>
 		    </td>
 		     <td>
-		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?userid=2&originalUserid=1&articleId=1'">通过分享链接进入阅读文章页面</button>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=op3EiwkPYRENALJj3gR3Q98ehW1Q&x_sharer=op3EiwqwcqMFpRq04dQL1k1neb5M&x_articleId=1'">通过分享链接进入阅读文章页面</button>
 		    </td>
 		   <td> <!--测试 保存用户阅读记录 -->
-	       <a href="<%=basePath%>userRecord/userread.js?openId=1&originalUrl=www.baidu.com&originalOpenId=2&articleId=1">测试请求userrecord.js内容</a>
+	       <a href="<%=basePath%>userRecord/userread.js?openId=op3EiwkPYRENALJj3gR3Q98ehW1Q&originalUrl=www.baidu.com&originalOpenId=op3EiwqwcqMFpRq04dQL1k1neb5M&articleId=1">测试请求userrecord.js内容</a>
 	      <!--测试 保存用户分享记录 -->
-	       <a href="<%=basePath%>userRecord/userappend.js?userid=1&originalUrl=www.baidu.com&originalUserid=2&articleId=1">测试请求userappend.js内容</a>
+	       <a href="<%=basePath%>userRecord/userappend.js?openId=op3EiwmE54olXv9ZntjMt_hmjk9k&originalUrl=www.baidu.com&originalOpenId=op3EiwkPYRENALJj3gR3Q98ehW1Q&articleId=1">测试请求userappend.js内容</a>
 	      <!--测试 上报微信用户信息  -->
-	       <a href="<%=basePath%>userRecord/userinfo.js?openid=1&nickname=小明">测试请求userinfo.js内容</a></td>
+	       <a href="<%=basePath%>userRecord/userinfo.js?openid=op3EiwqwcqMFpRq04dQL1k1neb5M&nickname=小明">测试请求userinfo.js内容</a></td>
         </tr>
 	<tr><td colspan="6">标签相关接口</td></tr>
 	<tr>

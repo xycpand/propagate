@@ -20,6 +20,7 @@ import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
+import com.hummingbird.propagate.vo.SaveShareArticleVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
@@ -53,27 +54,6 @@ public class UserRecordController extends BaseController  {
 
 	}
 	
-	/**
-	 *保存文章分享记录
-	 * @return
-	 */
-	@RequestMapping(value = "/saveShareArticleRecord", method = RequestMethod.POST)
-	@AccessRequered(methodName = "保存文章分享记录", isJson = true, codebase = 245900, className = "com.hummingbird.commonbiz.vo.BaseTransVO", genericClassName = "com.hummingbird.propagate.entity.ShareArticle", appLog = true)
-	public @ResponseBody ResultModel queryMyObjectTenderSurvey(HttpServletRequest request,
-			HttpServletResponse response) {
-		ResultModel rm = super.getResultModel();
-        BaseTransVO<ShareArticle> transorder = (BaseTransVO<ShareArticle>) super.getParameterObject();
-		String messagebase = "保存文章分享记录";
-		try {
-			userRecordService.saveShareArticleRecord(transorder.getBody());
-			rm.setErrmsg(messagebase+"成功");
-		} catch (Exception e1) {
-			log.error(String.format(messagebase + "失败"), e1);
-			rm.mergeException(e1);
-		} 
-		return rm;
-
-	}
 	
 
 	/**
@@ -102,7 +82,7 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userappend.js")
 	public void  userappend(HttpServletRequest request,
-			HttpServletResponse response,ShareArticle vo) {
+			HttpServletResponse response,SaveShareArticleVO vo) {
 		try {
 			String jsContent = userRecordService.saveShareArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 
