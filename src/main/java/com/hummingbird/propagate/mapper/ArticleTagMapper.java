@@ -2,6 +2,8 @@ package com.hummingbird.propagate.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.vo.TagVO;
 
@@ -10,6 +12,11 @@ public interface ArticleTagMapper {
      * 根据主键删除记录
      */
     int deleteByPrimaryKey(Integer id);
+    
+    /**
+     * 根据文章主键和标签名称删除记录
+     */
+    int deleteByName(@Param("articleId")String articleId,@Param("name")String name);
 
     /**
      * 保存记录,不管记录里面的属性是否为空

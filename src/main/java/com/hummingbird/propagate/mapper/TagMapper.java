@@ -26,6 +26,14 @@ public interface TagMapper {
      */
     Tag selectByPrimaryKey(Integer id);
     
+    /**
+     * 根据名称查询标签
+     * @param name
+     * @return
+     */
+    
+    List<Tag> queryTagByName(String name);
+    
     List<TagVO> queryHotTag(Integer num);
 
     /**

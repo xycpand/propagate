@@ -33,7 +33,11 @@
     delete from t_article_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.propagate.entity.ArticleTag" >
+  <delete id="deleteByName" >
+    delete from t_article_tag
+    where article_id = #{articleId,jdbcType=VARCHAR} and tag_name=#{name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.ArticleTag" useGeneratedKeys="true" keyProperty="id">
     insert into t_article_tag (id, article_id, tag_id, 
       tag_name)
     values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{tagId,jdbcType=INTEGER}, 

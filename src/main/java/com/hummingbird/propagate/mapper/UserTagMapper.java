@@ -2,6 +2,8 @@ package com.hummingbird.propagate.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hummingbird.propagate.entity.UserTag;
 import com.hummingbird.propagate.vo.TagVO;
 
@@ -26,7 +28,7 @@ public interface UserTagMapper {
      */
     UserTag selectByPrimaryKey(Integer id);
     
-    List<TagVO> queryUserTag(Integer userid);
+    List<TagVO> queryUserTag(@Param("userId")Integer userId);
 
     /**
      * 根据主键更新属性不为空的记录

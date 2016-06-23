@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.common.util.ValidateUtil;
 import com.hummingbird.propagate.entity.Article;
+import com.hummingbird.propagate.entity.ArticleTag;
+import com.hummingbird.propagate.entity.Tag;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.mapper.ArticleMapper;
 import com.hummingbird.propagate.mapper.ArticleTagMapper;
@@ -68,14 +70,68 @@ public class UserTagServiceImpl implements UserTagService {
 	public void addArticleTag(AddArticleTagBodyVO body) throws BusinessException{
 		//查询用户
 		WxUser wxUser= getWxUser(body.getOpenid());
-		
+		// 查询文章是否属于该用户
+		Article article=articleDao.selectByPrimaryKey(body.getArticleId());
+		ValidateUtil.assertNull(article, "文章信息记录未找到！");
+		if(article.getUserid()!=wxUser.getUserid()){
+			throw new BusinessException(245903,"该用户不是此文章作者，无法编辑！");
+		}
+		//查询文章标签
+		List<TagVO> articletags=articleTagDao.queryArticleTag(body.getArticleId());
+		for(String tagname:body.getTagName()){
+			
+			if(!articletags.contains(tagname)){
+				Tag tag=new Tag();
+				//判断该标签是否存在t_tag
+				List<Tag> tags=tagDao.queryTagByName(tagname);
+				if(tags.size()>0){
+					//存在
+					//更新t_tag热度表，use_num加1
+					tag=tags.get(0);
+					tag.setUse_num(tag.getUse_num()+1);
+					tag.setUpdate_time(new Date());
+					tag.setUpdate_remark("更新热度");
+					tagDao.updateByPrimaryKey(tag);
+				}else{
+					//不存在
+					//t_tag添加该标签
+					tag.setTag_name(tagname);
+					tag.setInsert_time(new Date());
+					tag.setStatus("OK#");
+					tag.setUserid(wxUser.getUserid());
+					tag.setIsrecommend("NO#");
+					tag.setUpdate_time(new Date());
+					tag.setUpdate_remark("插入标签");
+					tagDao.insert(tag);
+				}
+				//为该文章添加该标签
+				ArticleTag articleTag=new ArticleTag();
+				articleTag.setArticle_id(body.getArticleId());
+				articleTag.setTag_id(tag.getId());
+				articleTag.setTag_name(tagname);
+				articleTagDao.insert(articleTag);
+			}
+		}
+	}
+	@Override
+	public void delArticleTag(AddArticleTagBodyVO body) throws BusinessException {
+		//查询用户
+		WxUser wxUser= getWxUser(body.getOpenid());
 		// 查询文章是否属于该用户
 		Article article=articleDao.selectByPrimaryKey(body.getArticleId());
 		ValidateUtil.assertNullnoappend(article, "文章信息记录未找到！");
 		if(article.getUserid()!=wxUser.getUserid()){
-			
+			throw new BusinessException(245904,"该用户不是此文章作者，无法编辑！");
 		}
-		//
+		//查询文章标签
+		List<TagVO> articletags=articleTagDao.queryArticleTag(body.getArticleId());
+		for(String tagname:body.getTagName()){
+			
+			if(articletags.contains(tagname)){
+				//删除该标签
+				articleTagDao.deleteByName(body.getArticleId(), tagname);
+			}
+		}
 		
 	}
 	

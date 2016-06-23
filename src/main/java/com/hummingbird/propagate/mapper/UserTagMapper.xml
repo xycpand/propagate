@@ -29,16 +29,16 @@
   </select>
   <select id="queryUserTag" resultMap="UserTagResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="user_tag_List" />
+    u.tag_id,t.tag_name
     from t_user_tag u
-    left join t_tag t on u.tag_id=t.id
-    where userid = #{userid,jdbcType=INTEGER}
+    inner join t_tag t on u.tag_id=t.id
+    where u.userid = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.propagate.entity.UserTag" >
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.UserTag" useGeneratedKeys="true" keyProperty="id">
     insert into t_user_tag (id, userid, tag_id, 
       share_num, read_num, creat_num, 
       insert_time, update_time)

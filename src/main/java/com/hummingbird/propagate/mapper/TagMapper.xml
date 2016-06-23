@@ -31,6 +31,12 @@
     from t_tag
     where status = "OK#" order by use_num desc limit 0, #{id,jdbcType=INTEGER} 
   </select>
+  <select id="queryTagByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tag
+    where tag_name = #{name,jdbcType=VARCHAR}
+  </select>
   <select id="queryHotTag" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Hot_Tag_List" />
@@ -41,7 +47,7 @@
     delete from t_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hummingbird.propagate.entity.Tag" >
+  <insert id="insert" parameterType="com.hummingbird.propagate.entity.Tag" useGeneratedKeys="true" keyProperty="id">
     insert into t_tag (id, type_id, tag_name, 
       use_num, sotno, insert_time, 
       status, userid, update_time, 

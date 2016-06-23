@@ -18,6 +18,8 @@ public interface UserTagService {
 
 	public QueryUserTagReruenVO queryHotTag();
 
-	public void addArticleTag(AddArticleTagBodyVO body)throws BusinessException;
+	public void addArticleTag(AddArticleTagBodyVO body) throws BusinessException;
+
+	public void delArticleTag(AddArticleTagBodyVO body) throws BusinessException;
 	
 }
