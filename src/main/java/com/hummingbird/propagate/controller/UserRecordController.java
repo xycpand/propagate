@@ -15,11 +15,11 @@ import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
-import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
+import com.hummingbird.propagate.vo.SaveReadArticleVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
@@ -82,7 +82,7 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userread.js")
 	public void  saveReadArticleRecord(HttpServletRequest request,
-			HttpServletResponse response,ReadArticle vo) {
+			HttpServletResponse response,SaveReadArticleVO vo) {
 		try {
 			String jsContent = userRecordService.saveReadArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 

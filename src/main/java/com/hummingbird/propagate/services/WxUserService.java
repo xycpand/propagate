@@ -29,6 +29,14 @@ public interface WxUserService {
 	public WxUser selectUserByUnionid(String unionid) throws BusinessException;
 	
 	/**
+	 * 根据openId查询用户id，不存在则创建
+	 * @param openId
+	 * @return
+	 * @throws BusinessException
+	 */
+	public Integer selectUserIdByOpenId(String openId) throws BusinessException;
+	
+	/**
 	 * 根据openid查询用户信息
 	 * @param openid
 	 * @return WxUser

@@ -35,8 +35,11 @@ import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
+import com.hummingbird.propagate.services.UserTagService;
 import com.hummingbird.propagate.services.WxUserService;
+import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
 import com.hummingbird.propagate.vo.SaveArticleVO;
+import com.hummingbird.propagate.vo.SaveReadArticleVO;
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -50,6 +53,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Autowired
 	ArticleService articleService;
 	@Autowired
+	UserTagService userTagService;
+	@Autowired
 	ReadArticleMapper readArticleDao;
 	@Autowired
 	ShareArticleMapper shareArticleDao;
@@ -62,20 +67,31 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	
 	@Override
-	public String saveReadArticleRecord(ReadArticle vo) throws BusinessException {
+	public String saveReadArticleRecord(SaveReadArticleVO vo) throws BusinessException {
 		
 		String jsScript = loadJS();  
-		Integer userid = vo.getUserid();
+		
+		String openId = vo.getOpenId();
 		String articleId = vo.getArticleId();
-		Integer originalUserId = vo.getOriginalUserid();
-		if(userid != null && articleId!=null){
+		String originalOpenId = vo.getOriginalOpenId();
+		if(openId != null && articleId!=null){
 			try{
+				Integer originalUserId = null;
+				Integer userid = null;
+				if(StringUtils.isNotBlank(originalOpenId)){
+					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
+				}
+				userid = wxUserService.selectUserIdByOpenId(originalOpenId);
+				ReadArticle readArticle = new ReadArticle();
+				 //保存文章阅读记录
+				readArticle.setInsertTime(new Date());
+				 readArticleDao.insert(readArticle);
+				 
 				 //保存传播关系
 				 saveArticlePropagate(userid, articleId,originalUserId);
-				
-				 //保存文章阅读记录
-				 vo.setInsertTime(new Date());
-				 readArticleDao.insert(vo);
+				 
+				 //保存标签阅读数目
+				// QueryUserTagReruenVO = userTagService.queryUserTag(openid);
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -87,13 +103,18 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	@Override
 	public void saveArticle(SaveArticleVO vo) throws BusinessException {
-		Integer userid = vo.getUserid();
+		String openId = vo.getOpenId();
 	    String title = vo.getTitle();
 	    String tagIds = vo.getTagIds();
-		ValidateUtil.assertNullnoappend(userid, "用户id不能为空。");
+	    if(StringUtils.isBlank(openId)){
+	       throw new BusinessException("openId不能为空。");
+	    }
 		ValidateUtil.assertNullnoappend(title, "标题不能为空。");	
+		
 		Article article = null;
+		Integer userid = null;
 		try{
+			userid = wxUserService.selectUserIdByOpenId(openId);
 			String articleId = vo.getArticleId();
 			if(StringUtils.isBlank(articleId)){
 				//用户没有传文章的id，则生成默认的id
@@ -103,6 +124,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			}
             if(article == null){
             	article =new Article();
+            	article.setUserid(userid);
 				article.setId(articleId);
             	article.setTitle(title);
                 article.setContent(vo.getContent());
@@ -123,7 +145,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 			}
 		}catch(DataAccessException e){
 			e.printStackTrace();
-			log.debug("保存文章阅读记录失败。");
+			throw new BusinessException("保存文章阅读记录失败。");
+		}catch(BusinessException e){
+			e.printStackTrace();
+			throw e;
 		}
 	}
 

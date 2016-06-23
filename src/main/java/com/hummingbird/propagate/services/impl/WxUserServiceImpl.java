@@ -83,6 +83,24 @@ public class WxUserServiceImpl implements WxUserService{
 	
 
 	@Override
+	public Integer selectUserIdByOpenId(String openId) throws BusinessException {
+		WxUser user = null;
+		try{
+			user = wxUserDao.selectUserByUnionid(openId);
+			if(user == null){
+				user = new WxUser();
+				user.setOpenid(openId);
+				//不存在则添加
+				addWxUserInfo(user);
+			}
+		}catch(DataAccessException e){
+			throw new BusinessException("通过unionid查询微信用户信息失败。");
+		}
+		return user.getUserid();
+	}
+	
+
+	@Override
 	public WxUser  selectUserByOpendId(String openid) throws BusinessException {
 		WxUser user = null;
 		try{

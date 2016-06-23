@@ -7,7 +7,7 @@ public class SaveArticleVO {
      */
     private String articleId;
 
-    private Integer userid;
+    private String openId;
 
     /**
      * 分享标题
@@ -37,12 +37,12 @@ public class SaveArticleVO {
 		this.articleId = articleId;
 	}
 
-	public Integer getUserid() {
-		return userid;
+	public String getOpenId() {
+		return openId;
 	}
 
-	public void setUserid(Integer userid) {
-		this.userid = userid;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 
 	public String getTitle() {
