@@ -32,7 +32,7 @@ public interface ArticleTagMapper {
      * @param articleId
      * @return
      */
-    List<TagVO> queryArticleTag(String articleId);
+    List<String> queryArticleTag(String articleId);
     /**
      * 根据主键查询记录
      */

@@ -7,15 +7,8 @@
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
     <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
   </resultMap> 
-  <resultMap id="UserTagResultMap" type="com.hummingbird.propagate.vo.TagVO" >
-    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
-    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
-  </resultMap>
   <sql id="Base_Column_List" >
     id, article_id, tag_id, tag_name
-  </sql>
-  <sql id="Article_Tag_List" >
-    tag_id,tag_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,9 +16,9 @@
     from t_article_tag
     where id = #{id,jdbcType=INTEGER}
   </select> 
-  <select id="queryArticleTag" resultMap="UserTagResultMap" parameterType="java.lang.String" >
+  <select id="queryArticleTag"  resultType="java.lang.String" parameterType="java.lang.String" >
     select 
-    <include refid="Article_Tag_List" />
+    tag_name
     from t_article_tag
     where article_id = #{articleId,jdbcType=VARCHAR}
   </select>

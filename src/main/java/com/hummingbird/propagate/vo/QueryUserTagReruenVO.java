@@ -4,14 +4,16 @@ import java.util.List;
 
 //查询用户标签
 public class QueryUserTagReruenVO {
-	private List<TagVO> userTags;
+	private List<String> tagNames;
 
-	public List<TagVO> getUserTags() {
-		return userTags;
+	public List<String> getTagNames() {
+		return tagNames;
 	}
 
-	public void setUserTags(List<TagVO> userTags) {
-		this.userTags = userTags;
+	public void setTagNames(List<String> tagNames) {
+		this.tagNames = tagNames;
 	}
+
+	
 	
 }

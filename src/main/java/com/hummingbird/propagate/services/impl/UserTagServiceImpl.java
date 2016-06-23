@@ -11,6 +11,7 @@ import com.hummingbird.common.util.ValidateUtil;
 import com.hummingbird.propagate.entity.Article;
 import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.entity.Tag;
+import com.hummingbird.propagate.entity.UserTag;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.mapper.ArticleMapper;
 import com.hummingbird.propagate.mapper.ArticleTagMapper;
@@ -20,7 +21,6 @@ import com.hummingbird.propagate.mapper.WxUserMapper;
 import com.hummingbird.propagate.services.UserTagService;
 import com.hummingbird.propagate.vo.AddArticleTagBodyVO;
 import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
-import com.hummingbird.propagate.vo.TagVO;
 @Service
 public class UserTagServiceImpl implements UserTagService {
 	org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(this.getClass());
@@ -41,9 +41,9 @@ public class UserTagServiceImpl implements UserTagService {
 		//查询用户
 		WxUser wxUser= getWxUser(openid);
 		//查询用户标签表
-		List<TagVO> tags=userTagDao.queryUserTag(wxUser.getUserid());
+		List<String> tags=userTagDao.queryUserTag(wxUser.getUserid());
 		QueryUserTagReruenVO result=new QueryUserTagReruenVO();
-		result.setUserTags(tags);
+		result.setTagNames(tags);
 		return result;
 	}
 	
@@ -51,18 +51,18 @@ public class UserTagServiceImpl implements UserTagService {
 	public QueryUserTagReruenVO queryArticleTag(String articleId) {
 		
 		// 查询文章标签
-		List<TagVO> tags=articleTagDao.queryArticleTag(articleId);
+		List<String> tags=articleTagDao.queryArticleTag(articleId);
 		QueryUserTagReruenVO result=new QueryUserTagReruenVO();
-		result.setUserTags(tags);
+		result.setTagNames(tags);
 		return result;
 	}
 	
 	@Override
 	public QueryUserTagReruenVO queryHotTag() {
 		//查询使用最多的前五个
-		List<TagVO> tags=tagDao.queryHotTag(5);
+		List<String> tags=tagDao.queryHotTag(5);
 		QueryUserTagReruenVO result=new QueryUserTagReruenVO();
-		result.setUserTags(tags);
+		result.setTagNames(tags);
 		return result;
 	}
 	
@@ -77,7 +77,7 @@ public class UserTagServiceImpl implements UserTagService {
 			throw new BusinessException(245903,"该用户不是此文章作者，无法编辑！");
 		}
 		//查询文章标签
-		List<TagVO> articletags=articleTagDao.queryArticleTag(body.getArticleId());
+		List<String> articletags=articleTagDao.queryArticleTag(body.getArticleId());
 		for(String tagname:body.getTagName()){
 			
 			if(!articletags.contains(tagname)){
@@ -102,7 +102,11 @@ public class UserTagServiceImpl implements UserTagService {
 					tag.setIsrecommend("NO#");
 					tag.setUpdateTime(new Date());
 					tag.setUpdateRemark("插入标签");
+					tag.setUseNum(1);
 					tagDao.insert(tag);
+					//为用户添加该标签
+					UserTag userTag=new UserTag();
+					
 				}
 				//为该文章添加该标签
 				ArticleTag articleTag=new ArticleTag();
@@ -113,6 +117,29 @@ public class UserTagServiceImpl implements UserTagService {
 			}
 		}
 	}
+	
+	public void addUserTag(Integer userId ,String name){
+		//查询用户是否有该标签
+		List<UserTag> tags=userTagDao.queryUserTagByName(name);
+		UserTag userTag=new UserTag();
+		if(tags.size()>0){
+			//有,使用次数加1
+			userTag=tags.get(0);
+			userTag.setCreatNum(userTag.getCreatNum());
+			userTag.setUpdateTime(new Date());
+			userTagDao.updateByPrimaryKey(userTag);
+		}else{
+			//没有，新增
+			userTag.setUserid(userId);
+			userTag.setInsertTime(new Date());
+			userTag.setCreatNum(1);
+			userTag.setReadNum(0);
+			userTag.setShareNum(0);
+			userTag.setUpdateTime(new Date());
+			userTagDao.insert(userTag);
+		}
+	}
+	
 	@Override
 	public void delArticleTag(AddArticleTagBodyVO body) throws BusinessException {
 		//查询用户
@@ -124,7 +151,7 @@ public class UserTagServiceImpl implements UserTagService {
 			throw new BusinessException(245904,"该用户不是此文章作者，无法编辑！");
 		}
 		//查询文章标签
-		List<TagVO> articletags=articleTagDao.queryArticleTag(body.getArticleId());
+		List<String> articletags=articleTagDao.queryArticleTag(body.getArticleId());
 		for(String tagname:body.getTagName()){
 			
 			if(articletags.contains(tagname)){

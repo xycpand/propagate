@@ -28,7 +28,9 @@ public interface UserTagMapper {
      */
     UserTag selectByPrimaryKey(Integer id);
     
-    List<TagVO> queryUserTag(@Param("userId")Integer userId);
+    List<UserTag> queryUserTagByName(String name);
+    
+    List<String> queryUserTag(@Param("userId")Integer userId);
 
     /**
      * 根据主键更新属性不为空的记录

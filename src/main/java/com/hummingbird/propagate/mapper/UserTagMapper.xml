@@ -11,15 +11,8 @@
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="UserTagResultMap" type="com.hummingbird.propagate.vo.TagVO" >
-    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
-    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
-  </resultMap>
   <sql id="Base_Column_List" >
     id, userid, tag_id, share_num, read_num, creat_num, insert_time, update_time
-  </sql>
-  <sql id="user_tag_List" >
-    u.tag_id,t.tag_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,9 +20,16 @@
     from t_user_tag
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="queryUserTag" resultMap="UserTagResultMap" parameterType="java.lang.Integer" >
+  <select id="queryUserTagByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    u.tag_id,t.tag_name
+    <include refid="Base_Column_List" />
+    from t_user_tag u
+    inner join t_tag t on u.tag_id=t.id
+    where status ="OK#" and t.tag_name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="queryUserTag" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select 
+    t.tag_name
     from t_user_tag u
     inner join t_tag t on u.tag_id=t.id
     where u.userid = #{userId,jdbcType=INTEGER}

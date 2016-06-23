@@ -14,34 +14,27 @@
     <result column="update_remark" property="updateRemark" jdbcType="VARCHAR" />
     <result column="isrecommend" property="isrecommend" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="UserTagResultMap" type="com.hummingbird.propagate.vo.TagVO" >
-    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
-    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
-  </resultMap>
   <sql id="Base_Column_List" >
     id, type_id, tag_name, use_num, sotno, insert_time, status, userid, update_time, 
     update_remark, isrecommend
   </sql>
-  <sql id="Hot_Tag_List" >
-    u.tag_id,t.tag_name
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="UserTagResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_tag
-    where status = "OK#" order by use_num desc limit 0, #{id,jdbcType=INTEGER} 
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="queryTagByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_tag
-    where tag_name = #{name,jdbcType=VARCHAR}
+    where status ="OK#" and tag_name = #{name,jdbcType=VARCHAR}
   </select>
-  <select id="queryHotTag" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="queryHotTag" resultType="java.lang.String" parameterType="java.lang.Integer" >
     select 
-    <include refid="Hot_Tag_List" />
+    tag_name
     from t_tag
-    where id = #{id,jdbcType=INTEGER}
+    where status = "OK#" order by use_num desc limit 0, #{num,jdbcType=INTEGER} 
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_tag

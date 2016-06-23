@@ -34,7 +34,7 @@ public interface TagMapper {
     
     List<Tag> queryTagByName(String name);
     
-    List<TagVO> queryHotTag(Integer num);
+    List<String> queryHotTag(Integer num);
 
     /**
      * 根据主键更新属性不为空的记录
