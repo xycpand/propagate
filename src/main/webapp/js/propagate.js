@@ -195,24 +195,6 @@
 		  //测试add4share
 	   	  // add4share(getRootPath()+"/userRecord/userappend.js");
 	   	  
-	   	  var user = [];//保存的微信用户信息
-	   	  var sendUserInfo =  function(){
-	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=op3EiwqwcqMFpRq04dQL1k1neb5M&nickname=小明" +
-	   		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
-	   		  	   "&country=中国&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
-	   		  //之后上面写死的参数要改成如下的添加方式
-	   		  if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
-	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
-	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
-	   		  if(user.subscribeTime){  userinfoJsUrl+="&subscribeTime="+user.subscribeTime; }  
-	   		  if(user.groupid){ userinfoJsUrl+="&groupid="+user.groupid; } 
-	   		  if(user.qrExpireSeconds){ userinfoJsUrl+="&qrExpireSeconds="+user.qrExpireSeconds;  }
-	   		  if(user.qrCreateTime){ userinfoJsUrl+="&qrCreateTime="+user.qrCreateTime; }
-			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
-			 loadJS("userinfo",userinfoJsUrl);
-			 console.log("保存用户信息成功。")
-	   	  }
-	   	  
 	   	  
 	        /**
 			 * 初始化信息
@@ -272,11 +254,31 @@
 		  	  }
 		  }//end of initUserInfo
 		  
+		  var sendUserInfo =  function(user){
+	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?openid=op3EiwqwcqMFpRq04dQL1k1neb5M&nickname=小明" +
+	   		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
+	   		  	   "&country=中国&headimgurl=xxxx&privilege=xxxx&articleId=1&Ticket=xxxx&tagidList=xxxx";
+	   		  //之后上面写死的参数要改成如下的添加方式
+	   		 /* if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
+	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
+	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
+	   		  if(user.subscribeTime){  userinfoJsUrl+="&subscribeTime="+user.subscribeTime; }  
+	   		  if(user.groupid){ userinfoJsUrl+="&groupid="+user.groupid; } 
+	   		  if(user.qrExpireSeconds){ userinfoJsUrl+="&qrExpireSeconds="+user.qrExpireSeconds;  }
+	   		  if(user.qrCreateTime){ userinfoJsUrl+="&qrCreateTime="+user.qrCreateTime; }*/
+			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
+			 loadJS("userinfo",userinfoJsUrl);
+			 console.log("保存用户信息成功。")
+			 
+			  //初始化用户信息
+		      initUserInfo(); 
+	   	  }
+		  
+		  
 		  //保存微信用户信息
 		  sendUserInfo();
 		  
-	   	  //初始化用户信息
-	      initUserInfo(); 
+	   	  
 
 	     
 	     

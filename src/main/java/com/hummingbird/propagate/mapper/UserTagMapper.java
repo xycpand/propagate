@@ -22,6 +22,14 @@ public interface UserTagMapper {
      * 保存属性不为空的记录
      */
     int insertSelective(UserTag record);
+    
+    /**
+     * 根据用户id和标签id查询用户标签失败
+     * @param userid
+     * @param tagId
+     * @return
+     */
+    UserTag queryUserTagByUserIdAndTagId(@Param("userid")Integer userid,@Param("tagId") Integer tagId);
 
     /**
      * 根据主键查询记录

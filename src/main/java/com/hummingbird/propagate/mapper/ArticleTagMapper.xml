@@ -15,7 +15,15 @@
     <include refid="Base_Column_List" />
     from t_article_tag
     where id = #{id,jdbcType=INTEGER}
+  </select>
+   
+  <select id="queryArticleTagByArticleId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_article_tag
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </select> 
+  
   <select id="queryArticleTag"  resultType="java.lang.String" parameterType="java.lang.String" >
     select 
     tag_name

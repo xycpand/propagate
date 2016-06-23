@@ -1,8 +1,8 @@
 package com.hummingbird.propagate.services;
 
 import com.hummingbird.common.exception.BusinessException;
+import com.hummingbird.propagate.entity.UserTag;
 import com.hummingbird.propagate.vo.AddArticleTagBodyVO;
-import com.hummingbird.propagate.vo.OpenidBodyVO;
 import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
 
 /**
@@ -22,4 +22,18 @@ public interface UserTagService {
 
 	public void delArticleTag(AddArticleTagBodyVO body) throws BusinessException;
 	
+	public UserTag queryUserTagByUserIdAndTagId(Integer userId,Integer tagId) throws BusinessException;
+	
+	public void addUserTag(UserTag userTag) throws BusinessException;
+	
+	public void updateUserTag(UserTag userTag) throws BusinessException;
+	
+	/**
+	 * 更新用户标签信息
+	 * @param way
+	 * @param articleId
+	 * @param userid
+	 * @throws BusinessException
+	 */
+	public void  saveUserTag(String way,String articleId, Integer userid) throws BusinessException;
 }

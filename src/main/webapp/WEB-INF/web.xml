@@ -69,6 +69,11 @@ version="2.5">
   
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
+    <url-pattern>/userRecord/save_article.js</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/userRecord/userread.js</url-pattern>
   </servlet-mapping>
   
@@ -81,7 +86,6 @@ version="2.5">
     <servlet-name>spring</servlet-name>
     <url-pattern>/userRecord/userinfo.js</url-pattern>
   </servlet-mapping> 
-  
   
   <servlet-mapping>
     <servlet-name>default</servlet-name>

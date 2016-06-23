@@ -86,7 +86,7 @@ public class WxUserServiceImpl implements WxUserService{
 	public Integer selectUserIdByOpenId(String openId) throws BusinessException {
 		WxUser user = null;
 		try{
-			user = wxUserDao.selectUserByUnionid(openId);
+			user = wxUserDao.selectUserByOpendId(openId);
 			if(user == null){
 				user = new WxUser();
 				user.setOpenid(openId);
@@ -94,7 +94,7 @@ public class WxUserServiceImpl implements WxUserService{
 				addWxUserInfo(user);
 			}
 		}catch(DataAccessException e){
-			throw new BusinessException("通过unionid查询微信用户信息失败。");
+			throw new BusinessException("通过openId查询微信用户信息失败。");
 		}
 		return user.getUserid();
 	}
@@ -104,7 +104,7 @@ public class WxUserServiceImpl implements WxUserService{
 	public WxUser  selectUserByOpendId(String openid) throws BusinessException {
 		WxUser user = null;
 		try{
-			user = wxUserDao.selectUserByUnionid(openid);
+			user = wxUserDao.selectUserByOpendId(openid);
 		}catch(DataAccessException e){
 			throw new BusinessException("通过unionid查询微信用户信息失败。");
 		}
@@ -114,6 +114,7 @@ public class WxUserServiceImpl implements WxUserService{
 	@Override
 	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException {
 		try{
+			wxUser.setUpdateTime(new Date());
 		   wxUserDao.updateByPrimaryKey(wxUser);
 		}catch(DataAccessException e){
 			throw new BusinessException("通过userid更新微信用户信息失败。");

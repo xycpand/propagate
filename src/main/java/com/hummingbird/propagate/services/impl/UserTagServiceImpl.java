@@ -3,7 +3,9 @@ package com.hummingbird.propagate.services.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.hummingbird.common.exception.BusinessException;
@@ -18,6 +20,7 @@ import com.hummingbird.propagate.mapper.ArticleTagMapper;
 import com.hummingbird.propagate.mapper.TagMapper;
 import com.hummingbird.propagate.mapper.UserTagMapper;
 import com.hummingbird.propagate.mapper.WxUserMapper;
+import com.hummingbird.propagate.services.ArticleTagService;
 import com.hummingbird.propagate.services.UserTagService;
 import com.hummingbird.propagate.vo.AddArticleTagBodyVO;
 import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
@@ -33,6 +36,8 @@ public class UserTagServiceImpl implements UserTagService {
 	TagMapper tagDao;
 	@Autowired
 	ArticleTagMapper articleTagDao;
+	@Autowired
+	ArticleTagService articleTagService;
 	@Autowired
 	ArticleMapper articleDao;
 	
@@ -174,7 +179,77 @@ public class UserTagServiceImpl implements UserTagService {
 		return wxUser;
 	}
 
+	@Override
+	public UserTag queryUserTagByUserIdAndTagId(Integer userid, Integer tagId) throws BusinessException {
+		UserTag userTag = new UserTag();
+		try{
+			userTag = userTagDao.queryUserTagByUserIdAndTagId(userid,tagId);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			log.debug("根据用户id和标签id查询用户标签失败。");
+			throw new BusinessException("根据用户id和标签id查询用户标签失败。");
+		}
+		return userTag;
+	}
+
+	@Override
+	public void addUserTag(UserTag userTag) throws BusinessException {
+		try{
+			userTagDao.insert(userTag);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			throw new BusinessException("添加用户标签失败。");
+		}
+	}
+
+	@Override
+	public void updateUserTag(UserTag userTag) throws BusinessException {
+		try{
+			userTagDao.updateByPrimaryKey(userTag);
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			throw new BusinessException("更新用户标签失败。");
+		}
+	}
 	
+	@Override
+	public void saveUserTag(String way,String articleId, Integer userid) throws BusinessException {
+		List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
+		 if(CollectionUtils.isNotEmpty(tags)){
+			 int count = 0;
+			 for(ArticleTag tag : tags){
+				 UserTag userTag = queryUserTagByUserIdAndTagId(userid,tag.getId());
+			     if(userTag == null){
+			    	 userTag = new UserTag();
+			    	 userTag.setUserid(userid);
+			    	 userTag.setTagId(tag.getId());
+			    	 if("read".equals(way)){
+			    		 userTag.setReadNum(1);
+			    	 }else if("share".equals(way)){
+			    		 userTag.setShareNum(1);
+			    	 }else{//add
+			    		 userTag.setCreatNum(1);
+			    	 }
+			    	 userTag.setInsertTime(new Date());
+			    	 userTag.setUpdateTime(new Date());
+			    	 addUserTag(userTag);
+			     }else{
+			    	 if("read".equals(way)){
+			    		 count = userTag.getReadNum()==null?0:userTag.getReadNum();
+				    	 userTag.setReadNum(++count);
+			    	 }else if("share".equals(way)){
+			    		 count = userTag.getShareNum()==null?0:userTag.getShareNum();
+				    	 userTag.setShareNum(++count);
+			    	 }else{//add
+			    		 count = userTag.getCreatNum()==null?0:userTag.getCreatNum();
+				    	 userTag.setCreatNum(++count);
+			    	 }
+			    	 userTag.setUpdateTime(new Date());
+			    	 updateUserTag(userTag);
+			     }
+			 }
+		 }
+	}
 
 	
 

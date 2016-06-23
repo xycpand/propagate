@@ -14,6 +14,7 @@ import com.hummingbird.propagate.vo.SaveUserInfoVO;
  * 2016年6月15日 下午2:59:01
  * 本类主要做为 用户浏览记录service
  */
+@SuppressWarnings("unused")
 public interface UserRecordService {
 
 	

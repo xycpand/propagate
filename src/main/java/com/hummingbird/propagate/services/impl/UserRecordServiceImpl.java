@@ -33,6 +33,7 @@ import com.hummingbird.propagate.mapper.ArticleTagMapper;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
 import com.hummingbird.propagate.services.ArticleService;
+import com.hummingbird.propagate.services.ArticleTagService;
 import com.hummingbird.propagate.services.TokenService;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.services.UserTagService;
@@ -40,6 +41,7 @@ import com.hummingbird.propagate.services.WxUserService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+
 
 @Service
 public class UserRecordServiceImpl implements UserRecordService{
@@ -55,6 +57,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Autowired
 	UserTagService userTagService;
 	@Autowired
+	ArticleTagService articleTagService;
+	@Autowired
 	ReadArticleMapper readArticleDao;
 	@Autowired
 	ShareArticleMapper shareArticleDao;
@@ -67,6 +71,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveReadArticleRecord(SaveReadArticleVO vo) throws BusinessException {
 		
 		String jsScript = loadJS();  
@@ -84,14 +89,18 @@ public class UserRecordServiceImpl implements UserRecordService{
 				userid = wxUserService.selectUserIdByOpenId(originalOpenId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
+				readArticle.setUserid(userid);
+				readArticle.setArticleId(articleId);
+				readArticle.setOriginalUrl(vo.getOriginalUrl());
+				readArticle.setOriginalUserid(originalUserId);
 				readArticle.setInsertTime(new Date());
 				 readArticleDao.insert(readArticle);
 				 
 				 //保存传播关系
 				 saveArticlePropagate(userid, articleId,originalUserId);
 				 
-				 //保存标签阅读数目
-				// QueryUserTagReruenVO = userTagService.queryUserTag(openid);
+				 //保存用户标签  阅读 数目
+				 userTagService.saveUserTag("read",articleId, userid);
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -100,8 +109,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 
-	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public void saveArticle(SaveArticleVO vo) throws BusinessException {
 		String openId = vo.getOpenId();
 	    String title = vo.getTitle();
@@ -212,6 +221,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
 		
 		String jsScript = loadJS();  
@@ -240,6 +250,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 					shareArticle.setShareTime(new Date());
 					shareArticle.setInsertTime(new Date());
 					shareArticleDao.insert(shareArticle);
+					
+					 //更新用户 标签  分享  数目
+					 userTagService.saveUserTag("share",articleId, userid);
 				}catch(DataAccessException e){
 					e.printStackTrace();
 					log.debug("保存文章分享记录。");
@@ -257,7 +270,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 * @return
 	 * @throws BusinessException
 	 */
-	private String loadJS() throws BusinessException {
+	private String loadJS(){
 		List<String> lines = null;
 		String filePath = "C:\\js\\userrecord.js";
 		try {
@@ -265,14 +278,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 		    //判断文件是否存在
             if(!file.isFile() || !file.exists()){ 
             	log.debug("找不到指定的文件。");
-            	throw  new BusinessException("找不到指定的文件。");
+            	//throw  new BusinessException("找不到指定的文件。");
             }
 			lines = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException("读取文件失败："+e.getMessage());
+			//throw new BusinessException("读取文件失败："+e.getMessage());
 		}  
-      StringBuilder sb = new StringBuilder();  
+        StringBuilder sb = new StringBuilder();  
         for(String line : lines){  
            sb.append(line);  
          }  
@@ -292,13 +305,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 				 isExistUser = wxUserService.selectUserByOpendId(wxUser.getOpenid());
 			 }
 			 if(isExistUser == null){
-				 wxUser.setInsertTime(new Date());
-				 wxUser.setUpdateTime(new Date());
 				 //保存微信用户信息
 				 wxUserService.addWxUserInfo(wxUser);
 			 }else{
 				 wxUser.setUserid(isExistUser.getUserid());
-				 wxUser.setUpdateTime(new Date());
 				 //更新微信用户信息
 				 wxUserService.updateByPrimaryKey(wxUser);
 			 }

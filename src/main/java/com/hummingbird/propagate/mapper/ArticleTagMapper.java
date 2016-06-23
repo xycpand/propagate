@@ -3,6 +3,7 @@ package com.hummingbird.propagate.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
 
 import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.vo.TagVO;
@@ -33,6 +34,15 @@ public interface ArticleTagMapper {
      * @return
      */
     List<String> queryArticleTag(String articleId);
+    
+
+    /**
+     * 根据文章id查询文章标签列表
+     * @param articleId
+     * @return
+     */
+    List<ArticleTag> queryArticleTagByArticleId(String articleId)throws DataAccessException;
+    
     /**
      * 根据主键查询记录
      */

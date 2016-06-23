@@ -52,7 +52,22 @@ public class UserRecordController extends BaseController  {
 		return rm;
 
 	}
-	
+
+		/**
+		 *通过js方式保存文章信息
+		 *加载save_article.js
+		 * @return
+		 */
+		@RequestMapping(value = "/save_article.js")
+		public void  saveArticleByJs(HttpServletRequest request,
+				HttpServletResponse response,SaveArticleVO vo) {
+			try {
+				userRecordService.saveArticle(vo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getMessage());
+			} 
+		}
 	
 
 	/**
@@ -81,26 +96,6 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userappend.js")
 	public void  userappend(HttpServletRequest request,
-			HttpServletResponse response,SaveShareArticleVO vo) {
-		try {
-			String jsContent = userRecordService.saveShareArticleRecord(vo);
-            response.setContentType("text/html;charset=UTF-8"); 
-			response.getWriter().write(jsContent);
-			response.getWriter().flush();
-			response.getWriter().close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
-		} 
-	}
-	
-
-	/**
-	 * 分享文章时，保存分享记录
-	 * @return
-	 */
-	@RequestMapping(value = "/share_article.js")
-	public void  shareArticle(HttpServletRequest request,
 			HttpServletResponse response,SaveShareArticleVO vo) {
 		try {
 			String jsContent = userRecordService.saveShareArticleRecord(vo);
@@ -156,19 +151,5 @@ public class UserRecordController extends BaseController  {
 		mav.setViewName("article");
 		return mav;
 	}
-	
-	private String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
 	
 }
