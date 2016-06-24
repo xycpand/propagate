@@ -1,7 +1,6 @@
 	   //cookie失效时间
        var x_expire = 60 * 60;
-       //js接口的根路径 
-       var  x_rootPath = "http://10.169.222.82:8099/if";
+  
 	    /**
 		 * 动态加载js
 		 */
