@@ -1,4 +1,4 @@
-(function() {
+
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
@@ -195,23 +195,23 @@
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
 			  var param = "";
-			  if(shareUrl.indexOf("x_articleId") > -1){
+			  if(shareUrl.indexOf("x_articleId") != -1){
 				  //替换文章id为用户当前阅读的文章的id
-				  shareUrl =  replaceParamVal(articleId);
+				  shareUrl =  replaceParamVal(shareUrl,x_articleId,articleId);
 			  }else{
 				   param = "x_articleId="+articleId;
 			  }
-			  if(shareUrl.indexOf("x_sharer") > -1){
+			  if(shareUrl.indexOf("x_sharer") != -1){
 				  //替换分享用户openId为当前用户的openId
-				  shareUrl =  replaceParamVal(originalOpenId);
+				  shareUrl =  replaceParamVal(shareUrl,x_sharer,originalOpenId);
 			  }else{
 				  if(param == ""){
 					  param = "x_sharer="+originalOpenId;
 				  }else{
-					  param = "&x_sharer="+originalOpenId;
+					  param += "&x_sharer="+originalOpenId;
 				  }
-				  
 			  }
+
 			  if(param != ""){
 				  if(shareUrl.indexOf("?") > -1){
 					  shareUrl += "&" + param;
@@ -219,6 +219,7 @@
 					  shareUrl += "?" + param;
 				  }
 			  }
+
 			  console.log(shareUrl);
 			 // alert("分享链接为:"+decodeURIComponent(shareUrl));
 			  return shareUrl;
@@ -306,7 +307,7 @@
 		  //保存阅读和分享记录
 		  saveReadOrShareRecord();
 	   	  
-})();
+
 	     
 	     
 	     
