@@ -74,7 +74,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveReadArticleRecord(SaveReadArticleVO vo) throws BusinessException {
 		
-		String jsScript = "";//loadJS();  
+		String jsScript =  "测试js内容";//loadJS();  
 		
 		String openId = vo.getOpenId();
 		String articleId = vo.getArticleId();
@@ -229,7 +229,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
 		
-		String jsScript = "";//loadJS();  
+		String jsScript = "测试js内容";//loadJS();  
 		
 		String openId = vo.getOpenId();
 		String articleId = vo.getArticleId();
@@ -302,7 +302,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 		String jsScript = "";
 		try{
 			 //加载js内容
-			 jsScript = "";//loadJS();  
+			 jsScript =  "测试js内容";//loadJS();  
 			 
 			 WxUser isExistUser = null;
 			 if(StringUtils.isNotBlank(wxUser.getOpenid())){
