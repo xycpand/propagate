@@ -124,7 +124,6 @@ public class UserRecordController extends BaseController  {
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
 			response.getWriter().close();
-			throw new Exception("测试异常信息。");
 		} catch (Exception e) {
 			e.printStackTrace();
 			mav.addObject("errorInfo", e.getMessage());

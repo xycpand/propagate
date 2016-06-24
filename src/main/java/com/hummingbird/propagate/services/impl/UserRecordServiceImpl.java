@@ -86,7 +86,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				if(StringUtils.isNotBlank(originalOpenId)){
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
-				userid = wxUserService.selectUserIdByOpenId(originalOpenId);
+				userid = wxUserService.selectUserIdByOpenId(openId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
 				readArticle.setUserid(userid);
@@ -211,9 +211,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 				pro.setArticleId(articleId);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
-				pro.setParentId(originalUserid);
+				pro.setParentId(originalUserid==null?0:originalUserid);
 				pro.setInsertTime(new Date());
 				articlePropagateDao.insert(pro);
+			}else{
+				pro.setStatus("OK#");
+				pro.setArticleName(article.getTitle());
+				pro.setParentId(originalUserid==null?0:originalUserid);
+				articlePropagateDao.updateByPrimaryKey(pro);
 			}
 		}
 		
@@ -233,7 +238,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				&& StringUtils.isNotBlank(originalOpenId)){
 		   try{
 					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
-					Integer userid = wxUserService.selectUserIdByOpenId(originalOpenId);
+					Integer userid = wxUserService.selectUserIdByOpenId(openId);
 			  if(userid != null && vo.getArticleId()!=null && originalUserId!=null){
 				try{
 					//保存传播关系
@@ -303,14 +308,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 if(StringUtils.isNotBlank(wxUser.getOpenid())){
 				 //根据openid查询用户信息
 				 isExistUser = wxUserService.selectUserByOpendId(wxUser.getOpenid());
-			 }
-			 if(isExistUser == null){
-				 //保存微信用户信息
-				 wxUserService.addWxUserInfo(wxUser);
-			 }else{
-				 wxUser.setUserid(isExistUser.getUserid());
-				 //更新微信用户信息
-				 wxUserService.updateByPrimaryKey(wxUser);
+				 if(isExistUser == null){
+					 //保存微信用户信息
+					 wxUserService.addWxUserInfo(wxUser);
+				 }else{
+					 wxUser.setUserid(isExistUser.getUserid());
+					 //更新微信用户信息
+					 wxUserService.updateByPrimaryKey(wxUser);
+				 }
 			 }
 		}catch(Exception e){
 			e.printStackTrace();

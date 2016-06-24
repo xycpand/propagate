@@ -106,6 +106,7 @@ public class WxUserServiceImpl implements WxUserService{
 		try{
 			user = wxUserDao.selectUserByOpendId(openid);
 		}catch(DataAccessException e){
+			e.printStackTrace();
 			throw new BusinessException("通过unionid查询微信用户信息失败。");
 		}
 		return user;
