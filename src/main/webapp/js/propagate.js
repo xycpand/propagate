@@ -2,7 +2,7 @@
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
-       var  x_rootPath = "http://112.124.6.88/if";
+       var  x_rootPath = "http://112.124.6.88:8099/if";
       // var x_rootPath = "http://localhost:6060/propagate";
 	    /**
 		 * 动态加载js
@@ -197,13 +197,13 @@
 			  var param = "";
 			  if(shareUrl.indexOf("x_articleId") != -1){
 				  //替换文章id为用户当前阅读的文章的id
-				  shareUrl =  replaceParamVal(shareUrl,x_articleId,articleId);
+				  shareUrl =  replaceParamVal(shareUrl,"x_articleId",articleId);
 			  }else{
 				   param = "x_articleId="+articleId;
 			  }
 			  if(shareUrl.indexOf("x_sharer") != -1){
 				  //替换分享用户openId为当前用户的openId
-				  shareUrl =  replaceParamVal(shareUrl,x_sharer,originalOpenId);
+				  shareUrl =  replaceParamVal(shareUrl,"x_sharer",originalOpenId);
 			  }else{
 				  if(param == ""){
 					  param = "x_sharer="+originalOpenId;
