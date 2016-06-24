@@ -25,7 +25,7 @@
 	    		    oScript.onload = oScript.onreadystatechange = null; 
 	    		} 
 			}; 
-		} 
+		}; 
 		
 		
 		/**
@@ -38,7 +38,7 @@
 	   	    var localhostPaht=curWwwPath.substring(0,pos);
 	   	    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
 	   	    return(localhostPaht+projectName);
-	   	}
+	   	};
 	    
 		/**
 		 * 获取上下文路径
@@ -48,7 +48,7 @@
 		    var index = pathName.substr(1).indexOf("/");
 		    var result = pathName.substr(0,index+1);
 		    return result;
-		}
+		};
 
 		
 		/**
@@ -184,6 +184,10 @@
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
 			  var param = "originalOpenId="+originalOpenId+"&articleId="+articleId;
+			 /* 
+			  * shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
+			  * shareUrl += "?" + param;
+			  */
 			  if(shareUrl.indexOf("?") > -1){
 				  shareUrl += "&" + param;
 			  }else{
@@ -250,7 +254,7 @@
 				  		 loadJS("userappend",userappendJSUrl);
 				  	  }
 		  	  }
-		  }//end of saveReadOrShareRecord
+		  };//end of saveReadOrShareRecord
 		  
 		  /**
 		   * 保存微信用户信息
@@ -271,7 +275,7 @@
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
 			 console.log("保存用户信息成功。")
-	   	  }
+	   	  };
 		  
 		  //保存阅读和分享记录
 		  saveReadOrShareRecord();
