@@ -82,14 +82,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 		if(openId != null && articleId!=null){
 			try{
 				Integer originalUserId = null;
-				Integer userid = null;
+				WxUser readUser = null;
 				if(StringUtils.isNotBlank(originalOpenId)){
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
-				userid = wxUserService.selectUserIdByOpenId(openId);
+				readUser = wxUserService.selectUserByOpendId(openId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
-				readArticle.setUserid(userid);
+				readArticle.setUserid(readUser.getUserid());
 				readArticle.setArticleId(articleId);
 				readArticle.setOriginalUrl(vo.getOriginalUrl());
 				readArticle.setOriginalUserid(originalUserId);
@@ -97,10 +97,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 				 readArticleDao.insert(readArticle);
 				 
 				 //保存传播关系
-				 saveArticlePropagate(userid, articleId,originalUserId);
+				 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
 				 
 				 //保存用户标签  阅读 数目
-				 userTagService.saveUserTag("read",articleId, userid);
+				 userTagService.saveUserTag("read",articleId, readUser.getUserid());
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -196,7 +196,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	private void saveArticlePropagate(Integer userid,
-			String articleId ,  Integer originalUserid) {
+			String articleId , String nickName,Integer originalUserid) {
 		Article article = null;
 		try {
 			article = articleService.selectArticleById(articleId);
@@ -204,10 +204,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 			e.printStackTrace();
 		}
 		if(article != null){
+			if(StringUtils.isBlank(nickName)){
+				nickName = "匿名";
+			}
 			ArticlePropagate pro = articlePropagateDao.selectByUserIdAndArticleId(userid,articleId);
 			if(pro == null){
 				pro = new ArticlePropagate();
 				pro.setUserid(userid);
+				pro.setName(nickName);
 				pro.setArticleId(articleId);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
@@ -218,6 +222,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
 				pro.setParentId(originalUserid==null?0:originalUserid);
+				pro.setName(nickName);
 				articlePropagateDao.updateByPrimaryKey(pro);
 			}
 		}
@@ -238,15 +243,15 @@ public class UserRecordServiceImpl implements UserRecordService{
 				&& StringUtils.isNotBlank(originalOpenId)){
 		   try{
 					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
-					Integer userid = wxUserService.selectUserIdByOpenId(openId);
-			  if(userid != null && vo.getArticleId()!=null && originalUserId!=null){
+					WxUser readUser = wxUserService.selectUserByOpendId(openId);
+			  if(readUser != null && vo.getArticleId()!=null && originalUserId!=null){
 				try{
 					//保存传播关系
-					saveArticlePropagate(userid, articleId,originalUserId);
+					saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
 					
 					ShareArticle shareArticle = new ShareArticle();
 					//保存文章分享记录
-					shareArticle.setUserid(userid);
+					shareArticle.setUserid(readUser.getUserid());
 					shareArticle.setOriginalUserid(originalUserId);
 					shareArticle.setArticleId(articleId);
 					shareArticle.setOriginalUrl(vo.getOriginalUrl());
@@ -257,7 +262,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 					shareArticleDao.insert(shareArticle);
 					
 					 //更新用户 标签  分享  数目
-					 userTagService.saveUserTag("share",articleId, userid);
+					 userTagService.saveUserTag("share",articleId, readUser.getUserid());
 				}catch(DataAccessException e){
 					e.printStackTrace();
 					log.debug("保存文章分享记录。");
