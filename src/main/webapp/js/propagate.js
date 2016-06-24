@@ -171,28 +171,53 @@
 						}
 					}
 				}();
+				
+				/**
+				 *  替换URL中指定的参数值
+				 */
+				function replaceParamVal(href,paramName,replaceWith) {
+				    var re=eval('/('+ paramName+'=)([^&]*)/gi');
+				    var newUrl = href.replace(re,paramName+'='+replaceWith);
+				    return newUrl;
+				}	
+				
 
          /**
 		 * shareUrl后面添加articleId,originalOpenId参数
 		 * 其中originalOpenId为cookie中的x_reader 
 		 */
 		var add4share = function(shareUrl){
-			  if(!shareUrl){
-				 alert("分享链接不能为空。")
-				 return;
-			  }
+			/* if(!shareUrl){
+			  alert("分享链接不能为空。")
+			  return;
+			}*/
 			  var articleId = o.getItem("x_articleId");
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
-			  var param = "originalOpenId="+originalOpenId+"&articleId="+articleId;
-			 /* 
-			  * shareUrl = shareUrl.substring(0,shareUrl.indexOf("?"));
-			  * shareUrl += "?" + param;
-			  */
-			  if(shareUrl.indexOf("?") > -1){
-				  shareUrl += "&" + param;
+			  var param = "";
+			  if(shareUrl.indexOf("x_articleId") > -1){
+				  //替换文章id为用户当前阅读的文章的id
+				  shareUrl =  replaceParamVal(articleId);
 			  }else{
-				  shareUrl += "?" + param;
+				   param = "x_articleId="+articleId;
+			  }
+			  if(shareUrl.indexOf("x_sharer") > -1){
+				  //替换分享用户openId为当前用户的openId
+				  shareUrl =  replaceParamVal(originalOpenId);
+			  }else{
+				  if(param == ""){
+					  param = "x_sharer="+originalOpenId;
+				  }else{
+					  param = "&x_sharer="+originalOpenId;
+				  }
+				  
+			  }
+			  if(param != ""){
+				  if(shareUrl.indexOf("?") > -1){
+					  shareUrl += "&" + param;
+				  }else{
+					  shareUrl += "?" + param;
+				  }
 			  }
 			  console.log(shareUrl);
 			 // alert("分享链接为:"+decodeURIComponent(shareUrl));
