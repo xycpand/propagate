@@ -1,6 +1,8 @@
 	   //cookie失效时间
        var x_expire = 60 * 60;
-  
+       //js接口的根路径 
+      var  x_rootPath = "http://112.124.6.88/if";
+      // var  x_rootPath = "http://localhost:6060/propagate";
 	    /**
 		 * 动态加载js
 		 */
@@ -195,7 +197,7 @@
 	  
 		  //add4share建立传播关系：originalUserid 传播给 userid
 		  //测试add4share
-	   	  // add4share(getRootPath()+"/userRecord/userappend.js");
+	   	  // add4share(x_rootPath+"/userRecord/userappend.js");
 	   	  
 	   	  
 	        /**
@@ -224,9 +226,9 @@
 			   	  console.log("userid:"+o.getItem("x_reader"));
 			  	  console.log("articleId:"+o.getItem("x_articleId"));
 			   	  console.log("originalUrl:"+o.getItem("x_originalUrl")); 
-			  	  console.log("getRootPath:"+getRootPath());
+			  	  console.log("getRootPath:"+x_rootPath);
 		  		     //加载userread.js，保存“阅读记录”
-				  	 var jsUrl = getRootPath()+"/userRecord/userread.js?openId="+openId+"&articleId="+articleId;
+				  	 var jsUrl = x_rootPath+"/userRecord/userread.js?openId="+openId+"&articleId="+articleId;
 			  		     if(originalOpenId){
 				  			jsUrl+="&originalOpenId="+originalOpenId;
 				  		 }
@@ -240,7 +242,7 @@
 				   	   * 从url中提取originalUserid参数，如果存在则保存"分享记录"
 				   	   */
 				  	  if(originalOpenId){
-				  		 var userappendJSUrl = getRootPath()+"/userRecord/userappend.js?openId="+openId
+				  		 var userappendJSUrl = x_rootPath+"/userRecord/userappend.js?openId="+openId
 				  		 +"&articleId="+articleId+"&originalOpenId="+originalOpenId;
 				  		 if(originalUrl){
 				  			userappendJSUrl+="&originalUrl="+originalUrl;
@@ -259,7 +261,7 @@
 			  userinfoParam = "openid=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&nickname=小明" +
    		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
    		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";
-	   		  var userinfoJsUrl = getRootPath()+ "/userRecord/userinfo.js?"+userinfoParam;
+	   		  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js?"+userinfoParam;
 	   		 /* if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
 	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
 	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
