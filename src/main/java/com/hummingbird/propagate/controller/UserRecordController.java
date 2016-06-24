@@ -78,11 +78,12 @@ public class UserRecordController extends BaseController  {
 	public void  saveReadArticleRecord(HttpServletRequest request,
 			HttpServletResponse response,SaveReadArticleVO vo) {
 		try {
-			String jsContent = userRecordService.saveReadArticleRecord(vo);
+			userRecordService.saveReadArticleRecord(vo);
+			/*String jsContent = userRecordService.saveReadArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
-			response.getWriter().close();
+			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -98,11 +99,13 @@ public class UserRecordController extends BaseController  {
 	public void  userappend(HttpServletRequest request,
 			HttpServletResponse response,SaveShareArticleVO vo) {
 		try {
+			userRecordService.saveShareArticleRecord(vo);
+			/*
 			String jsContent = userRecordService.saveShareArticleRecord(vo);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
-			response.getWriter().close();
+			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -119,11 +122,12 @@ public class UserRecordController extends BaseController  {
 	public ModelAndView saveUserInfo(ModelAndView mav,HttpServletRequest request,
 			HttpServletResponse response,WxUser wxUser) {
 		try {
-			String jsContent = userRecordService.saveUserInfo(wxUser);
+			userRecordService.saveUserInfo(wxUser);
+			/*String jsContent = userRecordService.saveUserInfo(wxUser);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
 			response.getWriter().flush();
-			response.getWriter().close();
+			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			mav.addObject("errorInfo", e.getMessage());
