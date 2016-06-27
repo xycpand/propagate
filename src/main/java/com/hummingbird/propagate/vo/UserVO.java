@@ -165,6 +165,46 @@ public class UserVO {
         this.tagidList = tagidList == null ? null : tagidList.trim();
     }
 
+	public String getSubscribeTime() {
+		return subscribeTime;
+	}
+
+	public void setSubscribeTime(String subscribeTime) {
+		this.subscribeTime = subscribeTime;
+	}
+
+	public String getSubscribe() {
+		return subscribe;
+	}
+
+	public void setSubscribe(String subscribe) {
+		this.subscribe = subscribe;
+	}
+
+	public String getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(String groupid) {
+		this.groupid = groupid;
+	}
+
+	public String getQrExpireSeconds() {
+		return qrExpireSeconds;
+	}
+
+	public void setQrExpireSeconds(String qrExpireSeconds) {
+		this.qrExpireSeconds = qrExpireSeconds;
+	}
+
+	public String getQrCreateTime() {
+		return qrCreateTime;
+	}
+
+	public void setQrCreateTime(String qrCreateTime) {
+		this.qrCreateTime = qrCreateTime;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

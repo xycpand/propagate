@@ -332,8 +332,59 @@ public class UserRecordServiceImpl implements UserRecordService{
 
 	@Override
 	public String saveUserInfo(UserVO userVO) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		String jsScript = "";
+		try{
+			 //加载js内容
+			 jsScript =  "测试js内容";//loadJS();  
+			 
+			 if(StringUtils.isNotBlank(userVO.getOpenid())){
+				 WxUser user = new WxUser();
+				 user.setUnionid(userVO.getUnionid());
+				 user.setCity(userVO.getCity());
+				 user.setCountry(userVO.getCountry());
+				 user.setHeadimgurl(userVO.getHeadimgurl());
+				 user.setLanguage(userVO.getLanguage());
+				 user.setNickname(userVO.getNickname());
+				 user.setOpenid(userVO.getOpenid());
+				 user.setProvince(userVO.getProvince());
+				 user.setRemark(userVO.getRemark());
+				 user.setTagidList(userVO.getTagidList());
+                 if(StringUtils.isNotBlank(userVO.getGroupid())){
+    				 user.setGroupid(Integer.parseInt(userVO.getGroupid()));
+                 }
+                 if(StringUtils.isNotBlank(userVO.getQrExpireSeconds())){
+    				 user.setQrExpireSeconds(Integer.parseInt(userVO.getQrExpireSeconds()));
+                 }
+                 if(StringUtils.isNotBlank(userVO.getQrCreateTime())){
+    				 user.setGroupid(Integer.parseInt(userVO.getQrCreateTime()));
+                 }
+                 if(StringUtils.isNotBlank(userVO.getSex())){
+    				 user.setSex(Byte.parseByte(userVO.getSex()));
+                 }
+                 if(StringUtils.isNotBlank(userVO.getSubscribeTime())){
+    				 user.setSubscribeTime(Integer.parseInt(userVO.getSubscribeTime()));
+                 }
+                 if(StringUtils.isNotBlank(userVO.getSubscribe())){
+    				 user.setSubscribe(Byte.parseByte(userVO.getSubscribe()));
+                 }
+				 
+				 WxUser isExistUser = null;
+				 //根据openid查询用户信息
+				 isExistUser = wxUserService.selectUserByOpendId(userVO.getOpenid());
+				 if(isExistUser == null){
+					 //保存微信用户信息
+					 wxUserService.addWxUserInfo(user);
+				 }else{
+					 user.setUserid(isExistUser.getUserid());
+					 //更新微信用户信息
+					 wxUserService.updateByPrimaryKey(user);
+				 }
+			 }
+		}catch(Exception e){
+			e.printStackTrace();
+			log.debug("保存用户浏览记录失败。");
+		}
+		return jsScript;
 	}
 	
 	  public static void main(String[] args)throws Exception{  
