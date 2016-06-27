@@ -323,7 +323,6 @@
 	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
 	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
 	  sendUserInfo(userinfoParam);*/
-	   	add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
 	   	  
