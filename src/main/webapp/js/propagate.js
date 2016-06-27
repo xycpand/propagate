@@ -247,7 +247,7 @@
 			  
 		      //分享内容表id
 		      var articleId = getUrlParam('x_articleId');
-			  console.log("saveReadOrShareRecord方法从缓存中取出x_articleId:"+ articleId);
+			  console.log("saveReadOrShareRecord方法从当前访问链接中取出x_articleId:"+ articleId);
 		  	  //访问文章的链接中必须含有参数： 阅读者openId和文章id
 		  	  if(openId && articleId){
 		  		   //阅读时的链接
@@ -322,7 +322,9 @@
 	  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
 	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
 	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
-	  sendUserInfo(userinfoParam);*/
+	  sendUserInfo(userinfoParam);
+	  
+	  add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");*/
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
 	   	  
