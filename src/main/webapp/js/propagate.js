@@ -224,13 +224,14 @@
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
 			  //参数加上文章id
-			  replaceParamVal(shareUrl,"x_articleId",articleId);
+			  shareUrl = replaceParamVal(shareUrl,"x_articleId",articleId);
 			  
 			  //参数加上分享者openId
-			  replaceParamVal(shareUrl,"x_sharer",originalOpenId);
+			  shareUrl = replaceParamVal(shareUrl,"x_sharer",originalOpenId);
 			  
 			  console.log("替换参数后的分享链接为："+shareUrl);
 			 // alert("分享链接为:"+decodeURIComponent(shareUrl));
+			  
 			  return shareUrl;
 		  }; 
 	  
@@ -322,7 +323,7 @@
 	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
 	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
 	  sendUserInfo(userinfoParam);*/
-	   	
+	   	add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
 	   	  

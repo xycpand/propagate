@@ -113,7 +113,7 @@ public class WxUserServiceImpl implements WxUserService{
 			}
 		}catch(DataAccessException e){
 			e.printStackTrace();
-			throw new BusinessException("通过unionid查询微信用户信息失败。");
+			throw new BusinessException("通过openId查询微信用户信息失败。");
 		}
 		return user;
 	}
