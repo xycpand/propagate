@@ -2,8 +2,8 @@
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
-       var  x_rootPath = "http://112.124.6.88:8099/if";
-       //var x_rootPath = "http://localhost:6060/if";
+       // var  x_rootPath = "http://112.124.6.88:8099/if";
+      var x_rootPath = "http://localhost:6060/if";
 	    /**
 		 * 动态加载js
 		 */
@@ -20,10 +20,10 @@
 	    	oScript.src=fileUrl ; 
 	    	oScript.onload = oScript.onreadystatechange = function() { 
 	    		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
-	    			/* if(id == "userinfo"){
+	    			 if(id == "userinfo"){
     		    	  //保存微信用户信息后，再保存 阅读记录
     		    	  saveReadOrShareRecord();
-    		        }*/
+    		        }
 	    			// Handle memory leak in IE 
 	    		    oScript.onload = oScript.onreadystatechange = null; 
 	    		} 
@@ -242,8 +242,11 @@
 		      //阅读者id
 		      //var openId = getUrlParam('x_reader');
 			  var openId = o.getItem("x_reader");
+			  console.log("saveReadOrShareRecord方法从缓存中取出x_reader:"+ openId);
+			  
 		      //分享内容表id
 		      var articleId = getUrlParam('x_articleId');
+			  console.log("saveReadOrShareRecord方法从缓存中取出x_articleId:"+ articleId);
 		  	  //访问文章的链接中必须含有参数： 阅读者openId和文章id
 		  	  if(openId && articleId){
 		  		   //阅读时的链接
@@ -301,6 +304,7 @@
 			  var x_reader = getQueryString(userinfoParam,"openid");
 			  //缓存参数：把阅读者id保存到cookie中
 			  o.setItem('x_reader',x_reader); 
+			  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
 			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 			  if(userinfoParam){
 				  if(userinfoParam.indexOf("?") == -1){
@@ -313,12 +317,11 @@
 			 console.log("保存用户信息成功。")
 	   	  };
 	   	  
-	  /* var	userinfoParam = "openid=123&nickname=小明123" +
+	   var	userinfoParam = "openid=123&nickname=小明123" +
 	  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
 	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
 	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
 	  sendUserInfo(userinfoParam);
-	   	  */
 	   	
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
