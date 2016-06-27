@@ -225,7 +225,7 @@
 				  //originalOpenId为cookie中的x_reader 
 				  var originalOpenId = o.getItem("x_reader");
 				  //参数加上文章id
-				  //shareUrl = replaceParamVal(shareUrl,"x_articleId",articleId);
+				  shareUrl = replaceParamVal(shareUrl,"x_articleId",articleId);
 
 				  //参数加上分享者openId
 				  shareUrl = replaceParamVal(shareUrl,"x_sharer",originalOpenId);
@@ -246,10 +246,10 @@
 			  var openId = o.getItem("x_reader");
 			  console.log("saveReadOrShareRecord方法从缓存中取出x_reader:"+ openId);
 			  
-		      //分享内容表id
-		      var articleId = getUrlParam('x_articleId');
-			  console.log("saveReadOrShareRecord方法从当前访问链接中取出x_articleId:"+ articleId);
-		  	  //访问文章的链接中必须含有参数： 阅读者openId和文章id
+
+			  var articleId = o.getItem("x_articleId");
+			  console.log("saveReadOrShareRecord方法从缓存中取出x_articleId:"+ articleId);
+			  
 		  	  if(openId && articleId){
 		  		   //阅读时的链接
 			        var originalUrl =encodeURIComponent(window.location.href);
@@ -302,9 +302,12 @@
  		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
  		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
 			  var x_reader = getQueryString(userinfoParam,"openid");
-			  //缓存参数：把阅读者id保存到cookie中
+			  //缓存参数：把阅读者id和文章id保存到cookie中
 			  o.setItem('x_reader',x_reader); 
 			  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
+		      var x_articleId = getUrlParam('x_articleId');
+			  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
+			  
 			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 			  if(userinfoParam){
 				  if(userinfoParam.indexOf("?") == -1){
@@ -312,7 +315,6 @@
 				  }
 				  userinfoJsUrl += userinfoParam;
 			  }
-
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
 			 console.log("保存用户信息成功。")

@@ -311,6 +311,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 //加载js内容
 			 jsScript =  "测试js内容";//loadJS();  
 			 
+			 log.debug("保存用户信息为:"+userVO.toString());
 			 if(StringUtils.isNotBlank(userVO.getOpenid())){
 				 WxUser user = new WxUser();
 				 user.setUnionid(userVO.getUnionid());

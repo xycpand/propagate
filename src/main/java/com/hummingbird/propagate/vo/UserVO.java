@@ -344,4 +344,14 @@ public class UserVO {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [userid=" + userid + ", openid=" + openid + ", nickname=" + nickname + ", sex=" + sex
+				+ ", language=" + language + ", city=" + city + ", province=" + province + ", country=" + country
+				+ ", headimgurl=" + headimgurl + ", subscribeTime=" + subscribeTime + ", unionid=" + unionid
+				+ ", remark=" + remark + ", subscribe=" + subscribe + ", groupid=" + groupid + ", insertTime="
+				+ insertTime + ", updateTime=" + updateTime + ", qrTicket=" + qrTicket + ", qrExpireSeconds="
+				+ qrExpireSeconds + ", qrCreateTime=" + qrCreateTime + ", tagidList=" + tagidList + "]";
+	}
+
 }
