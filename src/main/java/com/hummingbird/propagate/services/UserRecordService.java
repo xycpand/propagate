@@ -48,14 +48,6 @@ public interface UserRecordService {
 	 * @return
 	 * @throws BusinessException
 	 */
-	public String saveUserInfo(WxUser wxUser) throws BusinessException;
-	
-	/**
-	 * 上报微信消息
-	 * @param vo
-	 * @return
-	 * @throws BusinessException
-	 */
 	public String saveUserInfo(UserVO userVO) throws BusinessException;
 	
 	

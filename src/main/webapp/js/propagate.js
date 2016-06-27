@@ -216,24 +216,20 @@
 		 * 其中originalOpenId为cookie中的x_reader 
 		 */
 		var add4share = function(shareUrl){
-			 /*if(!shareUrl){
+			  if(!shareUrl){
 			     shareUrl = window.location.href;
-			  }*/
-
-			alert("替换参数前的分享链接为："+shareUrl);
+			  }
 			 if(shareUrl){
 				 console.log("替换参数前的分享链接为："+shareUrl);
 				  var articleId = o.getItem("x_articleId");
 				  //originalOpenId为cookie中的x_reader 
 				  var originalOpenId = o.getItem("x_reader");
 				  //参数加上文章id
-				  shareUrl = replaceParamVal(shareUrl,"x_articleId",articleId);
+				  //shareUrl = replaceParamVal(shareUrl,"x_articleId",articleId);
 
-					alert("x_articleId分享链接为："+shareUrl);
 				  //参数加上分享者openId
 				  shareUrl = replaceParamVal(shareUrl,"x_sharer",originalOpenId);
 
-					alert("x_sharer分享链接为："+shareUrl);
 				  console.log("替换参数后的分享链接为："+shareUrl);
 				 // alert("分享链接为:"+decodeURIComponent(shareUrl));
 			 }
@@ -267,7 +263,6 @@
 				   o.setItem('x_originalUrl', originalUrl); 
 				   o.setItem('x_articleId', articleId); 
 
-					alert("x_articleId:"+o.getItem("x_articleId"));
 			   	  console.log("userid:"+o.getItem("x_reader"));
 			  	  console.log("articleId:"+o.getItem("x_articleId"));
 			   	  console.log("originalUrl:"+o.getItem("x_originalUrl")); 
@@ -302,13 +297,10 @@
 		   * 保存微信用户信息
 		   */
 		  var sendUserInfo =  function(userinfoParam){
-			  alert(userinfoParam);
               //测试数据
 		      /* userinfoParam = "openid=123&nickname=小明123" +
  		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
  		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
- 			//serinfoParam = "openid=123&nickname=小明123&sex=2&subscribeTime=6666";
-				// +"&subscribe=5555&qrExpireSeconds=8888&qrCreateTime=9999";
 			  var x_reader = getQueryString(userinfoParam,"openid");
 			  //缓存参数：把阅读者id保存到cookie中
 			  o.setItem('x_reader',x_reader); 
@@ -321,7 +313,6 @@
 				  userinfoJsUrl += userinfoParam;
 			  }
 
-			  alert(userinfoJsUrl);
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
 			 console.log("保存用户信息成功。")

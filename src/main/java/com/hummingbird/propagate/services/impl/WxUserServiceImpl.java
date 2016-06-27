@@ -99,9 +99,8 @@ public class WxUserServiceImpl implements WxUserService{
 		return user.getUserid();
 	}
 	
-
 	@Override
-	public WxUser  selectUserByOpendId(String openId) throws BusinessException {
+	public WxUser  checkUserByOpendId(String openId) throws BusinessException {
 		WxUser user = null;
 		try{
 			user = wxUserDao.selectUserByOpendId(openId);
@@ -111,6 +110,18 @@ public class WxUserServiceImpl implements WxUserService{
 				//不存在则添加
 				addWxUserInfo(user);
 			}
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			throw new BusinessException("通过openId查询微信用户信息失败。");
+		}
+		return user;
+	}
+
+	@Override
+	public WxUser  selectUserByOpendId(String openId) throws BusinessException {
+		WxUser user = null;
+		try{
+			user = wxUserDao.selectUserByOpendId(openId);
 		}catch(DataAccessException e){
 			e.printStackTrace();
 			throw new BusinessException("通过openId查询微信用户信息失败。");

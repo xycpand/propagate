@@ -86,7 +86,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				if(StringUtils.isNotBlank(originalOpenId)){
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
-				WxUser readUser = wxUserService.selectUserByOpendId(openId);
+				WxUser readUser = wxUserService.checkUserByOpendId(openId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
 				readArticle.setUserid(readUser.getUserid());
@@ -244,7 +244,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				&& StringUtils.isNotBlank(originalOpenId)){
 		   try{
 					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
-					WxUser readUser = wxUserService.selectUserByOpendId(openId);
+					WxUser readUser = wxUserService.checkUserByOpendId(openId);
 			  if(readUser != null && vo.getArticleId()!=null && originalUserId!=null){
 				try{
 					//保存传播关系
@@ -303,32 +303,6 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return sb.toString();
 	}
 
-	@Override
-	public String saveUserInfo(WxUser wxUser){
-		String jsScript = "";
-		try{
-			 //加载js内容
-			 jsScript =  "测试js内容";//loadJS();  
-			 
-			 WxUser isExistUser = null;
-			 if(StringUtils.isNotBlank(wxUser.getOpenid())){
-				 //根据openid查询用户信息
-				 isExistUser = wxUserService.selectUserByOpendId(wxUser.getOpenid());
-				 if(isExistUser == null){
-					 //保存微信用户信息
-					 wxUserService.addWxUserInfo(wxUser);
-				 }else{
-					 wxUser.setUserid(isExistUser.getUserid());
-					 //更新微信用户信息
-					 wxUserService.updateByPrimaryKey(wxUser);
-				 }
-			 }
-		}catch(Exception e){
-			e.printStackTrace();
-			log.debug("保存用户浏览记录失败。");
-		}
-		return jsScript;
-	}
 
 	@Override
 	public String saveUserInfo(UserVO userVO) throws BusinessException {
