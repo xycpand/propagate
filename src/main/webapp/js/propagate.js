@@ -302,10 +302,12 @@
  		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
  		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
 			  var x_reader = getQueryString(userinfoParam,"openid");
-			  //缓存参数：把阅读者id和文章id保存到cookie中
+			  //缓存参数：把阅读者id保存到cookie中
 			  o.setItem('x_reader',x_reader); 
 			  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
 		      var x_articleId = getUrlParam('x_articleId');
+		     //缓存参数：把文章id保存到cookie中
+			  o.setItem('x_articleId',x_articleId); 
 			  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
 			  
 			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
@@ -320,18 +322,23 @@
 			 console.log("保存用户信息成功。")
 	   	  };
 	   	  
-	/*   var	userinfoParam = "openid=123&nickname=小明123" +
-	  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
-	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
-	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
-	  sendUserInfo(userinfoParam);
+	/*测试数据   
+	  	var	userinfoParam = "openid=123&nickname=小明456" +
+		  	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
+		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
+		  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
+		  	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
+		  sendUserInfo(userinfoParam);
 	  
 	   	 add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
+	   	 
+	   	  //保存阅读和分享记录
+		  saveReadOrShareRecord();
+	   	 
 	 */
-		  //保存阅读和分享记录
-		  //saveReadOrShareRecord();
-	   	  
-		  
+		
+	    	
+	   
 	   	  
 
 	     

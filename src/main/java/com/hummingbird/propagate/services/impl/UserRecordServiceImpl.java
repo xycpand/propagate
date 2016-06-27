@@ -343,16 +343,15 @@ public class UserRecordServiceImpl implements UserRecordService{
     				 user.setSubscribe(Byte.parseByte(userVO.getSubscribe()));
                  }
 				 
-				 WxUser isExistUser = null;
 				 //根据openid查询用户信息
-				 isExistUser = wxUserService.selectUserByOpendId(userVO.getOpenid());
+                 WxUser isExistUser = wxUserService.selectUserByOpendId(userVO.getOpenid());
 				 if(isExistUser == null){
 					 //保存微信用户信息
 					 wxUserService.addWxUserInfo(user);
 				 }else{
 					 user.setUserid(isExistUser.getUserid());
 					 //更新微信用户信息
-					 wxUserService.updateByPrimaryKey(user);
+					 wxUserService.updateByPrimaryKeySelective(user);
 				 }
 			 }
 		}catch(Exception e){

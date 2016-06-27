@@ -53,7 +53,7 @@ public interface WxUserService {
 	public WxUser selectUserByOpendId(String openid) throws BusinessException;
 
 	
-	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException;
+	public void updateByPrimaryKeySelective(WxUser wxUser) throws BusinessException;
 	
 
 	public void addWxUserInfo(WxUser wxUser);

@@ -130,10 +130,10 @@ public class WxUserServiceImpl implements WxUserService{
 	}
 
 	@Override
-	public void updateByPrimaryKey(WxUser wxUser) throws BusinessException {
+	public void updateByPrimaryKeySelective(WxUser wxUser) throws BusinessException {
 		try{
 			wxUser.setUpdateTime(new Date());
-		   wxUserDao.updateByPrimaryKey(wxUser);
+		   wxUserDao.updateByPrimaryKeySelective(wxUser);
 		}catch(DataAccessException e){
 			throw new BusinessException("通过userid更新微信用户信息失败。");
 		}
