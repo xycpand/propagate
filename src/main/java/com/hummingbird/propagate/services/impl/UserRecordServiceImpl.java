@@ -82,11 +82,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 		if(openId != null && articleId!=null){
 			try{
 				Integer originalUserId = null;
-				WxUser readUser = null;
 				if(StringUtils.isNotBlank(originalOpenId)){
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
-				readUser = wxUserService.selectUserByOpendId(openId);
+				WxUser readUser = wxUserService.selectUserByOpendId(openId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
 				readArticle.setUserid(readUser.getUserid());
