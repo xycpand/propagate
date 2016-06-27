@@ -78,9 +78,7 @@ public class UserTagServiceImpl implements UserTagService {
 		// 查询文章是否属于该用户
 		Article article=articleDao.selectByPrimaryKey(body.getArticleId());
 		ValidateUtil.assertNull(article, "文章信息记录未找到！");
-		if(article.getUserid()!=wxUser.getUserid()){
-			throw new BusinessException(245903,"该用户不是此文章作者，无法编辑！");
-		}
+		ValidateUtil.assertNotEqual(article.getUserid(), wxUser.getUserid(), "该用户不是此文章作者，无法编辑！");
 		//查询文章标签
 		List<String> articletags=articleTagDao.queryArticleTag(body.getArticleId());
 		for(String tagname:body.getTagName()){
@@ -152,9 +150,7 @@ public class UserTagServiceImpl implements UserTagService {
 		// 查询文章是否属于该用户
 		Article article=articleDao.selectByPrimaryKey(body.getArticleId());
 		ValidateUtil.assertNullnoappend(article, "文章信息记录未找到！");
-		if(article.getUserid()!=wxUser.getUserid()){
-			throw new BusinessException(245904,"该用户不是此文章作者，无法编辑！");
-		}
+		ValidateUtil.assertNotEqual(article.getUserid(), wxUser.getUserid(), "该用户不是此文章作者，无法编辑！");
 		//查询文章标签
 		List<String> articletags=articleTagDao.queryArticleTag(body.getArticleId());
 		for(String tagname:body.getTagName()){

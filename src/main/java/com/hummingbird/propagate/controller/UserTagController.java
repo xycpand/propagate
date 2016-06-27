@@ -45,7 +45,7 @@ public class UserTagController extends BaseController{
 				log.debug("检验通过，获取请求");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getOpenid())){
-				log.error(String.format("openid不能为空",transorder.getBody().getOpenid()));
+				log.error("openid不能为空");
 				throw new TokenException("openid不能为空");
 			}
 			QueryUserTagReruenVO result = userTagService.queryUserTag(transorder.getBody().getOpenid());
@@ -80,11 +80,11 @@ public class UserTagController extends BaseController{
 				log.debug("检验通过，获取请求");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getOpenid())){
-				log.error(String.format("openid不能为空",transorder.getBody().getOpenid()));
+				log.error("openid不能为空");
 				throw new TokenException("openid不能为空");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getArticleId())){
-				log.error(String.format("articleid不能为空",transorder.getBody().getArticleId()));
+				log.error("articleid不能为空");
 				throw new TokenException("articleid不能为空");
 			}
 			QueryUserTagReruenVO result = userTagService.queryArticleTag(transorder.getBody().getArticleId());
@@ -117,11 +117,11 @@ public class UserTagController extends BaseController{
 				log.debug("检验通过，获取请求");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getOpenid())){
-				log.error(String.format("openid不能为空",transorder.getBody().getOpenid()));
+				log.error("openid不能为空");
 				throw new TokenException("openid不能为空");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getArticleId())){
-				log.error(String.format("articleid不能为空",transorder.getBody().getArticleId()));
+				log.error("articleid不能为空");
 				throw new TokenException("articleid不能为空");
 			}
 			//添加标签
@@ -154,11 +154,11 @@ public class UserTagController extends BaseController{
 				log.debug("检验通过，获取请求");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getOpenid())){
-				log.error(String.format("openid不能为空",transorder.getBody().getOpenid()));
+				log.error("openid不能为空");
 				throw new TokenException("openid不能为空");
 			}
 			if(StringUtils.isBlank(transorder.getBody().getArticleId())){
-				log.error(String.format("articleid不能为空",transorder.getBody().getArticleId()));
+				log.error("articleid不能为空");
 				throw new TokenException("articleid不能为空");
 			}
 			//添加标签
@@ -186,7 +186,7 @@ public class UserTagController extends BaseController{
 
 		try {
 			if(StringUtils.isBlank(transorder.getBody().getOpenid())){
-				log.error(String.format("openid不能为空",transorder.getBody().getOpenid()));
+				log.error("openid不能为空");
 				throw new TokenException("openid不能为空");
 			}
 			QueryUserTagReruenVO result = userTagService.queryHotTag();
