@@ -41,6 +41,7 @@ import com.hummingbird.propagate.services.WxUserService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+import com.hummingbird.propagate.vo.UserVO;
 
 
 @Service
@@ -329,6 +330,12 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 
+	@Override
+	public String saveUserInfo(UserVO userVO) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	  public static void main(String[] args)throws Exception{  
 		  String fromFile = "";
 		  // Java7 : Files.readAllBytes默认以UTF-8编码读入文件，故文件的编码如果不是UTF-8，那么中文内容会出现乱字符  

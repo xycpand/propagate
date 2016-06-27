@@ -20,6 +20,7 @@ import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+import com.hummingbird.propagate.vo.UserVO;
 /**
  * @author panda
  * 2016年6月15日 下午2:59:01
@@ -119,10 +120,10 @@ public class UserRecordController extends BaseController  {
 	 * @return
 	 */
 	@RequestMapping(value = "/userinfo.js")
-	public ModelAndView saveUserInfo(ModelAndView mav,HttpServletRequest request,
-			HttpServletResponse response,WxUser wxUser) {
+	public void saveUserInfo(ModelAndView mav,HttpServletRequest request,
+			HttpServletResponse response,UserVO userVO) {
 		try {
-			userRecordService.saveUserInfo(wxUser);
+			userRecordService.saveUserInfo(userVO);
 			/*String jsContent = userRecordService.saveUserInfo(wxUser);
             response.setContentType("text/html;charset=UTF-8"); 
 			response.getWriter().write(jsContent);
@@ -130,9 +131,8 @@ public class UserRecordController extends BaseController  {
 			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
-			mav.addObject("errorInfo", e.getMessage());
+			log.error(e.getMessage());
 		} 
-		return mav;
 	}
 	
 	/**

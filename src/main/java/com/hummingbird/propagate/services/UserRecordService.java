@@ -8,6 +8,7 @@ import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
+import com.hummingbird.propagate.vo.UserVO;
 
 /**
  * @author panda
@@ -48,6 +49,14 @@ public interface UserRecordService {
 	 * @throws BusinessException
 	 */
 	public String saveUserInfo(WxUser wxUser) throws BusinessException;
+	
+	/**
+	 * 上报微信消息
+	 * @param vo
+	 * @return
+	 * @throws BusinessException
+	 */
+	public String saveUserInfo(UserVO userVO) throws BusinessException;
 	
 	
 

@@ -15,11 +15,9 @@
 	    	if (scriptTag) oHead.removeChild(scriptTag); 
 	    	var oScript= document.createElement("script"); 
 	    	oScript.id = id; 
+	    	oScript.language = "javascript"; 
 	    	oScript.type = "text/javascript";
 	    	oScript.src=fileUrl ; 
-	    	oHead.appendChild(oScript); 
-	    	console.log(id+":");
-	    	console.log(oScript);
 	    	oScript.onload = oScript.onreadystatechange = function() { 
 	    		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
 	    			/* if(id == "userinfo"){
@@ -30,6 +28,9 @@
 	    		    oScript.onload = oScript.onreadystatechange = null; 
 	    		} 
 			}; 
+	    	oHead.appendChild(oScript); 
+	    	console.log(id+":");
+	    	console.log(oScript);
 		}; 
 		
 		
@@ -202,6 +203,8 @@
 				 */
 				function getQueryString(url,name)
 				{
+					 url += "";
+					 var re=eval('/('+ name+'=)([^&]*)/gi');
 				     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 				     var r = url.match(reg);
 				     if(r!=null)return  unescape(r[2]); return null;
@@ -293,12 +296,11 @@
 		      /* userinfoParam = "openid=123&nickname=小明123" +
  		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
  		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
-		     userinfoParam = "openid=123";
- 			//userinfoParam = "openid=123&nickname=小明123&sex=2&subscribeTime=6666";
+ 			//serinfoParam = "openid=123&nickname=小明123&sex=2&subscribeTime=6666";
 				// +"&subscribe=5555&qrExpireSeconds=8888&qrCreateTime=9999";
 			  var x_reader = getQueryString(userinfoParam,"openid");
 			  //缓存参数：把阅读者id保存到cookie中
-			   o.setItem('x_reader',x_reader); 
+			  o.setItem('x_reader',x_reader); 
 			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 			  if(userinfoParam){
 				  if(userinfoParam.indexOf("?") == -1){
@@ -306,20 +308,13 @@
 				  }
 				  userinfoJsUrl += userinfoParam;
 			  }
-	   		 /* if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
-	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
-	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
-	   		  if(user.subscribeTime){  userinfoJsUrl+="&subscribeTime="+user.subscribeTime; }  
-	   		  if(user.groupid){ userinfoJsUrl+="&groupid="+user.groupid; } 
-	   		  if(user.qrExpireSeconds){ userinfoJsUrl+="&qrExpireSeconds="+user.qrExpireSeconds;  }
-	   		  if(user.qrCreateTime){ userinfoJsUrl+="&qrCreateTime="+user.qrCreateTime; }*/
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
 			 console.log("保存用户信息成功。")
-			 
-			 saveReadOrShareRecord();
 	   	  };
-		  
+	   	  
+	   	  
+	 // sendUserInfo("openid=123&nickname=小明123");
 	   	  
 	   	
 		  //保存阅读和分享记录
