@@ -52,13 +52,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     <td>
 		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&x_sharer=oCmwKvwib0Ahz8ugW0lFk8HTpljI&x_articleId=1'">通过分享链接进入阅读文章页面</button>
 		    </td>
-		   <td> <!--测试 保存用户阅读记录 -->
+		   <td>
+		<%--   <!--测试 保存用户阅读记录 -->
 	       <a href="<%=basePath%>userRecord/userread.js?openId=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&originalUrl=www.baidu.com&originalOpenId=FnVp5baN9aSIUcwo&articleId=1">测试请求userrecord.js内容</a>
 	      <!--测试 保存用户分享记录 -->
 	       <a href="<%=basePath%>userRecord/userappend.js?openId=oCmwKvxo1PnytDlJEuXeQVFC5xwo&originalUrl=www.baidu.com&originalOpenId=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&articleId=1">测试请求userappend.js内容</a>
 	      <!--测试 上报微信用户信息  -->
 	       <a href="<%=basePath%>userRecord/userinfo.js?openid=FnVp5baN9aSIUcwo&nickname=小明">测试请求userinfo.js内容</a></td>
-        </tr>
+        --%>
+         </tr>
 	<tr><td colspan="6">标签相关接口</td></tr>
 	<tr>
 		<td><input type="button"  value="查询用户标签"  onclick='setbinding("/userTag/queryUserTag","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"openid\":\"op3EiwqSh-WmyWvP1776y6DBW5bc\"}}")'></td>

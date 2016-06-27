@@ -196,7 +196,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	private void saveArticlePropagate(Integer userid,
-			String articleId , String nickName,Integer originalUserid) {
+			 String nickName,String articleId ,Integer originalUserid) {
+		 
 		Article article = null;
 		try {
 			article = articleService.selectArticleById(articleId);

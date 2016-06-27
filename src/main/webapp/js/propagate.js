@@ -3,7 +3,7 @@
        var x_expire = 60 * 60;
        //js接口的根路径 
        var  x_rootPath = "http://112.124.6.88:8099/if";
-      // var x_rootPath = "http://localhost:6060/propagate";
+       //var x_rootPath = "http://localhost:6060/propagate";
 	    /**
 		 * 动态加载js
 		 */
@@ -187,10 +187,9 @@
 		 * 其中originalOpenId为cookie中的x_reader 
 		 */
 		var add4share = function(shareUrl){
-			/* if(!shareUrl){
-			  alert("分享链接不能为空。")
-			  return;
-			}*/
+			  if(!shareUrl){
+			     shareUrl = window.location.href;
+			  }
 			  var articleId = o.getItem("x_articleId");
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
@@ -213,14 +212,13 @@
 			  }
 
 			  if(param != ""){
-				  if(shareUrl.indexOf("?") > -1){
+				  if(shareUrl.indexOf("?") != -1){
 					  shareUrl += "&" + param;
 				  }else{
 					  shareUrl += "?" + param;
 				  }
 			  }
-
-			  console.log(shareUrl);
+			  console.log("替换参数后的分享链接为："+shareUrl);
 			 // alert("分享链接为:"+decodeURIComponent(shareUrl));
 			  return shareUrl;
 		  }; 
@@ -232,6 +230,7 @@
 	   	  
 	        /**
 			 * 初始化信息
+			 * 当前页面的url站内必须有参数x_reader（当前阅读者openId），x_articleId（当前文章id）
 			 */
 		  var saveReadOrShareRecord = function(){
 		      //阅读者id
@@ -291,7 +290,13 @@
 			  /*userinfoParam = "openid=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&nickname=小明" +
    		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
    		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
-	   		  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js?"+userinfoParam;
+			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
+			  if(userinfoParam){
+				  if(userinfoParam.indexOf("?") == -1){
+					  userinfoParam += "?" + param;
+				  }
+				  userinfoJsUrl += userinfoParam;
+			  }
 	   		 /* if(user.remark){  userinfoJsUrl+="&remark="+user.remark; } 
 	   		  if(user.subscribe){  userinfoJsUrl+="&subscribe="+user.subscribe; } 
 	   		  if(user.sex){  userinfoJsUrl+="&sex="+user.sex;  }   
