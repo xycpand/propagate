@@ -1,4 +1,4 @@
-
+//(function() {
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
@@ -33,7 +33,6 @@
 	    	console.log(oScript);
 		}; 
 		
-		
 		/**
 		 * 获取项目根路径
 		 */
@@ -49,7 +48,7 @@
 		/**
 		 * 获取上下文路径
 		 */
-		function getContextPath() {
+		var getContextPath = function() {
 		    var pathName = document.location.pathname;
 		    var index = pathName.substr(1).indexOf("/");
 		    var result = pathName.substr(0,index+1);
@@ -180,7 +179,7 @@
 				/**
 				 *  替换URL中指定的参数值
 				 */
-				function replaceParamVal(oldUrl,paramName,replaceWith) {
+				var replaceParamVal = function(oldUrl,paramName,replaceWith) {
 					  //url中没有该名称的参数，则进行添加
 					  if(oldUrl.indexOf(paramName) == -1){
 						  if(oldUrl.indexOf("?") == -1){
@@ -297,18 +296,16 @@
 		   * 保存微信用户信息
 		   */
 		  var sendUserInfo =  function(userinfoParam){
-              //测试数据
-		      /* userinfoParam = "openid=123&nickname=小明123" +
- 		  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
- 		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx";*/
+
+		      var x_articleId = getUrlParam('x_articleId');
+		      //缓存参数：把文章id保存到cookie中
+			  o.setItem('x_articleId',x_articleId); 
+			  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
+			  
 			  var x_reader = getQueryString(userinfoParam,"openid");
 			  //缓存参数：把阅读者id保存到cookie中
 			  o.setItem('x_reader',x_reader); 
 			  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
-		      var x_articleId = getUrlParam('x_articleId');
-		     //缓存参数：把文章id保存到cookie中
-			  o.setItem('x_articleId',x_articleId); 
-			  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
 			  
 			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 			  if(userinfoParam){
@@ -324,11 +321,11 @@
 	   	  
 	/*测试数据   
 	  	var	userinfoParam = "openid=123&nickname=小明456" +
-		  	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
-		  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
-		  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
-		  	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
-		  sendUserInfo(userinfoParam);
+	  	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
+	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
+	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
+	  	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
+	  sendUserInfo(userinfoParam);
 	  
 	   	 add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
 	   	 
@@ -336,11 +333,8 @@
 		  saveReadOrShareRecord();
 	   	 
 	 */
-		
-	    	
-	   
 	   	  
-
+//})();
 	     
 	     
 	     

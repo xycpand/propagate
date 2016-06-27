@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=path%>/js/jquery-1.11.1.js"></script>
+	 <script src="<%=path%>/js/propagate.js" type="text/javascript"></script>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -73,6 +74,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
   </body>
     <script>
+ 	var	userinfoParam = "openid=123&nickname=小明456" +
+	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
+	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
+	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
+	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
+     sendUserInfo(userinfoParam);
+     
     var type='payload'
     
 		$("#bt").click(function (){
