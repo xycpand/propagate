@@ -321,7 +321,7 @@
 	   	  };
 		  
 	   	  
-	   	sendUserInfo("");
+	   	
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
 	   	  
