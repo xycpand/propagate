@@ -121,7 +121,7 @@ public class UserRecordController extends BaseController  {
 	 */
 	@RequestMapping(value = "/userinfo.js")
 	public void saveUserInfo(ModelAndView mav,HttpServletRequest request,
-			HttpServletResponse response,UserVO userVO) {
+			HttpServletResponse response,WxUser userVO) {
 		try {
 			userRecordService.saveUserInfo(userVO);
 			/*String jsContent = userRecordService.saveUserInfo(wxUser);
