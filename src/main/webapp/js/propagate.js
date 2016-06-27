@@ -2,8 +2,8 @@
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
-       // var  x_rootPath = "http://112.124.6.88:8099/if";
-      var x_rootPath = "http://localhost:6060/if";
+       var  x_rootPath = "http://112.124.6.88:8099/if";
+       //var x_rootPath = "http://localhost:6060/if";
 	    /**
 		 * 动态加载js
 		 */
@@ -317,11 +317,11 @@
 			 console.log("保存用户信息成功。")
 	   	  };
 	   	  
-	   var	userinfoParam = "openid=123&nickname=小明123" +
+	/*   var	userinfoParam = "openid=123&nickname=小明123" +
 	  	  "&language=zh_CN&unionid=1&province=广东&city=深圳" +
 	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
 	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999";
-	  sendUserInfo(userinfoParam);
+	  sendUserInfo(userinfoParam);*/
 	   	
 		  //保存阅读和分享记录
 		  //saveReadOrShareRecord();
