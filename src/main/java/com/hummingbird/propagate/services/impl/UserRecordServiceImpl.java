@@ -124,7 +124,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				if(CollectionUtils.isNotEmpty(tags)){
 					 //更新用户标签  阅读 数目
 					 userTagService.saveUserTag("read",tags, readUser.getUserid());
-					 if(originalUserId != null){
+					 if(originalUserId != 0){
 						 //更新(分享者）标签  分享 数目
 						 userTagService.saveUserTag("share",tags, originalUserId);
 					 }
@@ -334,6 +334,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			if(StringUtils.isBlank(nickName)){
 				nickName = "匿名";
 			}
+			log.debug("分享者用户id为："+originalUserid);
 			ArticlePropagate pro = articlePropagateDao.selectByUserIdAndArticleId(userid,articleId);
 			if(pro == null){
 				pro = new ArticlePropagate();
@@ -342,12 +343,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 				pro.setArticleId(articleId);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
-				log.debug("分享者用户id为："+originalUserid);
 				pro.setParentId(originalUserid==null?0:originalUserid);
 				pro.setInsertTime(new Date());
 				articlePropagateDao.insert(pro);
 			}else{
-				log.debug("分享者用户id为："+originalUserid);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
 				pro.setName(nickName);

@@ -232,6 +232,7 @@
 				  console.log("替换参数后的分享链接为："+shareUrl);
 				 // alert("分享链接为:"+decodeURIComponent(shareUrl));
 			 }
+			 //alert("shareUrl:"+shareUrl);
 			 return shareUrl;
 		  }; 
 	  
