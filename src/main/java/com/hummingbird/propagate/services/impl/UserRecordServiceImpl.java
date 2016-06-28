@@ -89,6 +89,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			try{
 				Integer originalUserId = null;
 				if(StringUtils.isNotBlank(originalOpenId)){
+					log.debug("分享者用户openid为："+originalOpenId);
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
 				WxUser readUser = wxUserService.checkUserByOpendId(openId);
@@ -100,10 +101,10 @@ public class UserRecordServiceImpl implements UserRecordService{
 				readArticle.setOriginalUserid(originalUserId);
 				readArticle.setInsertTime(new Date());
 				 readArticleDao.insert(readArticle);
-				 
-				 //保存传播关系
-				 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
-				 
+				 if(originalUserId == null){
+					 //保存传播关系
+					 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
+				 }
 				 //保存用户标签  阅读 数目
 				 userTagService.saveUserTag("read",articleId, readUser.getUserid());
 			}catch(DataAccessException e){
@@ -263,12 +264,12 @@ public class UserRecordServiceImpl implements UserRecordService{
 				pro.setArticleId(articleId);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
-				log.debug(originalUserid);
 				log.debug("分享者用户id为："+originalUserid);
 				pro.setParentId(originalUserid==null?0:originalUserid);
 				pro.setInsertTime(new Date());
 				articlePropagateDao.insert(pro);
 			}else{
+				log.debug("分享者用户id为："+originalUserid);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
 				pro.setName(nickName);
