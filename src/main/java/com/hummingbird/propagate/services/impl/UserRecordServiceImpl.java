@@ -79,7 +79,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveReadArticleRecord(SaveReadArticleVO vo) throws BusinessException {
-		
+		log.debug("saveReadArticleRecord开始保存阅读记录：");
 		String jsScript =  "测试js内容";//loadJS();  
 		
 		String openId = vo.getOpenId();
@@ -101,12 +101,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 				readArticle.setOriginalUserid(originalUserId);
 				readArticle.setInsertTime(new Date());
 				 readArticleDao.insert(readArticle);
+				 //当有分享者时，在保存分享记录时再去保存传播关系，就不需要再保存阅读记录时去保存了
 				 if(originalUserId == null){
-					 //保存传播关系
 					 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
 				 }
 				 //保存用户标签  阅读 数目
 				 userTagService.saveUserTag("read",articleId, readUser.getUserid());
+				 
+				 log.debug("saveReadArticleRecord保存阅读记录成功。");
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -283,7 +285,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
-		
+		log.debug("saveShareArticleRecord开始保存分享记录：");
 		String jsScript = "测试js内容";//loadJS();  
 		
 		String openId = vo.getOpenId();
@@ -313,6 +315,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 					
 					 //更新用户 标签  分享  数目
 					 userTagService.saveUserTag("share",articleId, readUser.getUserid());
+					 
+					log.debug("saveShareArticleRecord保存分享记录成功。");
 				}catch(DataAccessException e){
 					e.printStackTrace();
 					log.debug("保存文章分享记录。");
@@ -361,7 +365,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 jsScript =  "测试js内容";//loadJS();  
 			 
 			 log.debug("保存用户信息为:"+userVO.toString());
-			 if(StringUtils.isNotBlank(userVO.getOpenid())){
+			 if(!"null".equals(userVO.getOpenid()) && StringUtils.isNotBlank(userVO.getOpenid())){
 				 WxUser user = new WxUser();
 				 user.setUnionid(userVO.getUnionid());
 				 user.setCity(userVO.getCity());

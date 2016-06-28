@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=oCmwKvwib0Ahz8ugW0lFk8HTpljI&x_articleId=1'">进入阅读文章页面</button>
 		    </td>
 		     <td>
-		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=oCmwKv9ErXuGDmJYWGV2KSxEYj6A&x_sharer=oCmwKvwib0Ahz8ugW0lFk8HTpljI&x_articleId=1'">通过分享链接进入阅读文章页面</button>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=999&x_sharer=567&x_articleId=1'">通过分享链接进入阅读文章页面</button>
 		    </td>
 		   <td>
 		<%--   <!--测试 保存用户阅读记录 -->

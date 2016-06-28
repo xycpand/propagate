@@ -276,7 +276,7 @@
 					  	 }
 				  		 console.log("userread.js:"+jsUrl);
 				  		 loadJS("userread",jsUrl);
-				  	  
+				  		 alert("originalOpenId:"+originalOpenId);
 				   	  /**
 				   	   * 从url中提取originalUserid参数，如果存在则保存"分享记录"
 				   	   */
@@ -327,6 +327,10 @@
 	  	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
 	  sendUserInfo(userinfoParam);
 	  
+	  	var	userinfoParam = "openid=999&nickname=测试用户999";
+	  sendUserInfo(userinfoParam);
+	     
+	  
 	   	 add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
 	   	 
 	   	  //保存阅读和分享记录
@@ -336,7 +340,6 @@
 	   	  
 //})();
 	     
-	     
-	     
+	  
 	    	 
   
