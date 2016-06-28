@@ -263,13 +263,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 				pro.setArticleId(articleId);
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
+				log.debug(originalUserid);
+				log.debug("分享者用户id为："+originalUserid);
 				pro.setParentId(originalUserid==null?0:originalUserid);
 				pro.setInsertTime(new Date());
 				articlePropagateDao.insert(pro);
 			}else{
 				pro.setStatus("OK#");
 				pro.setArticleName(article.getTitle());
-				pro.setParentId(originalUserid==null?0:originalUserid);
 				pro.setName(nickName);
 				articlePropagateDao.updateByPrimaryKey(pro);
 			}

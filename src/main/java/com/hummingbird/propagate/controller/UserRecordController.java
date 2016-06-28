@@ -15,7 +15,6 @@ import com.hummingbird.common.controller.BaseController;
 import com.hummingbird.common.ext.AccessRequered;
 import com.hummingbird.common.vo.ResultModel;
 import com.hummingbird.commonbiz.vo.BaseTransVO;
-import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
