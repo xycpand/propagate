@@ -339,12 +339,13 @@
 	   	 
 	   	  //保存阅读和分享记录
 		  saveReadOrShareRecord();
+		   	var	userinfoParam = "openid=999&nickname=测试用户999";
+		  sendUserInfo(userinfoParam);
 	   	 
 	 */
 	   	  
 //})();
 	     
-	  	var	userinfoParam = "openid=999&nickname=测试用户999";
-		  sendUserInfo(userinfoParam);
+	 
 	    	 
   
