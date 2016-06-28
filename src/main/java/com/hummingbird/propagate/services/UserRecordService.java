@@ -7,6 +7,7 @@ import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+import com.hummingbird.propagate.vo.SaveShareRecordVO;
 import com.hummingbird.propagate.vo.SaveUserInfoVO;
 import com.hummingbird.propagate.vo.UserVO;
 
@@ -41,6 +42,12 @@ public interface UserRecordService {
 	 * @throws BusinessException
 	 */
 	public void saveArticle(SaveArticleVO vo) throws BusinessException;
+	/**
+	 * 保存分享记录
+	 * @param vo
+	 * @throws BusinessException
+	 */
+	public void saveShareRecord(SaveShareRecordVO vo) throws BusinessException;
 	
 	/**
 	 * 上报微信消息

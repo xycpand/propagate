@@ -26,12 +26,14 @@ import com.hummingbird.propagate.entity.ArticlePropagate;
 import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
+import com.hummingbird.propagate.entity.ShareRecord;
 import com.hummingbird.propagate.entity.WxUser;
 import com.hummingbird.propagate.mapper.ArticleMapper;
 import com.hummingbird.propagate.mapper.ArticlePropagateMapper;
 import com.hummingbird.propagate.mapper.ArticleTagMapper;
 import com.hummingbird.propagate.mapper.ReadArticleMapper;
 import com.hummingbird.propagate.mapper.ShareArticleMapper;
+import com.hummingbird.propagate.mapper.ShareRecordMapper;
 import com.hummingbird.propagate.services.ArticleService;
 import com.hummingbird.propagate.services.ArticleTagService;
 import com.hummingbird.propagate.services.TokenService;
@@ -41,6 +43,7 @@ import com.hummingbird.propagate.services.WxUserService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+import com.hummingbird.propagate.vo.SaveShareRecordVO;
 import com.hummingbird.propagate.vo.UserVO;
 
 
@@ -69,6 +72,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 	ArticleMapper articleDao;
 	@Autowired
 	ArticleTagMapper articleTagDao;
+	@Autowired
+	ShareRecordMapper shareRecordDao;
 	
 	
 	@Override
@@ -109,6 +114,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 
+	
+	
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public void saveArticle(SaveArticleVO vo) throws BusinessException {
@@ -160,6 +168,45 @@ public class UserRecordServiceImpl implements UserRecordService{
 			throw e;
 		}
 	}
+	
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
+	public void saveShareRecord(SaveShareRecordVO vo) throws BusinessException {
+		String openId = vo.getOpenId();
+	    if(StringUtils.isBlank(openId)){
+	       throw new BusinessException("openId不能为空。");
+	    }
+		Integer userid = null;
+		try{
+			userid = wxUserService.selectUserIdByOpenId(openId);
+			String articleId = vo.getArticleId();
+			Article	article = articleDao.selectByPrimaryKey(articleId);
+			ValidateUtil.assertNullnoappend(article, "文章信息不存在。");
+			ShareRecord shareRecord = new ShareRecord();
+			shareRecord.setArticleId(articleId);
+			shareRecord.setUserid(userid);
+			shareRecord.setOriginalUrl(vo.getOriginalUrl());
+			shareRecord.setShareTarget(vo.getShareTarget());
+			shareRecord.setShareType(vo.getShareType());
+			shareRecord.setUpdateTime(new Date());
+			ShareRecord hasShareRecord = shareRecordDao.selectByUserIdAndArticleId(userid,articleId);
+			if(hasShareRecord  == null){
+				shareRecord.setInsertTime(new Date());
+				shareRecordDao.insert(shareRecord);
+			}else{
+				shareRecord.setId(hasShareRecord.getId());
+				shareRecordDao.updateByPrimaryKeySelective(shareRecord);
+			}
+		}catch(DataAccessException e){
+			e.printStackTrace();
+			throw new BusinessException("保存分享记录失败。");
+		}catch(BusinessException e){
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 
     /**
      * 保存文章标签信息

@@ -20,6 +20,7 @@ import com.hummingbird.propagate.services.UserRecordService;
 import com.hummingbird.propagate.vo.SaveArticleVO;
 import com.hummingbird.propagate.vo.SaveReadArticleVO;
 import com.hummingbird.propagate.vo.SaveShareArticleVO;
+import com.hummingbird.propagate.vo.SaveShareRecordVO;
 import com.hummingbird.propagate.vo.UserVO;
 /**
  * @author panda
@@ -54,6 +55,28 @@ public class UserRecordController extends BaseController  {
 
 	}
 
+		/**
+		 *保存分享记录
+		 * @return
+		 */
+		@RequestMapping(value = "/saveShareRecord", method = RequestMethod.POST)
+		@AccessRequered(methodName = "保存分享记录", isJson = true, codebase = 245900, className = "com.hummingbird.commonbiz.vo.BaseTransVO", genericClassName = "com.hummingbird.propagate.vo.SaveShareRecordVO", appLog = true)
+		public @ResponseBody ResultModel saveShareRecord(HttpServletRequest request,
+				HttpServletResponse response) {
+		ResultModel rm = super.getResultModel();
+	    BaseTransVO<SaveShareRecordVO> transorder = (BaseTransVO<SaveShareRecordVO>) super.getParameterObject();
+		String messagebase = "保存分享记录";
+		try {
+			userRecordService.saveShareRecord(transorder.getBody());
+			rm.setErrmsg(messagebase+"成功");
+		} catch (Exception e1) {
+			log.error(String.format(messagebase + "失败"), e1);
+			rm.mergeException(e1);
+		} 
+		return rm;
+
+	}
+		
 		/**
 		 *通过js方式保存文章信息
 		 *加载save_article.js

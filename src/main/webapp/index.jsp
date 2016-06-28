@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=path%>/js/jquery-1.11.1.js"></script>
-	 <script src="<%=path%>/js/propagate.js" type="text/javascript"></script>
+	<%--  <script src="<%=path%>/js/propagate.js" type="text/javascript"></script> --%>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -42,7 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table>
 	<tr><td colspan="2"><b>接口测试</b></td></tr>
-	     <tr>
+	     <tr> 
+	         <td><input type="button"  value="保存文章分享记录"  onclick='setbinding("/userRecord/saveShareRecord","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"openId\":\"op3EiwqSh-WmyWvP1776y6DBW5bc\",\"articleId\":1,\"originalUrl\":\"http://xp.fengniao.info/article/show.html?x_articleId=1\",\"remark\":\"分享时填写的分享内容\",\"shareType\":null,\"shareTarget\":null}}}}")'></td>
 	         <td><input type="button"  value="保存文章信息"  onclick='setbinding("/userRecord/saveArticle","{\"app\":{\"appId\":\"propagate\",\"timeStamp\":\"TIMESTAMP\",  \"nonce\":\"NONCE\", \"signature\":\"21aa0011472249b4292e81504f3917bd\"  },  \"body\":{\"openId\":\"op3EiwqSh-WmyWvP1776y6DBW5bc\",\"articleId\":1,\"title\":\"我就是文章标题\",\"content\":null,\"tagIds\":\"1&2\",\"tagNames\":\"1号标签&2号标签\"}}}}")'></td>
 	     </tr>
 		<tr><td colspan="2"><b>测试js</b></td></tr>
@@ -74,13 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
   </body>
     <script>
- 	var	userinfoParam = "openid=123&nickname=小明456" +
-	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
-	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
-	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
-	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
-     sendUserInfo(userinfoParam);
-     
     var type='payload'
     
 		$("#bt").click(function (){
