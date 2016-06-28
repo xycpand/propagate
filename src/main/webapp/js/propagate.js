@@ -256,9 +256,9 @@
 			        //分享者用户id
 			        var originalOpenId =  getUrlParam('x_sharer');
 
-			  		 alert("originalOpenId:"+originalOpenId);
-			  		 alert("openId:"+openId);
-			  		 alert("articleId:"+articleId);
+			        // alert("originalOpenId:"+originalOpenId);
+			        // alert("openId:"+openId);
+			        // alert("articleId:"+articleId);
 			        // 分享类型
 			        var shareType ; 
 			        // 分享目标
@@ -301,7 +301,7 @@
 		   * 保存微信用户信息
 		   */
 		  var sendUserInfo =  function(userinfoParam){
-              alert("userinfoParam:"+userinfoParam);
+			  // alert("userinfoParam:"+userinfoParam);
 		      var x_articleId = getUrlParam('x_articleId');
 		      //缓存参数：把文章id保存到cookie中
 			  o.setItem('x_articleId',x_articleId); 
