@@ -2,8 +2,8 @@
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
-        //var  x_rootPath = "http://112.124.6.88:8099/if";
-        var  x_rootPath = "http://120.24.179.3/if";
+        var  x_rootPath = "http://112.124.6.88:8099/if";
+        // var  x_rootPath = "http://120.24.179.3/if";
         
         //var x_rootPath = "http://localhost:6060/if";
 	    /**
