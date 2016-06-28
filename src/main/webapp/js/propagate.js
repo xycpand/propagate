@@ -291,6 +291,7 @@
 				  		 }
 				  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 				  		 loadJS("userappend",userappendJSUrl);
+				  		 alert("加载了userappend.js");
 				  	  }
 		  	  }
 		  };//end of saveReadOrShareRecord
