@@ -220,6 +220,7 @@
 			  if(!shareUrl){
 			     shareUrl = window.location.href;
 			  }
+			  shareUrl = shareUrl.replace(/&amp;/g, "&");
 			 if(shareUrl){
 				 console.log("替换参数前的分享链接为："+shareUrl);
 				  var articleId = o.getItem("x_articleId");
@@ -349,7 +350,6 @@
 	 */
 	   	  
 //})();
-	     
-	 
-	    	 
-  
+	   	  
+	  
+	   
