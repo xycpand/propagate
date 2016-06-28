@@ -2,8 +2,8 @@
        //cookie失效时间
        var x_expire = 60 * 60;
        //js接口的根路径 
-       var  x_rootPath = "http://112.124.6.88:8099/if";
-       //var x_rootPath = "http://localhost:6060/if";
+       // var  x_rootPath = "http://112.124.6.88:8099/if";
+       var x_rootPath = "http://localhost:6060/if";
 	    /**
 		 * 动态加载js
 		 */
@@ -250,13 +250,14 @@
 			  console.log("saveReadOrShareRecord方法从缓存中取出x_articleId:"+ articleId);
 			  
 		  	  if(openId && articleId){
-			  		 alert("originalOpenId:"+originalOpenId);
-			  		 alert("openId:"+openId);
-			  		 alert("articleId:"+articleId);
 		  		   //阅读时的链接
 			        var originalUrl =encodeURIComponent(window.location.href);
 			        //分享者用户id
 			        var originalOpenId =  getUrlParam('x_sharer');
+
+			  		 alert("originalOpenId:"+originalOpenId);
+			  		 alert("openId:"+openId);
+			  		 alert("articleId:"+articleId);
 			        // 分享类型
 			        var shareType ; 
 			        // 分享目标
@@ -342,6 +343,7 @@
 	   	  
 //})();
 	     
-	  
+	  	var	userinfoParam = "openid=999&nickname=测试用户999";
+		  sendUserInfo(userinfoParam);
 	    	 
   
