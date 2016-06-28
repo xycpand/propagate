@@ -300,7 +300,7 @@
 		   * 保存微信用户信息
 		   */
 		  var sendUserInfo =  function(userinfoParam){
-
+              alert("userinfoParam:"+userinfoParam);
 		      var x_articleId = getUrlParam('x_articleId');
 		      //缓存参数：把文章id保存到cookie中
 			  o.setItem('x_articleId',x_articleId); 
@@ -318,6 +318,7 @@
 				  }
 				  userinfoJsUrl += userinfoParam;
 			  }
+			  
 			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
 			 loadJS("userinfo",userinfoJsUrl);
 			 console.log("保存用户信息成功。")

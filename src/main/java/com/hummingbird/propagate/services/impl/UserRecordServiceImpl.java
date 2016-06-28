@@ -319,8 +319,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 					shareArticle.setInsertTime(new Date());
 					shareArticleDao.insert(shareArticle);
 					
-					 //更新用户 标签  分享  数目
-					 userTagService.saveUserTag("share",articleId, readUser.getUserid());
+					 //更新用户 标签  分享  数目  （这里的第三个参数应该是 originalUserId分享者id 而不是当前阅读者id
+					 userTagService.saveUserTag("share",articleId, originalUserId);
 					 
 					log.debug("saveShareArticleRecord保存分享记录成功。");
 				}catch(DataAccessException e){
