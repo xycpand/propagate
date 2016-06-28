@@ -24,6 +24,15 @@ public class SaveReadArticleVO {
      * 阅读时原分享者opendId
      */
     private String originalOpenId;
+    /**
+     * 分享类型
+     */
+    private String shareType;
+
+    /**
+     * 分享目标
+     */
+    private String shareTarget;
 
 	public String getArticleId() {
 		return articleId;
@@ -57,46 +66,19 @@ public class SaveReadArticleVO {
 		this.originalOpenId = originalOpenId;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((articleId == null) ? 0 : articleId.hashCode());
-		result = prime * result + ((openId == null) ? 0 : openId.hashCode());
-		result = prime * result + ((originalOpenId == null) ? 0 : originalOpenId.hashCode());
-		result = prime * result + ((originalUrl == null) ? 0 : originalUrl.hashCode());
-		return result;
+	public String getShareType() {
+		return shareType;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SaveReadArticleVO other = (SaveReadArticleVO) obj;
-		if (articleId == null) {
-			if (other.articleId != null)
-				return false;
-		} else if (!articleId.equals(other.articleId))
-			return false;
-		if (openId == null) {
-			if (other.openId != null)
-				return false;
-		} else if (!openId.equals(other.openId))
-			return false;
-		if (originalOpenId == null) {
-			if (other.originalOpenId != null)
-				return false;
-		} else if (!originalOpenId.equals(other.originalOpenId))
-			return false;
-		if (originalUrl == null) {
-			if (other.originalUrl != null)
-				return false;
-		} else if (!originalUrl.equals(other.originalUrl))
-			return false;
-		return true;
+	public void setShareType(String shareType) {
+		this.shareType = shareType;
+	}
+
+	public String getShareTarget() {
+		return shareTarget;
+	}
+
+	public void setShareTarget(String shareTarget) {
+		this.shareTarget = shareTarget;
 	}
 }

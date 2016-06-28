@@ -283,7 +283,7 @@
 				   	  /**
 				   	   * 从url中提取originalUserid参数，如果存在则保存"分享记录"
 				   	   */
-				  	  if(originalOpenId){
+				  	 /* if(originalOpenId){
 				  		 var userappendJSUrl = x_rootPath+"/userRecord/userappend.js?openId="+openId
 				  		 +"&articleId="+articleId+"&originalOpenId="+originalOpenId;
 				  		 if(originalUrl){
@@ -292,7 +292,7 @@
 				  		 console.log("动态加载userappend.js:"+userappendJSUrl);
 				  		 loadJS("userappend",userappendJSUrl);
 				  		 alert("加载了userappend.js");
-				  	  }
+				  	  }*/
 		  	  }
 		  };//end of saveReadOrShareRecord
 		  

@@ -1,6 +1,9 @@
 package com.hummingbird.propagate.services;
 
+import java.util.List;
+
 import com.hummingbird.common.exception.BusinessException;
+import com.hummingbird.propagate.entity.ArticleTag;
 import com.hummingbird.propagate.entity.UserTag;
 import com.hummingbird.propagate.vo.AddArticleTagBodyVO;
 import com.hummingbird.propagate.vo.QueryUserTagReruenVO;
@@ -30,10 +33,10 @@ public interface UserTagService {
 	
 	/**
 	 * 更新用户标签信息
-	 * @param way
 	 * @param articleId
 	 * @param userid
 	 * @throws BusinessException
 	 */
-	public void  saveUserTag(String way,String articleId, Integer userid) throws BusinessException;
+	public void  saveUserTag(String way, List<ArticleTag> tags, Integer userid) 
+			throws BusinessException;
 }

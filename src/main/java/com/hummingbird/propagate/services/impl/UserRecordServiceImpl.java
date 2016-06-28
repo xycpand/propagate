@@ -8,9 +8,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -92,6 +94,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 					log.debug("分享者用户openid为："+originalOpenId);
 					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
 				}
+				originalUserId = originalUserId==null?0:originalUserId;
 				WxUser readUser = wxUserService.checkUserByOpendId(openId);
 				ReadArticle readArticle = new ReadArticle();
 				 //保存文章阅读记录
@@ -101,14 +104,32 @@ public class UserRecordServiceImpl implements UserRecordService{
 				readArticle.setOriginalUserid(originalUserId);
 				readArticle.setInsertTime(new Date());
 				 readArticleDao.insert(readArticle);
-				 //当有分享者时，在保存分享记录时再去保存传播关系，就不需要再保存阅读记录时去保存了
-				 if(originalUserId == null){
-					 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
-				 }
-				 //保存用户标签  阅读 数目
-				 userTagService.saveUserTag("read",articleId, readUser.getUserid());
 				 
-				 log.debug("saveReadArticleRecord保存阅读记录成功。");
+				 //保存传播关系
+				 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
+				
+				 ShareArticle shareArticle = new ShareArticle();
+			   //保存文章分享记录
+				shareArticle.setUserid(readUser.getUserid());
+				shareArticle.setOriginalUserid(originalUserId);
+				shareArticle.setArticleId(articleId);
+				shareArticle.setOriginalUrl(vo.getOriginalUrl());
+				shareArticle.setShareTarget(vo.getShareTarget());
+				shareArticle.setShareType(vo.getShareType());
+				shareArticle.setShareTime(new Date());
+				shareArticle.setInsertTime(new Date());
+				shareArticleDao.insert(shareArticle);
+					
+				List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
+				if(CollectionUtils.isNotEmpty(tags)){
+					 //更新用户标签  阅读 数目
+					 userTagService.saveUserTag("read",tags, readUser.getUserid());
+					 if(originalUserId != null){
+						 //更新(分享者）标签  分享 数目
+						 userTagService.saveUserTag("share",tags, originalUserId);
+					 }
+				}
+				log.debug("saveReadArticleRecord保存阅读记录成功。");
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -117,6 +138,55 @@ public class UserRecordServiceImpl implements UserRecordService{
 		return jsScript;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
+	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
+		log.debug("saveShareArticleRecord开始保存分享记录：");
+		String jsScript = "测试js内容";//loadJS();  
+		
+		String openId = vo.getOpenId();
+		String articleId = vo.getArticleId();
+		String originalOpenId = vo.getOriginalOpenId();
+		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(articleId) 
+				&& StringUtils.isNotBlank(originalOpenId)){
+		   try{
+					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
+					WxUser readUser = wxUserService.checkUserByOpendId(openId);
+			  if(readUser != null && vo.getArticleId()!=null && originalUserId!=null){
+				try{
+					//保存传播关系
+					saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
+					
+					ShareArticle shareArticle = new ShareArticle();
+					//保存文章分享记录
+					shareArticle.setUserid(readUser.getUserid());
+					shareArticle.setOriginalUserid(originalUserId);
+					shareArticle.setArticleId(articleId);
+					shareArticle.setOriginalUrl(vo.getOriginalUrl());
+					shareArticle.setShareTarget(vo.getShareTarget());
+					shareArticle.setShareType(vo.getShareType());
+					shareArticle.setShareTime(new Date());
+					shareArticle.setInsertTime(new Date());
+					shareArticleDao.insert(shareArticle);
+					
+					List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
+					if(CollectionUtils.isNotEmpty(tags)){
+						 //更新(分享者）标签  分享 数目
+						 userTagService.saveUserTag("share",tags, originalUserId);
+					}
+					log.debug("saveShareArticleRecord保存分享记录成功。");
+				}catch(DataAccessException e){
+					e.printStackTrace();
+					log.debug("保存文章分享记录。");
+				}
+			  }
+		    }catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return jsScript;
+	}
+	
 	
 	
 	
@@ -288,53 +358,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	}
 	
 	
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
-	public String saveShareArticleRecord(SaveShareArticleVO vo) throws BusinessException {
-		log.debug("saveShareArticleRecord开始保存分享记录：");
-		String jsScript = "测试js内容";//loadJS();  
-		
-		String openId = vo.getOpenId();
-		String articleId = vo.getArticleId();
-		String originalOpenId = vo.getOriginalOpenId();
-		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(articleId) 
-				&& StringUtils.isNotBlank(originalOpenId)){
-		   try{
-					Integer originalUserId =  wxUserService.selectUserIdByOpenId(originalOpenId);
-					WxUser readUser = wxUserService.checkUserByOpendId(openId);
-			  if(readUser != null && vo.getArticleId()!=null && originalUserId!=null){
-				try{
-					//保存传播关系
-					saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
-					
-					ShareArticle shareArticle = new ShareArticle();
-					//保存文章分享记录
-					shareArticle.setUserid(readUser.getUserid());
-					shareArticle.setOriginalUserid(originalUserId);
-					shareArticle.setArticleId(articleId);
-					shareArticle.setOriginalUrl(vo.getOriginalUrl());
-					shareArticle.setShareTarget(vo.getShareTarget());
-					shareArticle.setShareType(vo.getShareType());
-					shareArticle.setShareTime(new Date());
-					shareArticle.setInsertTime(new Date());
-					shareArticleDao.insert(shareArticle);
-					
-					 //更新用户 标签  分享  数目  （这里的第三个参数应该是 originalUserId分享者id 而不是当前阅读者id
-					 userTagService.saveUserTag("share",articleId, originalUserId);
-					 
-					log.debug("saveShareArticleRecord保存分享记录成功。");
-				}catch(DataAccessException e){
-					e.printStackTrace();
-					log.debug("保存文章分享记录。");
-				}
-			  }
-		    }catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		return jsScript;
-	}
-	
+
 	/**
 	 * 加载js内容
 	 * @return

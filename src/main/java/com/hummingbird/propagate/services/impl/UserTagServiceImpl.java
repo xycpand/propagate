@@ -209,8 +209,7 @@ public class UserTagServiceImpl implements UserTagService {
 	}
 	
 	@Override
-	public void saveUserTag(String way,String articleId, Integer userid) throws BusinessException {
-		List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
+	public void saveUserTag(String way,List<ArticleTag> tags, Integer userid) throws BusinessException {
 		 if(CollectionUtils.isNotEmpty(tags)){
 			 int count = 0;
 			 for(ArticleTag tag : tags){
@@ -223,7 +222,7 @@ public class UserTagServiceImpl implements UserTagService {
 			    		 userTag.setReadNum(1);
 			    	 }else if("share".equals(way)){
 			    		 userTag.setShareNum(1);
-			    	 }else{//add
+			    	 }else{//create
 			    		 userTag.setCreatNum(1);
 			    	 }
 			    	 userTag.setInsertTime(new Date());
