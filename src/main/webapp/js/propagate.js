@@ -250,6 +250,9 @@
 			  console.log("saveReadOrShareRecord方法从缓存中取出x_articleId:"+ articleId);
 			  
 		  	  if(openId && articleId){
+			  		 alert("originalOpenId:"+originalOpenId);
+			  		 alert("openId:"+openId);
+			  		 alert("articleId:"+articleId);
 		  		   //阅读时的链接
 			        var originalUrl =encodeURIComponent(window.location.href);
 			        //分享者用户id
@@ -276,7 +279,6 @@
 					  	 }
 				  		 console.log("userread.js:"+jsUrl);
 				  		 loadJS("userread",jsUrl);
-				  		 alert("originalOpenId:"+originalOpenId);
 				   	  /**
 				   	   * 从url中提取originalUserid参数，如果存在则保存"分享记录"
 				   	   */

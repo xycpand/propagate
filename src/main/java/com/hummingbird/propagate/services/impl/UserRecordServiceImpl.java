@@ -123,6 +123,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public void saveArticle(SaveArticleVO vo) throws BusinessException {
+		log.debug("saveArticle开始保存文章信息：");
 		String openId = vo.getOpenId();
 	    String title = vo.getTitle();
 	    String tagIds = vo.getTagIds();
@@ -163,6 +164,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				 //保存文章标签信息
 				 saveArticleTags(vo.getTagNames(), tagIds, articleId);
 			}
+			log.debug("saveArticle保存文章信息成功。");
 		}catch(DataAccessException e){
 			e.printStackTrace();
 			throw new BusinessException("保存文章阅读记录失败。");
@@ -176,6 +178,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public void saveShareRecord(SaveShareRecordVO vo) throws BusinessException {
+		log.debug("saveShareRecord开始保存分享记录：");
 		String openId = vo.getOpenId();
 	    if(StringUtils.isBlank(openId)){
 	       throw new BusinessException("openId不能为空。");
@@ -201,6 +204,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				shareRecord.setId(hasShareRecord.getId());
 				shareRecordDao.updateByPrimaryKeySelective(shareRecord);
 			}
+			log.debug("saveShareRecord保存分享记录成功。");
 		}catch(DataAccessException e){
 			e.printStackTrace();
 			throw new BusinessException("保存分享记录失败。");
@@ -219,6 +223,7 @@ public class UserRecordServiceImpl implements UserRecordService{
      */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	private void saveArticleTags(String tagNameStr, String tagIds, String articleId) {
+		log.debug("saveArticleTags开始保存文章标签信息：");
 		String[] tags = tagIds.split("&");
 		String[] tagNames = tagNameStr.split("&");
 		String tagName = null;
@@ -236,6 +241,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			articleTag.setTagName(tagName);
 			articleTagDao.insert(articleTag);
 		}
+		log.debug("saveArticleTags保存文章标签信息成功。");
 	}
 
 	/**
@@ -247,7 +253,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	private void saveArticlePropagate(Integer userid,
 			 String nickName,String articleId ,Integer originalUserid) {
-		 
+		log.debug("saveArticlePropagate开始保存传播关系：");
 		Article article = null;
 		try {
 			article = articleService.selectArticleById(articleId);
@@ -278,7 +284,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				articlePropagateDao.updateByPrimaryKey(pro);
 			}
 		}
-		
+		log.debug("saveArticlePropagate保存传播关系成功。");
 	}
 	
 	
@@ -366,6 +372,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			 
 			 log.debug("保存用户信息为:"+userVO.toString());
 			 if(!"null".equals(userVO.getOpenid()) && StringUtils.isNotBlank(userVO.getOpenid())){
+				 log.debug("saveUserInfo开始保存用户信息：");
 				 WxUser user = new WxUser();
 				 user.setUnionid(userVO.getUnionid());
 				 user.setCity(userVO.getCity());
@@ -406,6 +413,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 					 //更新微信用户信息
 					 wxUserService.updateByPrimaryKeySelective(user);
 				 }
+				 log.debug("saveUserInfo保存用户信息成功。");
 			 }
 		}catch(Exception e){
 			e.printStackTrace();
