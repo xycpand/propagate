@@ -246,7 +246,6 @@ public class UserRecordServiceImpl implements UserRecordService{
 	
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
 	public void saveShareRecord(SaveShareRecordVO vo) throws BusinessException {
 		log.debug("saveShareRecord开始保存分享记录：");
 		String openId = vo.getOpenId();
@@ -262,6 +261,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			ShareRecord shareRecord = new ShareRecord();
 			shareRecord.setArticleId(articleId);
 			shareRecord.setUserid(userid);
+			shareRecord.setRemark(vo.getRemark());
 			shareRecord.setOriginalUrl(vo.getOriginalUrl());
 			shareRecord.setShareTarget(vo.getShareTarget());
 			shareRecord.setShareType(vo.getShareType());
@@ -316,6 +316,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 
 	/**
 	 * 保存传播关系
+	 * 根据用户id和文章id唯一确定一条传播关系
 	 * @param userid
 	 * @param articleId
 	 * @param originalUserid

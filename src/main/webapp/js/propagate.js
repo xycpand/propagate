@@ -1,10 +1,7 @@
-//(function() {
-       //cookie失效时间
-       var x_expire = 60 * 60;
+        //cookie失效时间
+        var x_expire = 60 * 60;
        //js接口的根路径 
         var  x_rootPath = "http://112.124.6.88:8099/if";
-        // var  x_rootPath = "http://120.24.179.3/if";
-        
         //var x_rootPath = "http://localhost:6060/if";
 	    /**
 		 * 动态加载js
@@ -301,55 +298,48 @@
 		  };//end of saveReadOrShareRecord
 		  
 		  /**
+			* 保存分享记录
+			*/
+		  var saveShareRecord = function(shareParam){
+		  		    //加载userread.js，保存“阅读记录”
+				  	var saveShareUrl = x_rootPath+"/userRecord/save_share.js";
+				  	if(shareParam){
+						  if(shareParam.indexOf("?") == -1){
+							  shareParam = "?" + shareParam;
+						  }
+						  saveShareUrl += shareParam;
+						  console.log("save_share.js:"+saveShareUrl);
+						  loadJS("save_share",saveShareUrl);
+					 }
+		  };
+		  
+		  
+		  /**
 		   * 保存微信用户信息
 		   */
 		  var sendUserInfo =  function(userinfoParam){
-			  // alert("userinfoParam:"+userinfoParam);
-		      var x_articleId = getUrlParam('x_articleId');
-		      //缓存参数：把文章id保存到cookie中
-			  o.setItem('x_articleId',x_articleId); 
-			  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
-			  
-			  var x_reader = getQueryString(userinfoParam,"openid");
-			  //缓存参数：把阅读者id保存到cookie中
-			  o.setItem('x_reader',x_reader); 
-			  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
-			  
-			  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 			  if(userinfoParam){
+				  // alert("userinfoParam:"+userinfoParam);
+			      var x_articleId = getUrlParam('x_articleId');
+			      //缓存参数：把文章id保存到cookie中
+				  o.setItem('x_articleId',x_articleId); 
+				  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
+				  
+				  var x_reader = getQueryString(userinfoParam,"openid");
+				  //缓存参数：把阅读者id保存到cookie中
+				  o.setItem('x_reader',x_reader); 
+				  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
+				  
+				  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
 				  if(userinfoParam.indexOf("?") == -1){
 					  userinfoParam = "?" + userinfoParam;
 				  }
 				  userinfoJsUrl += userinfoParam;
+				  console.log("动态加载userinfo.js:"+userinfoJsUrl);
+				  loadJS("userinfo",userinfoJsUrl);
+				  console.log("保存用户信息成功。");
 			  }
-			  
-			 console.log("动态加载userinfo.js:"+userinfoJsUrl);
-			 loadJS("userinfo",userinfoJsUrl);
-			 console.log("保存用户信息成功。")
 	   	  };
-	   	  
-	/*测试数据   
-	  	var	userinfoParam = "openid=123&nickname=小明456" +
-	  	  "&language=zh_CN&sex=1&unionid=1&province=广东&city=惠州" +
-	  	  "&country=中国&headimgurl=xxxx&privilege=xxxx&Ticket=xxxx&tagidist=xxxx" +
-	  	  "&subscribeTime=6666&subscribe=1&qrExpireSeconds=8888&qrCreateTime=9999" +
-	  	  "&remark=测试备注&groupid=33&qrTicket=777&tagidList=a:0:{}";
-	  sendUserInfo(userinfoParam);
-	  
-	  	var	userinfoParam = "openid=999&nickname=测试用户999";
-	  sendUserInfo(userinfoParam);
-	     
-	  
-	   	 add4share("http://xp.fengniao.info/article/show.html?x_articleId=1");
-	   	 
-	   	  //保存阅读和分享记录
-		  saveReadOrShareRecord();
-		   	var	userinfoParam = "openid=999&nickname=测试用户999";
-		  sendUserInfo(userinfoParam);
-	   	 
-	 */
-	   	  
-//})();
-	   	  
+	   	
 	  
 	   

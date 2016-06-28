@@ -43,7 +43,7 @@ public interface UserRecordService {
 	 */
 	public void saveArticle(SaveArticleVO vo) throws BusinessException;
 	/**
-	 * 保存分享记录
+	 * 在微信中分享成功后，将分享记录保存传播数据库中
 	 * @param vo
 	 * @throws BusinessException
 	 */

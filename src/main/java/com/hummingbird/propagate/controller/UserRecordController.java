@@ -51,8 +51,25 @@ public class UserRecordController extends BaseController  {
 			rm.mergeException(e1);
 		} 
 		return rm;
-
 	}
+		
+
+		/**
+		 *通过js方式保存文章信息
+		 *加载save_article.js
+		 * @return
+		 */
+		@RequestMapping(value = "/save_article.js")
+		public void  saveArticleByJs(HttpServletRequest request,
+				HttpServletResponse response,SaveArticleVO vo) {
+			try {
+				userRecordService.saveArticle(vo);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getMessage());
+			} 
+		}
+	
 
 		/**
 		 *保存分享记录
@@ -73,25 +90,24 @@ public class UserRecordController extends BaseController  {
 			rm.mergeException(e1);
 		} 
 		return rm;
-
 	}
 		
+
 		/**
-		 *通过js方式保存文章信息
-		 *加载save_article.js
+		 *js方式保存分享记录
 		 * @return
 		 */
-		@RequestMapping(value = "/save_article.js")
-		public void  saveArticleByJs(HttpServletRequest request,
-				HttpServletResponse response,SaveArticleVO vo) {
+		@RequestMapping(value = "/save_share.js")
+		public void  saveShareRecordByJS(HttpServletRequest request,
+				HttpServletResponse response,SaveShareRecordVO vo) {
 			try {
-				userRecordService.saveArticle(vo);
+				userRecordService.saveShareRecord(vo);
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.error(e.getMessage());
 			} 
 		}
-	
+		
 
 	/**
 	 *加载userread.js

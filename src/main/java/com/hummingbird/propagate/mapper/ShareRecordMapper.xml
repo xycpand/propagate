@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="original_url" property="originalUrl" jdbcType="VARCHAR" />
     <result column="share_type" property="shareType" jdbcType="VARCHAR" />
     <result column="share_target" property="shareTarget" jdbcType="VARCHAR" />
@@ -12,7 +13,8 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, article_id, original_url, share_type, share_target, insert_time, update_time
+    id, userid, article_id, remark, original_url, share_type, share_target, insert_time, 
+    update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,14 +23,12 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByUserIdAndArticleId" resultMap="BaseResultMap" >
+   <select id="selectByUserIdAndArticleId" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from t_share_record
     where userid = #{userid,jdbcType=INTEGER} and article_id = #{articleId,jdbcType=VARCHAR}
   </select>
-  
-  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_share_record
@@ -36,11 +36,13 @@
   </delete>
   <insert id="insert" parameterType="com.hummingbird.propagate.entity.ShareRecord" >
     insert into t_share_record (id, userid, article_id, 
-      original_url, share_type, share_target, 
-      insert_time, update_time)
+      remark, original_url, share_type, 
+      share_target, insert_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, 
-      #{originalUrl,jdbcType=VARCHAR}, #{shareType,jdbcType=VARCHAR}, #{shareTarget,jdbcType=VARCHAR}, 
-      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{remark,jdbcType=VARCHAR}, #{originalUrl,jdbcType=VARCHAR}, #{shareType,jdbcType=VARCHAR}, 
+      #{shareTarget,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hummingbird.propagate.entity.ShareRecord" >
     insert into t_share_record
@@ -53,6 +55,9 @@
       </if>
       <if test="articleId != null" >
         article_id,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="originalUrl != null" >
         original_url,
@@ -80,6 +85,9 @@
       <if test="articleId != null" >
         #{articleId,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="originalUrl != null" >
         #{originalUrl,jdbcType=VARCHAR},
       </if>
@@ -106,6 +114,9 @@
       <if test="articleId != null" >
         article_id = #{articleId,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="originalUrl != null" >
         original_url = #{originalUrl,jdbcType=VARCHAR},
       </if>
@@ -128,6 +139,7 @@
     update t_share_record
     set userid = #{userid,jdbcType=INTEGER},
       article_id = #{articleId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       original_url = #{originalUrl,jdbcType=VARCHAR},
       share_type = #{shareType,jdbcType=VARCHAR},
       share_target = #{shareTarget,jdbcType=VARCHAR},

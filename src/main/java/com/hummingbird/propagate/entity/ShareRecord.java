@@ -3,7 +3,7 @@ package com.hummingbird.propagate.entity;
 import java.util.Date;
 
 /**
- * 分享记录表
+ * 用户分享记录表
  */
 public class ShareRecord {
     private Integer id;
@@ -14,9 +14,14 @@ public class ShareRecord {
     private Integer userid;
 
     /**
-     * 分享内容表id
+     * 分享内容表t_article的id
      */
     private String articleId;
+
+    /**
+     * 分享时填写的内容
+     */
+    private String remark;
 
     /**
      * 阅读时的链接
@@ -67,7 +72,7 @@ public class ShareRecord {
     }
 
     /**
-     * @return 分享内容表id
+     * @return 分享内容表t_article的id
      */
     public String getArticleId() {
         return articleId;
@@ -75,10 +80,25 @@ public class ShareRecord {
 
     /**
      * @param articleId 
-	 *            分享内容表id
+	 *            分享内容表t_article的id
      */
     public void setArticleId(String articleId) {
         this.articleId = articleId == null ? null : articleId.trim();
+    }
+
+    /**
+     * @return 分享时填写的内容
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * @param remark 
+	 *            分享时填写的内容
+     */
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     /**
@@ -171,6 +191,7 @@ public class ShareRecord {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
             && (this.getArticleId() == null ? other.getArticleId() == null : this.getArticleId().equals(other.getArticleId()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getOriginalUrl() == null ? other.getOriginalUrl() == null : this.getOriginalUrl().equals(other.getOriginalUrl()))
             && (this.getShareType() == null ? other.getShareType() == null : this.getShareType().equals(other.getShareType()))
             && (this.getShareTarget() == null ? other.getShareTarget() == null : this.getShareTarget().equals(other.getShareTarget()))
@@ -185,6 +206,7 @@ public class ShareRecord {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
         result = prime * result + ((getArticleId() == null) ? 0 : getArticleId().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getOriginalUrl() == null) ? 0 : getOriginalUrl().hashCode());
         result = prime * result + ((getShareType() == null) ? 0 : getShareType().hashCode());
         result = prime * result + ((getShareTarget() == null) ? 0 : getShareTarget().hashCode());

@@ -74,6 +74,11 @@ version="2.5">
   
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
+    <url-pattern>/userRecord/save_share.js</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/userRecord/userread.js</url-pattern>
   </servlet-mapping>
   

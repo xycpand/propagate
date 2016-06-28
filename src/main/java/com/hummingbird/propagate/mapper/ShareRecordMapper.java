@@ -25,8 +25,14 @@ public interface ShareRecordMapper {
      */
     ShareRecord selectByPrimaryKey(Integer id);
     
+    /**
+     * 根据用户id和文章id查询分享记录
+     * @param userid
+     * @param articleId
+     * @return
+     */
     ShareRecord selectByUserIdAndArticleId(@Param("userid")Integer userid,@Param("articleId")String articleId);
-
+	
     /**
      * 根据主键更新属性不为空的记录
      */
