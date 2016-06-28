@@ -75,6 +75,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
   </body>
     <script>
+    var originalUrl ="http://xp.fengniao.info/article/show.html?x_articleId=1&x_sharer=8";
+    alert(originalUrl);
+     originalUrl =encodeURIComponent(window.location.href);
+    alert(originalUrl);
+    
     var type='payload'
     
 		$("#bt").click(function (){
