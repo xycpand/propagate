@@ -49,6 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr><td colspan="2"><b>测试js</b></td></tr>
 		<tr>
 		    <td>
+		       <button onclick="window.location.href='<%=basePath%>userRecord/testJS.html?x_reader=oCmwKvwib0Ahz8ugW0lFk8HTpljI&x_articleId=1&x_sharer=op3EiwqwcqMFpRq04dQL1k1neb5M'">进入测试js页面</button>
+		    </td>
+		    <td>
 		       <button onclick="window.location.href='<%=basePath%>userRecord/article.html?x_reader=oCmwKvwib0Ahz8ugW0lFk8HTpljI&x_articleId=1'">进入阅读文章页面</button>
 		    </td>
 		     <td>

@@ -193,4 +193,24 @@ public class UserRecordController extends BaseController  {
 		return mav;
 	}
 	
+	/**
+	 * 跳转到测试js的页面
+	 * @param mav
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "testJS.html")
+	public ModelAndView testJS(ModelAndView mav,HttpServletRequest request) {
+		String basePath = "";
+		try {
+			 basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			mav.addObject("errorInfo", "系统异常，请稍候再试");
+		}
+		mav.addObject("basePath", basePath);
+		mav.setViewName("testJS");
+		return mav;
+	}
+	
 }
