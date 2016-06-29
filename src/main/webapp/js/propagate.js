@@ -8,7 +8,6 @@
 		 */
 		var loadJS = function( id, fileUrl ) 
 		{ 
-			console.log("fileUrl:"+fileUrl);
 	    	var oHead = document.getElementsByTagName('head').item(0); 
 	    	var scriptTag = document.getElementById( id ); 
 	    	if (scriptTag) oHead.removeChild(scriptTag); 
@@ -19,7 +18,8 @@
 	    	oScript.src=fileUrl ; 
 	    	oScript.onload = oScript.onreadystatechange = function() { 
 	    		if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) { 
-	    			 if(id == "userinfo"){
+	    			console.log("保存用户信息成功。");
+	    			if(id == "userinfo"){
     		    	  //保存微信用户信息后，再保存 阅读记录
     		    	  saveReadOrShareRecord();
     		        }
@@ -28,8 +28,7 @@
 	    		} 
 			}; 
 	    	oHead.appendChild(oScript); 
-	    	console.log(id+":");
-	    	console.log(oScript);
+	    	console.log("成功加载"+id+".js:"+fileUrl);
 		}; 
 		
 		/**
@@ -279,7 +278,6 @@
 				  		 if(originalUrl){
 					  		jsUrl+="&originalUrl="+originalUrl;
 					  	 }
-				  		 console.log("userread.js:"+jsUrl);
 				  		 loadJS("userread",jsUrl);
 				   	  /**
 				   	   * 从url中提取originalUserid参数，如果存在则保存"分享记录"
@@ -301,9 +299,9 @@
 			* 保存分享记录
 			*/
 		  var saveShareRecord = function(shareParam){
-		  		    //加载userread.js，保存“阅读记录”
-				  	var saveShareUrl = x_rootPath+"/userRecord/save_share.js";
 				  	if(shareParam){
+				  		 //加载save_share.js，保存“阅读记录”
+					      var saveShareUrl = x_rootPath+"/userRecord/save_share.js";
 						  if(shareParam.indexOf("?") == -1){
 							  shareParam = "?" + shareParam;
 						  }
@@ -319,25 +317,26 @@
 		   */
 		  var sendUserInfo =  function(userinfoParam){
 			  if(userinfoParam){
-				  // alert("userinfoParam:"+userinfoParam);
-			      var x_articleId = getUrlParam('x_articleId');
-			      //缓存参数：把文章id保存到cookie中
-				  o.setItem('x_articleId',x_articleId); 
-				  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
-				  
 				  var x_reader = getQueryString(userinfoParam,"openid");
-				  //缓存参数：把阅读者id保存到cookie中
-				  o.setItem('x_reader',x_reader); 
-				  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
-				  
-				  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
-				  if(userinfoParam.indexOf("?") == -1){
-					  userinfoParam = "?" + userinfoParam;
+				  //只有当参数中包含了openid时，才进行“保存用户信息”和“保存阅读分享记录”的操作
+				  if(x_reader){
+					  //缓存参数：把阅读者id保存到cookie中
+					  o.setItem('x_reader',x_reader); 
+					  console.log("sendUserInfo方法缓存了x_reader:"+ o.getItem('x_reader'));
+					  
+					  // alert("userinfoParam:"+userinfoParam);
+				      var x_articleId = getUrlParam('x_articleId');
+				      //缓存参数：把文章id保存到cookie中
+					  o.setItem('x_articleId',x_articleId); 
+					  console.log("sendUserInfo方法缓存了x_articleId:"+ o.getItem('x_articleId'));
+					  
+					  var userinfoJsUrl = x_rootPath+ "/userRecord/userinfo.js";
+					  if(userinfoParam.indexOf("?") == -1){
+						  userinfoParam = "?" + userinfoParam;
+					  }
+					  userinfoJsUrl += userinfoParam;
+					  loadJS("userinfo",userinfoJsUrl);
 				  }
-				  userinfoJsUrl += userinfoParam;
-				  console.log("动态加载userinfo.js:"+userinfoJsUrl);
-				  loadJS("userinfo",userinfoJsUrl);
-				  console.log("保存用户信息成功。");
 			  }
 	   	  };
 	   	
