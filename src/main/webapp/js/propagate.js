@@ -336,9 +336,13 @@
 					  }
 					  userinfoJsUrl += userinfoParam;
 					  loadJS("userinfo",userinfoJsUrl);
+				  }else{
+					  alert("sendUserInfo中从参数userinfoParam中未获取到openid："+userinfoParam);
 				  }
 			  }
 	   	  };
-	   	
-	  
-	   
+	   	  
+/*	   	  
+	   	var shareParam = "openId=1&articleId=1&originalUrl=baidu.com&remark=分享时填写的分享内容&shareType=1&shareTarget=2";
+	   	saveShareRecord(shareParam); 
+	   */

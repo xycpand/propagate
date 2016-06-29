@@ -107,17 +107,19 @@ public class UserRecordServiceImpl implements UserRecordService{
 				 //保存传播关系
 				 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
 				
-				 ShareArticle shareArticle = new ShareArticle();
-			   //保存文章分享记录
-				shareArticle.setUserid(readUser.getUserid());
-				shareArticle.setOriginalUserid(originalUserId);
-				shareArticle.setArticleId(articleId);
-				shareArticle.setOriginalUrl(vo.getOriginalUrl());
-				shareArticle.setShareTarget(vo.getShareTarget());
-				shareArticle.setShareType(vo.getShareType());
-				shareArticle.setShareTime(new Date());
-				shareArticle.setInsertTime(new Date());
-				shareArticleDao.insert(shareArticle);
+				 if(originalUserId != 0){
+					    ShareArticle shareArticle = new ShareArticle();
+					   //保存文章分享记录
+						shareArticle.setUserid(readUser.getUserid());
+						shareArticle.setOriginalUserid(originalUserId);
+						shareArticle.setArticleId(articleId);
+						shareArticle.setOriginalUrl(vo.getOriginalUrl());
+						shareArticle.setShareTarget(vo.getShareTarget());
+						shareArticle.setShareType(vo.getShareType());
+						shareArticle.setShareTime(new Date());
+						shareArticle.setInsertTime(new Date());
+						shareArticleDao.insert(shareArticle);
+				 }
 					
 				List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
 				if(CollectionUtils.isNotEmpty(tags)){
@@ -334,7 +336,9 @@ public class UserRecordServiceImpl implements UserRecordService{
 			if(StringUtils.isBlank(nickName)){
 				nickName = "匿名";
 			}
+			log.debug("**********************************************************");
 			log.debug("分享者用户id为："+originalUserid);
+			log.debug("**********************************************************");
 			ArticlePropagate pro = articlePropagateDao.selectByUserIdAndArticleId(userid,articleId);
 			if(pro == null){
 				pro = new ArticlePropagate();
