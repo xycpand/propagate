@@ -59,7 +59,11 @@
 		 */
 		var getUrlParam = function(e) {
 			var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)");
-			var n = window.location.search.substr(1).match(t);
+			var curUrl = window.location.search.substr(1)+"";
+			//alert("curUrl替换前："+curUrl)
+			curUrl = curUrl.replace(/&amp;/g, "&");
+			//alert("curUrl替换后："+curUrl)
+			var n = curUrl.match(t);
 			if (n != null) return unescape(n[2]);
 			return null
 		};
@@ -216,7 +220,9 @@
 			  if(!shareUrl){
 			     shareUrl = window.location.href;
 			  }
+			  //alert("替换&amp;前的shareUrl"+shareUrl);
 			  shareUrl = shareUrl.replace(/&amp;/g, "&");
+			 // alert("替换&amp;后的shareUrl"+shareUrl);
 			 if(shareUrl){
 				 console.log("替换参数前的分享链接为："+shareUrl);
 				  var articleId = o.getItem("x_articleId");
@@ -346,3 +352,4 @@
 	   	var shareParam = "openId=1&articleId=1&originalUrl=baidu.com&remark=分享时填写的分享内容&shareType=1&shareTarget=2";
 	   	saveShareRecord(shareParam); 
 	   */
+	   	  
