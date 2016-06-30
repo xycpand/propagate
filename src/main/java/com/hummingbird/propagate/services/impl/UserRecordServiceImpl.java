@@ -123,9 +123,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 					 
 					 //保存传播关系
 					 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
-					
+					/*
 					 if(originalUserId != 0){
-						 //
 						    ShareArticle shareArticle = new ShareArticle();
 							shareArticle.setUserid(readUser.getUserid());
 							shareArticle.setOriginalUserid(originalUserId);
@@ -136,7 +135,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 							shareArticle.setShareTime(new Date());
 							shareArticle.setInsertTime(new Date());
 							shareArticleDao.insert(shareArticle);
-					 }
+					 }*/
 						
 					List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
 					if(CollectionUtils.isNotEmpty(tags)){
