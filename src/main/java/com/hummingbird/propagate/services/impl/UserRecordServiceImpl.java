@@ -86,51 +86,54 @@ public class UserRecordServiceImpl implements UserRecordService{
 		String openId = vo.getOpenId();
 		String articleId = vo.getArticleId();
 		String originalOpenId = vo.getOriginalOpenId();
-		if(openId != null && articleId!=null){
+		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(articleId)){
 			try{
-				Integer originalUserId = null;
-				if(StringUtils.isNotBlank(originalOpenId)){
-					log.debug("分享者用户openid为："+originalOpenId);
-					originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
-				}
-				originalUserId = originalUserId==null?0:originalUserId;
-				WxUser readUser = wxUserService.checkUserByOpendId(openId);
-				ReadArticle readArticle = new ReadArticle();
-				 //保存文章阅读记录
-				readArticle.setUserid(readUser.getUserid());
-				readArticle.setArticleId(articleId);
-				readArticle.setOriginalUrl(vo.getOriginalUrl());
-				readArticle.setOriginalUserid(originalUserId);
-				readArticle.setInsertTime(new Date());
-				 readArticleDao.insert(readArticle);
-				 
-				 //保存传播关系
-				 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
-				
-				 if(originalUserId != 0){
-					    ShareArticle shareArticle = new ShareArticle();
-					   //保存文章分享记录
-						shareArticle.setUserid(readUser.getUserid());
-						shareArticle.setOriginalUserid(originalUserId);
-						shareArticle.setArticleId(articleId);
-						shareArticle.setOriginalUrl(vo.getOriginalUrl());
-						shareArticle.setShareTarget(vo.getShareTarget());
-						shareArticle.setShareType(vo.getShareType());
-						shareArticle.setShareTime(new Date());
-						shareArticle.setInsertTime(new Date());
-						shareArticleDao.insert(shareArticle);
-				 }
+				Article article = articleDao.selectByPrimaryKey(articleId);
+				if(article != null){
+					Integer originalUserId = null;
+					if(StringUtils.isNotBlank(originalOpenId)){
+						log.debug("分享者用户openid为："+originalOpenId);
+						originalUserId = wxUserService.selectUserIdByOpenId(originalOpenId);
+					}
+					originalUserId = originalUserId==null?0:originalUserId;
+					WxUser readUser = wxUserService.checkUserByOpendId(openId);
+					ReadArticle readArticle = new ReadArticle();
+					 //保存文章阅读记录
+					readArticle.setUserid(readUser.getUserid());
+					readArticle.setArticleId(articleId);
+					readArticle.setOriginalUrl(vo.getOriginalUrl());
+					readArticle.setOriginalUserid(originalUserId);
+					readArticle.setInsertTime(new Date());
+					 readArticleDao.insert(readArticle);
+					 
+					 //保存传播关系
+					 saveArticlePropagate(readUser.getUserid(),readUser.getNickname(), articleId,originalUserId);
 					
-				List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
-				if(CollectionUtils.isNotEmpty(tags)){
-					 //更新用户标签  阅读 数目
-					 userTagService.saveUserTag("read",tags, readUser.getUserid());
 					 if(originalUserId != 0){
-						 //更新(分享者）标签  分享 数目
-						 userTagService.saveUserTag("share",tags, originalUserId);
+						 //
+						    ShareArticle shareArticle = new ShareArticle();
+							shareArticle.setUserid(readUser.getUserid());
+							shareArticle.setOriginalUserid(originalUserId);
+							shareArticle.setArticleId(articleId);
+							shareArticle.setOriginalUrl(vo.getOriginalUrl());
+							shareArticle.setShareTarget(vo.getShareTarget());
+							shareArticle.setShareType(vo.getShareType());
+							shareArticle.setShareTime(new Date());
+							shareArticle.setInsertTime(new Date());
+							shareArticleDao.insert(shareArticle);
 					 }
+						
+					List<ArticleTag> tags = articleTagService.queryArticleTagByArticleId(articleId);
+					if(CollectionUtils.isNotEmpty(tags)){
+						 //更新用户标签  阅读 数目
+						 userTagService.saveUserTag("read",tags, readUser.getUserid());
+						 if(originalUserId != 0){
+							 //更新(分享者）标签  分享 数目
+							 userTagService.saveUserTag("share",tags, originalUserId);
+						 }
+					}
+					log.debug("saveReadArticleRecord保存阅读记录成功。");
 				}
-				log.debug("saveReadArticleRecord保存阅读记录成功。");
 			}catch(DataAccessException e){
 				e.printStackTrace();
 				log.debug("保存文章阅读记录失败。");
@@ -395,10 +398,12 @@ public class UserRecordServiceImpl implements UserRecordService{
 		String jsScript = "";
 		try{
 			 //加载js内容
-			 jsScript =  "测试js内容";//loadJS();  
+			 // jsScript =  "测试js内容";loadJS();  
 			 
-			 log.debug("保存用户信息为:"+userVO.toString());
-			 if(!"null".equals(userVO.getOpenid()) && StringUtils.isNotBlank(userVO.getOpenid())){
+			 if("null".equals(userVO.getOpenid()) || StringUtils.isBlank(userVO.getOpenid())){
+				 log.debug("saveUserInfo方法接收到的用户信息参数openid为空，所以不进行保存用户信息的操作。");
+			 }else{
+				 log.debug("接收到的用户信息参数为:"+userVO.toString());
 				 log.debug("saveUserInfo开始保存用户信息：");
 				 WxUser user = new WxUser();
 				 user.setUnionid(userVO.getUnionid());

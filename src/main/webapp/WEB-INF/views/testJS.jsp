@@ -21,6 +21,10 @@
    ${foot!""}
   </body>
   <script>
+  console.log("getRootPath:"+getRootPath());
+  console.log("getContextPath:"+getContextPath());
+  
+  
   o.setItem('x_articleId',666); 
   console.log(o.getItem("x_articleId"));
   
