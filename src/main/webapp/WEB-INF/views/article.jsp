@@ -30,6 +30,7 @@
    ${foot!""}
   </body>
   <script>
+  saveShareRecord("shareType=1");
 	var errorInfo = "${errorInfo!''}";
 	if(errorInfo){
 		alert(errorInfo);

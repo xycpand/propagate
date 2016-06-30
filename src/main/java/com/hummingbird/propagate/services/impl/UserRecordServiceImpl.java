@@ -81,8 +81,8 @@ public class UserRecordServiceImpl implements UserRecordService{
 		
 		if(StringUtils.isNotBlank(jsScript)){
 			String  basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
-			jsScript = jsScript.replace("#{x_articleId}#", x_articleId);
-			jsScript = jsScript.replace("#{basePath}#", basePath);
+			jsScript = jsScript.replace("#x_articleId#", x_articleId);
+			jsScript = jsScript.replace("#basePath#", basePath);
 		}
 		
 		log.debug("loadPropagateJS加载propagate.js成功,内容如下:");
