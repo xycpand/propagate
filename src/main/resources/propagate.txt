@@ -280,7 +280,7 @@
 				  var saveShareUrl =  "#{basePath}#userRecord/save_share.js" + shareParam;
 				  loadJS("save_share",saveShareUrl);
 			  }else{
-				  log("saveShareRecord从cookie中获取x_reader为空，所以没有继续加载save_share.js");
+				  console.log("saveShareRecord从cookie中获取x_reader为空，所以没有继续加载save_share.js");
 			  }
 		  };
 		  
