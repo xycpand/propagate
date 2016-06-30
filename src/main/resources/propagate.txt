@@ -251,7 +251,7 @@
 				   o.setItem('x_originalUrl', originalUrl); 
 
 	  		     //加载userread.js，保存“阅读记录”；如果url中存在originalUserid参数，则同时保存"分享记录"
-			  	 var jsUrl = "#{basePath}#userRecord/userread.js?openId="+openId+"&articleId=#{x_articleId}#";
+			  	 var jsUrl = "#{basePath}#userRecord/userread.js?openId="+openId+"&articleId="+articleId;
 		  		     if(originalOpenId){
 			  			jsUrl+="&originalOpenId="+originalOpenId;
 			  		 }
@@ -301,5 +301,3 @@
 				  }
 			  }
 	   	  };
-	   	  
-	   

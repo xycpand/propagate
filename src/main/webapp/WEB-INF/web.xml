@@ -69,6 +69,11 @@ version="2.5">
   
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
+    <url-pattern>/userRecord/propagate.js</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/userRecord/save_article.js</url-pattern>
   </servlet-mapping> 
   

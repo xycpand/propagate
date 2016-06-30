@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<script src="<%=path%>/js/jquery-1.11.1.js"></script>
-	<%--  <script src="<%=path%>/js/propagate.js" type="text/javascript"></script> --%>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;

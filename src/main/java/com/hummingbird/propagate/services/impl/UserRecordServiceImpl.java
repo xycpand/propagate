@@ -3,13 +3,11 @@ package com.hummingbird.propagate.services.impl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -76,6 +74,23 @@ public class UserRecordServiceImpl implements UserRecordService{
 	@Autowired
 	ShareRecordMapper shareRecordDao;
 	
+	@Override
+	public String loadPropagateJS(String x_articleId,HttpServletRequest request) throws BusinessException {
+		log.debug("loadPropagateJS开始加载propagate.js：");
+		String jsScript =  loadJS();  
+		
+		if(StringUtils.isNotBlank(jsScript)){
+			String  basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+			jsScript = jsScript.replace("#{x_articleId}#", x_articleId);
+			jsScript = jsScript.replace("#{basePath}#", basePath);
+		}
+		
+		log.debug("loadPropagateJS加载propagate.js成功,内容如下:");
+        System.out.println(jsScript);
+		log.debug(jsScript);
+		
+		return jsScript;
+	}
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, value = "txManager")
@@ -370,28 +385,16 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 * @return
 	 * @throws BusinessException
 	 */
-	private String loadJS(){
-		List<String> lines = null;
-		String filePath = "C:\\js\\userrecord.js";
-		try {
-		    File file=new File(filePath);
-		    //判断文件是否存在
-            if(!file.isFile() || !file.exists()){ 
-            	log.debug("找不到指定的文件。");
-            	//throw  new BusinessException("找不到指定的文件。");
-            }
-			lines = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
-		} catch (IOException e) {
+	private   String loadJS(){
+		try(InputStreamReader in=new InputStreamReader(UserRecordServiceImpl.class
+				.getResourceAsStream("/propagate.txt"),"utf8")) {
+			String content = org.apache.commons.io.IOUtils.toString(in);
+			return content;
+		} catch (Exception e) {
 			e.printStackTrace();
-			//throw new BusinessException("读取文件失败："+e.getMessage());
-		}  
-        StringBuilder sb = new StringBuilder();  
-        for(String line : lines){  
-           sb.append(line);  
-         }  
-		return sb.toString();
+		}
+		return null;
 	}
-
 
 	@Override
 	public String saveUserInfo(UserVO userVO) throws BusinessException {
@@ -455,7 +458,16 @@ public class UserRecordServiceImpl implements UserRecordService{
 	}
 	
 	  public static void main(String[] args)throws Exception{  
-		  String fromFile = "";
+		  String path = UserRecordServiceImpl.class.getClassLoader().getResource("propagate.txt").toString();
+		     System.out.println(path);
+			 if(path.startsWith("file"))  {
+				   path=path.substring(5);  
+			 }
+		     System.out.println(path);
+			 path =  path.replace("/", File.separator);  
+			 System.out.println(path);
+		  
+		/*  String fromFile = "";
 		  // Java7 : Files.readAllBytes默认以UTF-8编码读入文件，故文件的编码如果不是UTF-8，那么中文内容会出现乱字符  
 		  try {
 			fromFile = new String(Files.readAllBytes(Paths.get("C:\\js\\userrecord.js")));
@@ -480,7 +492,7 @@ public class UserRecordServiceImpl implements UserRecordService{
           }  
           fromFile = sb.toString(); 
           System.out.println("Java8用流的方式读文件:");   
-         System.out.println(fromFile);  
+         System.out.println(fromFile);  */
    }
 	  
 	  public static String readTxtFile(String filePath){

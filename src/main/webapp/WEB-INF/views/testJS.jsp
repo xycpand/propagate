@@ -7,7 +7,7 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	  <script src="${basePath}/js/test-propagate.js" type="text/javascript"></script>
+	  <script src="${basePath}userRecord/propagate.js?x_articleId=1"></script>
 	<style type="text/css">
 	.menu li{
 		display: inline-block;
@@ -21,6 +21,8 @@
    ${foot!""}
   </body>
   <script>
+ /*  var shareParam = "openId=1&articleId=1&originalUrl=baidu.com&remark=分享时填写的分享内容&shareType=1&shareTarget=2";
+  saveShareRecord(shareParam); */
   console.log("getRootPath:"+getRootPath());
   console.log("getContextPath:"+getContextPath());
   
@@ -29,9 +31,11 @@
   console.log(o.getItem("x_articleId"));
   
   console.log("document.referrer):"+document.referrer);
-  console.log("getUrlFromHttp(document.referrer):"+getUrlFromHttp(document.referrer));
-  console.log("getDomain(getUrlFromHttp(document.referrer)):"+getDomain(getUrlFromHttp(document.referrer)));
-  
+  if(document.referrer){
+	  console.log("getUrlFromHttp(document.referrer):"+getUrlFromHttp(document.referrer));
+	  console.log("getDomain(getUrlFromHttp(document.referrer)):"+getDomain(getUrlFromHttp(document.referrer)));
+  }
+ 
   
   console.log(getDomain("http://localhost:6060/if/index.jsp"));
    
@@ -42,7 +46,7 @@
   
   var testURL = "http://xp.fengniao.info/article/show.html?x_articleId=3&x_sharer=op3EiwqwcqMFpRq04dQL1k1neb5M&x_sharer=op3EiwjwtPolgdCP-c-wlxgJ579A"
 	
-		  console.log(getUrlParam("x_articleId"));
+console.log(getCurUrlParam("x_articleId"));
  	
 	
 	var shareParam = "openId=1&articleId=1&originalUrl=baidu.com&amp;remark=分享时填写的分享内容&shareType=1&shareTarget=2";

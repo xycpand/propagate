@@ -1,5 +1,7 @@
 package com.hummingbird.propagate.services;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hummingbird.common.exception.BusinessException;
 import com.hummingbird.propagate.entity.ReadArticle;
 import com.hummingbird.propagate.entity.ShareArticle;
@@ -19,6 +21,13 @@ import com.hummingbird.propagate.vo.UserVO;
 @SuppressWarnings("unused")
 public interface UserRecordService {
 
+	/**
+	 * 加载propagate.js
+	 * @param x_articleId
+	 * @return
+	 * @throws BusinessException
+	 */
+	public String loadPropagateJS(String x_articleId,HttpServletRequest request) throws BusinessException;
 	
 	/**
 	 * 保存文章阅读记录
@@ -27,6 +36,8 @@ public interface UserRecordService {
 	 * @throws BusinessException
 	 */
 	public String saveReadArticleRecord(SaveReadArticleVO vo) throws BusinessException;
+	
+	
 	
 	/**
 	 * 保存文章分享记录

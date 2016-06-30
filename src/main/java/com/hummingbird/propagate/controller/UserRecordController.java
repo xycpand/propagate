@@ -129,6 +129,26 @@ public class UserRecordController extends BaseController  {
 		} 
 	}
 	
+	
+
+	/**
+	 *加载propagate.js
+	 * @return
+	 */
+	@RequestMapping(value = "/propagate.js")
+	public void  loadPropagateJS(HttpServletRequest request,
+			HttpServletResponse response,String x_articleId) {
+		try {
+			String jsContent = userRecordService.loadPropagateJS(x_articleId,request);
+            response.setContentType("text/html;charset=UTF-8"); 
+			response.getWriter().write(jsContent);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		} 
+	}
 
 	/**
 	 * 前端js判断url中是否有originalUserid参数，如果存在则需要通过该方法加载userappend.js
