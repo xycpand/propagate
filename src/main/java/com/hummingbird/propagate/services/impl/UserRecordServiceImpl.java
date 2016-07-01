@@ -86,7 +86,6 @@ public class UserRecordServiceImpl implements UserRecordService{
 		}
 		
 		log.debug("loadPropagateJS加载propagate.js成功,内容如下:");
-        System.out.println(jsScript);
 		log.debug(jsScript);
 		
 		return jsScript;
@@ -279,9 +278,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 			ShareRecord shareRecord = new ShareRecord();
 			shareRecord.setArticleId(articleId);
 			shareRecord.setUserid(userid);
-			shareRecord.setRemark(vo.getRemark());
 			shareRecord.setOriginalUrl(vo.getOriginalUrl());
-			shareRecord.setShareTarget(vo.getShareTarget());
 			shareRecord.setShareType(vo.getShareType());
 			shareRecord.setUpdateTime(new Date());
 			ShareRecord hasShareRecord = shareRecordDao.selectByUserIdAndArticleId(userid,articleId);
@@ -390,6 +387,7 @@ public class UserRecordServiceImpl implements UserRecordService{
 				.getResourceAsStream("/propagate.txt"),"utf8")) {
 			 content = org.apache.commons.io.IOUtils.toString(in);
 		} catch (Exception e) {
+			log.debug("loadJS失败：");
 			e.printStackTrace();
 		}
 		return content;
