@@ -11,7 +11,6 @@
 	    	if (scriptTag) oHead.removeChild(scriptTag); 
 	    	var oScript= document.createElement("script"); 
 	    	oScript.id = id; 
-	    	oScript.language = "javascript"; 
 	    	oScript.type = "text/javascript";
 	    	oScript.src=fileUrl ; 
 	    	oScript.onload = oScript.onreadystatechange = function() { 
@@ -261,6 +260,8 @@
 		   */
 		  var saveShareRecord = function(shareParam){
 			  var x_reader = o.getItem('x_reader'); 
+			  alert("x_reader："+x_reader);
+			  alert("shareParam："+shareParam);
 			  if(shareParam && x_reader){
 			      var originalUrl =encodeURIComponent(window.location.href);
 				  if(shareParam.indexOf("?") == -1){
@@ -268,6 +269,8 @@
 				  }
 				  var saveShareUrl =  "#basePath#userRecord/save_share.js"
 					  + shareParam + "&openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
+
+				  alert("saveShareUrl："+saveShareUrl);
 				  loadJS("save_share",saveShareUrl);
 			  }else{
 				  console.log("saveShareRecord从cookie中获取x_reader为空，所以没有继续加载save_share.js");
