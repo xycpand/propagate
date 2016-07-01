@@ -260,6 +260,7 @@
 		   */
 		  var saveShareRecord = function(shareParam){
 			  var x_reader = o.getItem('x_reader'); 
+			  x_reader = 1;
 			  alert("x_reader："+x_reader);
 			  alert("shareParam："+shareParam);
 			  if(shareParam && x_reader){
@@ -267,8 +268,8 @@
 				  if(shareParam.indexOf("?") == -1){
 				      shareParam = "?" + shareParam;
 				  }
-				  var saveShareUrl =  "#basePath#userRecord/save_share.js"
-					  + shareParam + "&openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
+				  shareParam += "&openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
+				  var saveShareUrl =  "#basePath#userRecord/save_share.js"+ shareParam;
 
 				  alert("saveShareUrl："+saveShareUrl);
 				  loadJS("save_share",saveShareUrl);
