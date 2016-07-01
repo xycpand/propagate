@@ -118,11 +118,6 @@ public class UserRecordController extends BaseController  {
 			HttpServletResponse response,SaveReadArticleVO vo) {
 		try {
 			userRecordService.saveReadArticleRecord(vo);
-			/*String jsContent = userRecordService.saveReadArticleRecord(vo);
-            response.setContentType("text/html;charset=UTF-8"); 
-			response.getWriter().write(jsContent);
-			response.getWriter().flush();
-			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -159,12 +154,6 @@ public class UserRecordController extends BaseController  {
 			HttpServletResponse response,SaveShareArticleVO vo) {
 		try {
 			userRecordService.saveShareArticleRecord(vo);
-			/*
-			String jsContent = userRecordService.saveShareArticleRecord(vo);
-            response.setContentType("text/html;charset=UTF-8"); 
-			response.getWriter().write(jsContent);
-			response.getWriter().flush();
-			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
@@ -182,11 +171,6 @@ public class UserRecordController extends BaseController  {
 			HttpServletResponse response,UserVO userVO) {
 		try {
 			userRecordService.saveUserInfo(userVO);
-			/*String jsContent = userRecordService.saveUserInfo(wxUser);
-            response.setContentType("text/html;charset=UTF-8"); 
-			response.getWriter().write(jsContent);
-			response.getWriter().flush();
-			response.getWriter().close();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

@@ -21,7 +21,7 @@
    ${foot!""}
   </body>
   <script>
-  var shareParam = "shareType=1";
+  var shareParam="shareType=MenuShareTimeline";
    console.log(saveShareRecord(shareParam)); 
   console.log("getRootPath:"+getRootPath());
   console.log("getContextPath:"+getContextPath());

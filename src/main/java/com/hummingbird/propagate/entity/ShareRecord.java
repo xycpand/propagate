@@ -19,11 +19,6 @@ public class ShareRecord {
     private String articleId;
 
     /**
-     * 分享时填写的内容
-     */
-    private String remark;
-
-    /**
      * 阅读时的链接
      */
     private String originalUrl;
@@ -32,11 +27,6 @@ public class ShareRecord {
      * 分享类型
      */
     private String shareType;
-
-    /**
-     * 分享目标
-     */
-    private String shareTarget;
 
     /**
      * 插入时间
@@ -87,21 +77,6 @@ public class ShareRecord {
     }
 
     /**
-     * @return 分享时填写的内容
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * @param remark 
-	 *            分享时填写的内容
-     */
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    /**
      * @return 阅读时的链接
      */
     public String getOriginalUrl() {
@@ -129,21 +104,6 @@ public class ShareRecord {
      */
     public void setShareType(String shareType) {
         this.shareType = shareType == null ? null : shareType.trim();
-    }
-
-    /**
-     * @return 分享目标
-     */
-    public String getShareTarget() {
-        return shareTarget;
-    }
-
-    /**
-     * @param shareTarget 
-	 *            分享目标
-     */
-    public void setShareTarget(String shareTarget) {
-        this.shareTarget = shareTarget == null ? null : shareTarget.trim();
     }
 
     /**
@@ -191,10 +151,8 @@ public class ShareRecord {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
             && (this.getArticleId() == null ? other.getArticleId() == null : this.getArticleId().equals(other.getArticleId()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getOriginalUrl() == null ? other.getOriginalUrl() == null : this.getOriginalUrl().equals(other.getOriginalUrl()))
             && (this.getShareType() == null ? other.getShareType() == null : this.getShareType().equals(other.getShareType()))
-            && (this.getShareTarget() == null ? other.getShareTarget() == null : this.getShareTarget().equals(other.getShareTarget()))
             && (this.getInsertTime() == null ? other.getInsertTime() == null : this.getInsertTime().equals(other.getInsertTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
@@ -206,10 +164,8 @@ public class ShareRecord {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
         result = prime * result + ((getArticleId() == null) ? 0 : getArticleId().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getOriginalUrl() == null) ? 0 : getOriginalUrl().hashCode());
         result = prime * result + ((getShareType() == null) ? 0 : getShareType().hashCode());
-        result = prime * result + ((getShareTarget() == null) ? 0 : getShareTarget().hashCode());
         result = prime * result + ((getInsertTime() == null) ? 0 : getInsertTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;

@@ -32,7 +32,7 @@ public interface ShareRecordMapper {
      * @return
      */
     ShareRecord selectByUserIdAndArticleId(@Param("userid")Integer userid,@Param("articleId")String articleId);
-	
+
     /**
      * 根据主键更新属性不为空的记录
      */
