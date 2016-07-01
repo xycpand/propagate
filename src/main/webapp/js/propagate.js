@@ -278,6 +278,21 @@
 			  }
 		  };
 		  
+		  var saveShareRecord = function(shareParam){
+			  var x_reader = o.getItem('x_reader'); 
+			  if(x_reader){
+			      var originalUrl =encodeURIComponent(window.location.href);
+					 shareParam += "&openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
+				  if(shareParam.indexOf("?") == -1){
+				      shareParam = "?" + shareParam;
+				  }
+				  var saveShareUrl =  "#basePath#userRecord/save_share.js" + shareParam;
+				  loadJS("save_share",saveShareUrl);
+			  }else{
+				  console.log("saveShareRecord从cookie中获取x_reader为空，所以没有继续加载save_share.js");
+			  }
+		  };
+		  
 		  
 		  /**
 		   * 保存微信用户信息
