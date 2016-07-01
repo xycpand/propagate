@@ -385,14 +385,14 @@ public class UserRecordServiceImpl implements UserRecordService{
 	 * @throws BusinessException
 	 */
 	private   String loadJS(){
+		String content = null;
 		try(InputStreamReader in=new InputStreamReader(UserRecordServiceImpl.class
 				.getResourceAsStream("/propagate.txt"),"utf8")) {
-			String content = org.apache.commons.io.IOUtils.toString(in);
-			return content;
+			 content = org.apache.commons.io.IOUtils.toString(in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return content;
 	}
 
 	@Override

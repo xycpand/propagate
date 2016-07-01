@@ -21,8 +21,8 @@
    ${foot!""}
   </body>
   <script>
- /*  var shareParam = "openId=1&articleId=1&originalUrl=baidu.com&remark=分享时填写的分享内容&shareType=1&shareTarget=2";
-  saveShareRecord(shareParam); */
+  var shareParam = "shareType=1";
+   console.log(saveShareRecord(shareParam)); 
   console.log("getRootPath:"+getRootPath());
   console.log("getContextPath:"+getContextPath());
   

@@ -220,7 +220,6 @@
 			     shareUrl = window.location.href;
 			  }
 			  shareUrl = shareUrl.replace(/&amp;/g, "&");
-			  //var articleId = o.getItem("x_articleId");
 			  //originalOpenId为cookie中的x_reader 
 			  var originalOpenId = o.getItem("x_reader");
 			  //参数加上文章id
@@ -242,16 +241,11 @@
 			        var originalUrl =encodeURIComponent(window.location.href);
 			        //分享者用户id
 			        var originalOpenId =  getCurUrlParam('x_sharer');
+			  	    //缓存参数：把链接url保存到cookie中
+				    o.setItem('x_originalUrl', originalUrl); 
 
-			        // 分享类型
-			        var shareType ; 
-			        // 分享目标
-			        var shareTarget ;      
-			  	  //缓存参数：把链接url保存到cookie中
-				   o.setItem('x_originalUrl', originalUrl); 
-
-	  		     //加载userread.js，保存“阅读记录”；如果url中存在originalUserid参数，则同时保存"分享记录"
-			  	 var jsUrl = "#basePath#userRecord/userread.js?openId="+openId+"&articleId=#x_articleId#";
+	  		        //加载userread.js，保存“阅读记录”；如果url中存在originalUserid参数，则同时保存"分享记录"
+			  	    var jsUrl = "#basePath#userRecord/userread.js?openId="+openId+"&articleId=#x_articleId#";
 		  		     if(originalOpenId){
 			  			jsUrl+="&originalOpenId="+originalOpenId;
 			  		 }
@@ -259,7 +253,6 @@
 				  		jsUrl+="&originalUrl="+originalUrl;
 				  	 }
 			  		 loadJS("userread",jsUrl);
-			   	 
 		  	  }
 		  };
 		  
@@ -268,16 +261,13 @@
 		   */
 		  var saveShareRecord = function(shareParam){
 			  var x_reader = o.getItem('x_reader'); 
-			  if(x_reader){
+			  if(shareParam && x_reader){
 			      var originalUrl =encodeURIComponent(window.location.href);
-				  var  addParam = "openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
-				  if(shareParam.indexOf("&") == -1){
-					  shareParam = "&" + addParam;
-				  }
 				  if(shareParam.indexOf("?") == -1){
 				      shareParam = "?" + shareParam;
 				  }
-				  var saveShareUrl =  "#basePath#userRecord/save_share.js" + shareParam;
+				  var saveShareUrl =  "#basePath#userRecord/save_share.js"
+					  + shareParam + "&openId="+x_reader+"&articleId=#x_articleId#&originalUrl="+originalUrl;
 				  loadJS("save_share",saveShareUrl);
 			  }else{
 				  console.log("saveShareRecord从cookie中获取x_reader为空，所以没有继续加载save_share.js");
@@ -296,11 +286,10 @@
 				  if(x_reader && "#x_articleId#"){
 					  o.setItem('x_reader',x_reader); 
 					  o.setItem('x_articleId',"#x_articleId#"); 
-					  var userinfoJsUrl =  "#basePath#userRecord/userinfo.js";
 					  if(userinfoParam.indexOf("?") == -1){
 						  userinfoParam = "?" + userinfoParam;
 					  }
-					  userinfoJsUrl += userinfoParam;
+					  var userinfoJsUrl =  "#basePath#userRecord/userinfo.js"+userinfoParam;
 					  loadJS("userinfo",userinfoJsUrl);
 				  }
 			  }
